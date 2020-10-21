@@ -18,21 +18,59 @@ header {
   color: #fffcf2;
   top: 0;
   overflow: hidden;
+  transition: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+#side-menu{
+  height: 0;
+  width: 100%;
+  background-color: #EB5E28;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+  transition-timing-function: ease-in-out;
 }
 
 #menu-icon {
   margin-left: 8%;
 }
 
-.menu-icon-line {
+#menu-icon * {
   width: 35px;
   height: 5px;
   background-color: #ccc5b9;
   margin: 6px 0;
+  transition: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.animate-menu-icon-full #line-1{
+  transform: rotate(-45deg) translate(-8px, 6px);
+  background-color: #403D39;
+}
+
+.animate-menu-icon-full #line-2{
+  opacity: 0;
+  background-color: #403D39;
+}
+
+.animate-menu-icon-full #line-3{
+  transform: rotate(45deg) translate(-10px, -8px);
+  background-color: #403D39;
+}
+
+#logo{
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
 }
 
 #current-page-info {
+  font-size: 0.5rem;
   margin-right: 8%;
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
 }
 
 main {
