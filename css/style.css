@@ -49,7 +49,7 @@ header {
 }
 
 #anchor-tags a, #anchor-tags a:visited, #anchor-tags a:hover, #anchor-tags a:active{
-  color: #252422;
+  color: #403D39;
   text-decoration: none;
 }
 
@@ -71,17 +71,17 @@ header {
 
 .animate-menu-icon #line-1 {
   transform: rotate(-45deg) translate(-8px, 6px);
-  background-color:#252422;
+  background-color:#403D39;
 }
 
 .animate-menu-icon #line-2 {
   opacity: 0;
-  background-color:#252422;
+  background-color:#403D39;
 }
 
 .animate-menu-icon #line-3 {
   transform: rotate(45deg) translate(-10px, -8px);
-  background-color:#252422;
+  background-color:#403D39;
 }
 
 #logo {
@@ -90,20 +90,6 @@ header {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  transition-timing-function: ease-in-out;
-}
-
-#current-page-info {
-  position: absolute;
-  margin: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ccc5b9;
-  font-weight: 500;
-  font-size: min(4vh, 5vw);
-  text-align: left;
-  right: 8%;
-  transition: 0.4s;
   transition-timing-function: ease-in-out;
 }
 
