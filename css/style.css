@@ -13,7 +13,7 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 10vh;
+  height: 12vh;
   background-color: #252422;
   color: #fffcf2;
   top: 0;
@@ -33,8 +33,18 @@ header {
   transition-timing-function: ease-in-out;
 }
 
+#anchor-tags{
+  margin: 10vh auto auto 15%;
+}
+
+#anchor-tags a{
+  display: block;
+  padding-top: 10vh;  
+}
+
 #menu-icon {
   margin-left: 8%;
+  margin-right: 30px;
 }
 
 #menu-icon * {
@@ -62,12 +72,14 @@ header {
 }
 
 #logo{
+  height: 10vh;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
 }
 
 #current-page-info {
-  font-size: 0.5rem;
+  font-size: 0.7rem;
+  margin: 0;
   margin-right: 8%;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
