@@ -13,7 +13,6 @@ header {
   width: 100%;
   height: 12vh;
   background-color: #252422;
-  color: #fffcf2;
   top: 0;
   overflow: hidden;
   transition: 0.5s;
@@ -46,6 +45,7 @@ header {
   transition: 0.5s;
   transition-timing-function: ease-in-out;
   font-size: 4vh;
+  font-weight: 500;
 }
 
 #anchor-tags a, #anchor-tags a:visited, #anchor-tags a:hover, #anchor-tags a:active{
@@ -69,19 +69,19 @@ header {
   transition-timing-function: ease-in-out;
 }
 
-.animate-menu-icon-full #line-1 {
+.animate-menu-icon #line-1 {
   transform: rotate(-45deg) translate(-8px, 6px);
-  background-color: #403d39;
+  background-color:#252422;
 }
 
-.animate-menu-icon-full #line-2 {
+.animate-menu-icon #line-2 {
   opacity: 0;
-  background-color: #403d39;
+  background-color:#252422;
 }
 
-.animate-menu-icon-full #line-3 {
+.animate-menu-icon #line-3 {
   transform: rotate(45deg) translate(-10px, -8px);
-  background-color: #403d39;
+  background-color:#252422;
 }
 
 #logo {
@@ -95,9 +95,13 @@ header {
 
 #current-page-info {
   position: absolute;
+  margin: 0;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.7rem;
+  color: #ccc5b9;
+  font-weight: 500;
+  font-size: min(4vh, 5vw);
+  text-align: left;
   right: 8%;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
@@ -106,6 +110,7 @@ header {
 main {
   text-align: center;
   padding-top: 15vh;
+  margin: 0 2vh;
 }
 
 footer {

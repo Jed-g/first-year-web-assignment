@@ -16,8 +16,8 @@ menuButton.addEventListener("click", animateMenuIconClick);
 const menuLinkArray = document.querySelectorAll("#anchor-tags a");
 
 function animateMenuIconClick() {
-  this.classList.toggle("animate-menu-icon-full");
-  if (this.classList.contains("animate-menu-icon-full")) {
+  this.classList.toggle("animate-menu-icon");
+  if (this.classList.contains("animate-menu-icon")) {
     document.querySelector("#side-menu").style.height = "100vh";
     document.querySelector("#logo").style.opacity = 0;
     document.querySelector("#current-page-info").style.opacity = 0;
@@ -27,7 +27,7 @@ function animateMenuIconClick() {
       .removeEventListener("click", redirectToIndexHtml);
 
       for (let i = 0; i < menuLinkArray.length; i++){
-        setTimeout(() => menuLinkArray[i].style.marginLeft = "8%", i * 80);
+        setTimeout(() => menuLinkArray[i].style.marginLeft = "8%", i * 70);
       }
   } else {
     document
@@ -38,7 +38,7 @@ function animateMenuIconClick() {
     document.querySelector("#current-page-info").style.opacity = "100%";
     document.querySelector("header").style.backgroundColor = "#252422";
     for (let i = 0; i < menuLinkArray.length; i++){
-      setTimeout(() => menuLinkArray[i].style.marginLeft = "-200%", i * 80);
+      setTimeout(() => menuLinkArray[i].style.marginLeft = "-200%", i * 40);
     }
   }
 }
