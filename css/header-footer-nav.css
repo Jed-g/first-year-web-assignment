@@ -1,10 +1,10 @@
 * {
   font-weight: 400;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
   background-color: #fffcf2;
-  font-family: "Poppins", sans-serif;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@ header {
 }
 
 #menu-icon {
-  margin-left: 10vw;
+  margin-left: 8vw;
 }
 
 #menu-icon * {
@@ -106,15 +106,16 @@ header {
 
 #logo {
   height: 8vh;
-  margin-right: 8vw;
+  margin-right: 6vw;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
 }
 
 main {
   text-align: center;
-  padding-top: 16vh;
+  padding-top: 14vh;
   margin: 0 2vh;
+  color: #252422;
 }
 
 footer {
