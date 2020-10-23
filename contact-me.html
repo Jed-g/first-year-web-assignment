@@ -41,11 +41,23 @@
       <section id="contact-details">
         <h1>Contact Details:</h1>
         <p>
-        Jedrzej Golebiewski
+        Jedrzej Golebiewski<br>
+        <a id="email-link" href="mailto:jgolebiewski1@sheffield.ac.uk">jgolebiewski1@sheffield.ac.uk</a><br>
         <br>
-        <a id="email" href="mailto:jgolebiewski1@sheffield.ac.uk">jgolebiewski1@sheffield.ac.uk</a>
+        Department Of Computer Science<br>
+        The University of Sheffield<br>
+        211 Portobello, Sheffield City Centre<br>
+        Sheffield S1 4DP
         </p>
-      </section>
+        </section>
+        <form id="contact-form" action="mailto:jgolebiewski1@sheffield.ac.uk" method="post" enctype="text/plain">
+          <h1>Contact Form:</h1>
+          <label for="email">Email: </label><br>
+          <input type="email" name="email" id="email" placeholder="Your email..." required><br>
+          <label for="message">Message: </label><br>
+          <textarea type="text" name="message" id="message" rows="6" placeholder="Your message..." required></textarea>
+          <button type="submit" id="submit">Send</button>
+        </form>        
     </main>
     <footer>
       <p id="copyright">© Jedrzej Golebiewski</p>
