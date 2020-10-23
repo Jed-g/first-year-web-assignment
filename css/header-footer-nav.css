@@ -93,6 +93,11 @@ header {
 
 #page-title-info {
   color: #ccc5b9;
+  position: absolute;
+  margin: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   font-weight: 500;
   font-size: 1.5rem;
   transition: 0.4s;
