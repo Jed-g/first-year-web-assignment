@@ -27,20 +27,25 @@ header {
 }
 
 #side-menu {
-  height: 0;
+  height: 100%;
   width: 100%;
   background-color: #eb5e28;
   position: fixed;
-  top: 0;
+  top: -100vh;
   left: 0;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
 }
 
 #anchor-tags {
-  margin-top: 12vh;
+  top: 12vh;
   height: 80vh;
   display: flex;
+  position: fixed;
+  width: 100vw;
+  left: -100vw;
+  transition: 0.5s;
+  transition-timing-function: ease-in-out;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;

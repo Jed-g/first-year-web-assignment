@@ -1,0 +1,24 @@
+#contact-details{
+    text-align: left;
+}
+
+#contact-details h1{
+    margin: 0;
+}
+
+#contact-details p{
+    margin: 12px 0;
+    line-height: 1.4;
+}
+
+main{
+    margin-left: 8vw;
+}
+
+#email,
+#email:visited,
+#email:hover,
+#email:active{
+    text-decoration: none;
+    color: #252422;
+}
