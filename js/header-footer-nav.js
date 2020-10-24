@@ -25,22 +25,19 @@ const menuLinkArray = document.querySelectorAll("#anchor-tags a");
 function animateMenuIconClick() {
   this.classList.toggle("animate-menu-icon");
   if (this.classList.contains("animate-menu-icon")) {
+    document.body.style.overflow = "hidden";
     document.querySelector("#side-menu").style.top = 0;
     document.querySelector("#anchor-tags").style.left = 0;
     document.querySelector("#logo").style.opacity = 0;
     document.querySelector("#page-title-info").style.opacity = 0;
     document.querySelector("header").style.backgroundColor = "#EB5E28";
-    document
-      .querySelector("#logo")
-      .removeEventListener("click", redirectToIndexHtml);
-
+    document.querySelector("#logo").removeEventListener("click", redirectToIndexHtml);
     for (let i = 0; i < menuLinkArray.length; i++) {
       setTimeout(() => (menuLinkArray[i].style.marginLeft = "8%"), i * 70);
     }
   } else {
-    document
-      .querySelector("#logo")
-      .addEventListener("click", redirectToIndexHtml);
+    document.body.style.overflow = "visible";
+    document.querySelector("#logo").addEventListener("click", redirectToIndexHtml);
     document.querySelector("#side-menu").style.top = "-100vh";
     document.querySelector("#anchor-tags").style.left = "-100vw";
     document.querySelector("#logo").style.opacity = "100%";
