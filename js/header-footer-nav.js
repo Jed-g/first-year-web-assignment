@@ -1,9 +1,7 @@
 // Dynamically add year to footer copyright
 const date = new Date();
 
-document.querySelector(
-  "#copyright"
-).textContent = `© Jedrzej Golebiewski ${date.getFullYear()}`;
+document.querySelector("#copyright").textContent = `© Jedrzej Golebiewski ${date.getFullYear()}`;
 
 // Attach "click" event listener to the logo in order to redirect to home
 document.querySelector("#logo").addEventListener("click", redirectToIndexHtml);
