@@ -129,7 +129,7 @@ This is to allow seperate animation of each individual link */
 /* Padding from top to not be obscured by header (which is excluded from flow) */
 main {
   padding-top: 15vh;
-  margin: 0 2vh;
+  margin: 0 8vw;
   text-align: center;
   color: #252422;
 }

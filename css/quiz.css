@@ -1,0 +1,32 @@
+h1{
+    margin: 3vh 0;
+    font-size: 2rem;
+}
+
+main img{
+    width: min(60vw, 30vh);
+    margin-top: 3vh;
+}
+
+h2{
+    margin: 2vh 0;
+    font-size: 1.5rem;
+}
+
+.answers{
+    height: 30vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.answers p{
+    width: 64vw;
+    padding: 1vh 5vw;
+    margin: 0;
+    border: 3px solid #403D39;
+    border-radius: 10px;
+    background-color: #CCC5B9;
+}
