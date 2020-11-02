@@ -32,6 +32,7 @@ header {
 /* Styling of individual header elements */
 #menu-icon {
   margin-left: 8vw;
+  cursor: pointer;
 }
 
 #menu-icon * {
@@ -77,6 +78,7 @@ header {
   margin-right: 6vw;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
+  cursor: pointer;
 }
 
 /* Remove menu background from flow and position fixed outside of page */
@@ -115,6 +117,7 @@ This is to allow seperate animation of each individual link */
   font-weight: 500;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
+  cursor: pointer;
 }
 
 /* Specify color and text decoration for all menu links */

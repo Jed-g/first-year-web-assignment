@@ -35,6 +35,7 @@ function animateMenuIconClick() {
 
     // Remove "click" event listener from logo
     document.querySelector("#logo").removeEventListener("click", redirectToIndexHtml);
+    document.querySelector("#logo").style.cursor = "default";
 
     // Make header elements transparent (didn't use z-index = -1 etc. because of conflict with hamburger icon disappearing)
     document.querySelector("#logo").style.opacity = 0;
@@ -60,6 +61,7 @@ function animateMenuIconClick() {
 
     // Add "click" event listener to logo enabling redirection to home
     document.querySelector("#logo").addEventListener("click", redirectToIndexHtml);
+    document.querySelector("#logo").style.cursor = "pointer";
 
     // Make header opaque
     document.querySelector("#logo").style.opacity = "100%";
