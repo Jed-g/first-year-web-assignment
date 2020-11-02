@@ -8,17 +8,47 @@ main img{
 }
 
 h2{
-    margin: 2vh 0;
+    margin: 2vh 0 3vh;
     font-size: 1.5rem;
 }
 
 .answers p{
-    width: calc(74vw - 4px);
+    width: calc(74vw - 2px);
     padding: 1.2vh 5vw;
-    border: 2px solid #EB5E28;
+    box-shadow: 0 0 2px 2px #EB5E28;
     border-radius: 20px;
-    margin: 0 0 10px;
+    margin: 0 1px 10px;
     color: #CCC5B9;
     background-color: #403D39;
     cursor: pointer;
+}
+
+#left-button-nav, #right-button-nav{
+    height: 30px;
+    width: 30px;
+    top: 38vh;
+    position: absolute;
+    color: #403D39;
+    z-index: 1;
+    background-color: #CCC5B9;
+    box-shadow: 0 0 2px 2px #403D39;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+#left-button-nav{
+    left: 8vw;
+}
+
+#right-button-nav{
+    right: 8vw;
+}
+
+#left-button-nav p, #right-button-nav p{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 2rem;
+    margin: 0;
 }

@@ -13,12 +13,14 @@ body {
   background-color: #fffcf2;
 }
 
-/* Remove header from flow and fix it at the top */
+/* Remove header from flow and fix it at the top.
+Z-index added because of conflict with buttons on quiz page */
 header {
   height: 12vh;
   width: 100vw;
   top: 0;
   position: fixed;
+  z-index: 2;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -81,25 +83,30 @@ header {
   cursor: pointer;
 }
 
-/* Remove menu background from flow and position fixed outside of page */
+/* Remove menu background from flow and position fixed outside of page.
+Z-index added because of conflict with buttons on quiz page */
 #side-menu {
   height: 100vh;
   width: 100vw;
   top: -100vh;
   left: 0;
   position: fixed;
+  z-index: 2;
   background-color: #eb5e28;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
 }
 
-/* Div to enable menu links to be equally spaced with respect to the div and not the page itself */
+/* Div to enable menu links to be equally spaced with respect to the div and not the page itself.
+Div has to hidden to not prevent clicking on page.
+Z-index added because of conflict with buttons on quiz page */
 #anchor-tags {
   height: 80vh;
   width: 100vw;
   top: 12vh;
   left: -100vw;
   position: fixed;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
