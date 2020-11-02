@@ -1,11 +1,11 @@
-h1{
+main h1{
+    width: 80vw;
     margin: 3vh 0;
     font-size: 2rem;
 }
 
 main img{
     width: min(60vw, 30vh);
-    margin-top: 3vh;
 }
 
 h2{
@@ -13,21 +13,12 @@ h2{
     font-size: 1.5rem;
 }
 
-.answers{
-    height: 30vh;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .answers p{
-    width: 64vw;
-    padding: 1vh 5vw;
-    margin: 0;
+    width: calc(74vw - 4px);
+    padding: 1.2vh 5vw;
     border: 2px solid #EB5E28;
     border-radius: 20px;
+    margin: 0 0 10px;
     color: #CCC5B9;
     background-color: #403D39;
     cursor: pointer;
