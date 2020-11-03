@@ -8,3 +8,5 @@ correct-sound-fx.mp3 - https://www.youtube.com/watch?v=Ul95WLuuLVU
 wrong-sound-fx.mp3 - https://www.youtube.com/watch?v=FRpq7o1mKXY
 
 quiz-1.jpg - https://sebastianraschka.com/faq/docs/relu-derivative.html
+quiz-2.jpg - https://www.thesslstore.com/blog/difference-encryption-hashing-salting/
+quiz-3.jpg - https://techcrunch.com/wp-content/uploads/2016/02/shutterstock_147776027.jpg

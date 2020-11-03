@@ -10,26 +10,26 @@ const data = [{
     correct: 3,
 },
 {
-    image: "./img/quiz/2.jpg",
-    question: "Question no. 2",
+    image: "./img/quiz/quiz-2.jpg",
+    question: "What is salt in cryptography?",
     answers: [
-        "Answer 1 Question 2",
-        "Answer 2 Question 2",
-        "Answer 3 Question 2",
-        "Answer 4 Question 2",
+        "NaCl",
+        "Random data added to a password before being hashed",
+        "A military grade symmetric encryption technique",
+        "An acronym for Storage-Abundant-Limit-Trouble",
     ],
-    correct: 2,
+    correct: 1,
 },
 {
-    image: "./img/quiz/3.jpg",
-    question: "Question no. 3",
+    image: "./img/quiz/quiz-3.jpg",
+    question: "Which of the following will AI NEVER be able to do?",
     answers: [
-        "Answer 1 Question 3",
-        "Answer 2 Question 3",
-        "Answer 3 Question 3",
-        "Answer 4 Question 3",
+        "Simulate human intelligence",
+        "Pass the Turing Test",
+        "Determine for every possible program, whether it halts or not",
+        "Explain the reason for our existence",
     ],
-    correct: 0,
+    correct: 2,
 },
 ];
 
@@ -248,7 +248,7 @@ function buttonClicked(){
         setTimeout(() => {
             this.style.transform = "";
             nextQuestion();
-        }, 1000);
+        }, 1500);
 
     } else{
         this.style.backgroundColor = "#DC143C";
@@ -278,6 +278,6 @@ function wrongPressed(button, recursiveIndex) {
     setTimeout(() => wrongPressed(button, ++recursiveIndex), 80);
 } else {
     button.style.transform = "";
-    setTimeout(nextQuestion, 360);
+    setTimeout(nextQuestion, 860);
 }
 }
