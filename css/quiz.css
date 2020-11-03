@@ -1,5 +1,5 @@
 main h1{
-    margin: 3vh 0;
+    margin: 0 0 3vh;
     font-size: 2rem;
 }
 
@@ -27,7 +27,7 @@ h2{
 #left-button-nav, #right-button-nav{
     height: 30px;
     width: 30px;
-    top: calc(21vh + min(50vw, 30vh) * 0.5 + 15px);
+    top: calc(18vh + 32px + min(50vw, 30vh) * 0.5 - 15px);
     position: absolute;
     color: #403D39;
     z-index: 1;
