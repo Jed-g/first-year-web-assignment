@@ -164,8 +164,7 @@ footer {
   left: 0;
   position: fixed;
   z-index: 3;
-  opacity: 0.95;
-  backdrop-filter: blur(200px);
+  background-color: rgba(0,0,0, 0.9);
 }
 
 #page-blur h1{
@@ -175,5 +174,6 @@ footer {
   position: absolute;
   text-align: center;
   font-size: 1.5rem;
+  color: #fffcf2;
   transform: translate(-50%, -50%);
 }
