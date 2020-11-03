@@ -1,0 +1,10 @@
+favicon.ico - https://hatchful.shopify.com/terms free
+logo_transparent.png - https://hatchful.shopify.com/terms free
+profile_picture.png - https://pixabay.com/service/license/ free
+neural_network.png - https://pixabay.com/service/license/ free
+HTML_tag.png - https://pixabay.com/service/license/ free
+
+correct-sound-fx.mp3 - https://www.youtube.com/watch?v=Ul95WLuuLVU
+wrong-sound-fx.mp3 - https://www.youtube.com/watch?v=FRpq7o1mKXY
+
+quiz-1.jpg - https://sebastianraschka.com/faq/docs/relu-derivative.html

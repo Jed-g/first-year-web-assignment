@@ -1,11 +1,11 @@
 const data = [{
-    image: "./img/quiz/1.jpg",
-    question: "Question no. 1",
+    image: "./img/quiz/quiz-1.jpg",
+    question: "What is this activation function called?",
     answers: [
-        "Answer 1 Question 1",
-        "Answer 2 Question 1",
-        "Answer 3 Question 1",
-        "Answer 4 Question 1",
+        "Leaky ReLU",
+        "Sigmoid",
+        "Tanh",
+        "ReLU",
     ],
     correct: 3,
 },
