@@ -134,8 +134,87 @@ function nextQuestion() {
 
 
 function previousQuestion() {
+    document.body.style.overflow = "hidden";
+
+    currentQuestion--;
+    if (currentQuestion < 0) {
+        currentQuestion = data.length - 1;
+    }
+
     rightButton.removeEventListener("click", nextQuestion);
     leftButton.removeEventListener("click", previousQuestion);
 
-    // finish
+    questionNumberIndicator.style.transform = "translate(200%, 0) rotate(25deg)";
+    image.style.transform = "translate(-200%, 0) rotate(-25deg)";
+    question.style.transform = "translate(200%, 0) rotate(25deg)";
+
+    answerButtonsArray.forEach((button, index) => {
+        if (index % 2 == 0) {
+            button.style.transform = "translate(-200%, 0) rotate(-25deg)";
+        } else {
+            button.style.transform = "translate(200%, 0) rotate(25deg)";
+        }
+    });
+
+    document.querySelectorAll("section *").forEach(element => {
+        element.style.opacity = 0;
+    });
+
+
+    setTimeout(() => {
+        document.querySelectorAll("section *").forEach(element => {
+            element.style.transition = "0s";
+        });
+
+        setTimeout(() => {
+            questionNumberIndicator.style.transform = "translate(-200%, 0) rotate(-25deg)";
+            image.style.transform = "translate(200%, 0) rotate(25deg)";
+            question.style.transform = "translate(-200%, 0) rotate(-25deg)";
+
+            answerButtonsArray.forEach((button, index) => {
+                if (index % 2 == 0) {
+                    button.style.transform = "translate(200%, 0) rotate(25deg)";
+                } else {
+                    button.style.transform = "translate(-200%, 0) rotate(-25deg)";
+                }
+            });
+
+            questionNumberIndicator.textContent = `Question no. ${currentQuestion + 1}`;
+            image.src = data[currentQuestion].image;
+            question.textContent = data[currentQuestion].question;
+            
+            answerButtonsArray.forEach((button, index) => {
+                button.textContent = data[currentQuestion].answers[index];
+            });
+
+            setTimeout(() => {document.querySelectorAll("section *").forEach(element => {
+                element.style.transition = "0.5s";
+                element.style.transitionTmingFunction = "ease-out";
+            });
+
+            setTimeout(() => {
+                questionNumberIndicator.style.transform = "";
+                image.style.transform = "";
+                question.style.transform = "";
+
+                answerButtonsArray.forEach(button => button.style.transform = "");
+
+                document.querySelectorAll("section *").forEach(element => {
+                    element.style.opacity = "100%";
+                });
+            
+                setTimeout(() => {
+                    document
+                        .querySelectorAll("section *")
+                        .forEach(
+                            element => element.style.transitionTimingFunction = "ease-in"
+                        );
+                    document.body.style.overflow = "visible";
+                    rightButton.addEventListener("click", nextQuestion);
+                    leftButton.addEventListener("click", previousQuestion);
+                }, 500);
+            }, 20);
+        }, 20);        
+        }, 20);
+    }, 500);
 }
