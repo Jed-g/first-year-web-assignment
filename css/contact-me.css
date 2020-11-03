@@ -16,6 +16,7 @@ main{
 #email-link:visited,
 #email-link:hover,
 #email-link:active{
+    cursor: pointer;
     text-decoration: none;
     color: #252422;
 }
@@ -48,13 +49,11 @@ main{
 }
 
 #email:focus{
-    border: 4px solid rgba(235, 94, 40, 0.8);
-    margin: 3px -3px 22px -3px;
+    box-shadow: 0 0 4px 3px #EB5E28;
 }
 
 #message:focus{
-    border: 4px solid rgba(235, 94, 40, 0.8);;
-    margin: 3px -3px 7px -3px;
+    box-shadow: 0 0 4px 3px #EB5E28;
 }
 
 #submit{

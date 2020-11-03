@@ -16,7 +16,7 @@ h2{
 
 .answers p{
     width: calc(74vw - 2px);
-    padding: 1.2vh 5vw;
+    padding: 1.4vh 5vw;
     box-shadow: 0 0 2px 2px #EB5E28;
     border-radius: 20px;
     margin: 0 1px 10px;
