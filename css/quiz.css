@@ -4,7 +4,9 @@ main h1{
 }
 
 main img{
-    width: min(60vw, 30vh);
+    width: min(50vw, 30vh);
+    box-shadow: 0 0 1px 2px #403D39;
+    border-radius: 20px;
 }
 
 h2{
@@ -26,7 +28,7 @@ h2{
 #left-button-nav, #right-button-nav{
     height: 30px;
     width: 30px;
-    top: 38vh;
+    top: calc(21vh + min(50vw, 30vh) * 0.5 + 15px);
     position: absolute;
     color: #403D39;
     z-index: 1;
@@ -51,4 +53,9 @@ h2{
     position: absolute;
     font-size: 2rem;
     margin: 0;
+}
+
+section *{
+    transition: 0.5s;
+    transition-timing-function: ease-in;
 }

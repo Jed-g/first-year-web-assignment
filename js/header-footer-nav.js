@@ -51,7 +51,7 @@ function animateMenuIconClick() {
    
     // Animate each of the menu links from the left
     menuLinkArray.forEach((link, index) => {
-      setTimeout(() => (link.style.marginLeft = "8%"), index * 70)
+      setTimeout(() => link.style.marginLeft = "8%", index * 70);
     });
 
   } else {
@@ -76,7 +76,7 @@ function animateMenuIconClick() {
 
     // Hide menu links
     menuLinkArray.forEach((link, index) => {
-      setTimeout(() => (link.style.marginLeft = "-200%"), index * 40)
+      setTimeout(() => link.style.marginLeft = "-200%", index * 40);
     });
 
   }
