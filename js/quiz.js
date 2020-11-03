@@ -239,6 +239,12 @@ function buttonClicked(){
         this.style.backgroundColor = "#32CD32";
         this.style.transition = "all 640ms ease-out 0s";
         this.style.transform = "scale(1.1, 1.1)";
+
+        let audio = new Audio("./sounds/correct-sound-fx.mp3");
+        audio.currentTime = 0.35;
+        audio.volume = 0.1;
+        audio.play();
+
         setTimeout(() => {
             this.style.transform = "";
             nextQuestion();
@@ -250,6 +256,12 @@ function buttonClicked(){
         answerButtonsArray[data[currentQuestion].correct].style.color = "#252422";
         answerButtonsArray[data[currentQuestion].correct].style.transitionTimingFunction = "ease-out";
         this.style.transition = "all 80ms linear 0s";
+
+        let audio = new Audio("./sounds/wrong-sound-fx.mp3");
+        audio.currentTime = 1.2;
+        audio.volume = 0.1;
+        audio.play();
+
         wrongPressed(this, 0);
     }
     rightButton.removeEventListener("click", nextQuestion);
