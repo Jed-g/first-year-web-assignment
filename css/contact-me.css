@@ -8,7 +8,6 @@
 }
 
 main{
-    margin-left: 8vw;
     text-align: left;
 }
 
@@ -30,7 +29,7 @@ main{
 }
 
 #email{
-    width: 84vw;
+    width: 82vw;
     margin: 6px 0 25px;
     font-size: 1.1rem;
     outline: none;
@@ -39,7 +38,7 @@ main{
 }
 
 #message{
-    width: 84vw;
+    width: 82vw;
     resize: vertical;
     margin: 6px 0 10px;
     font-size: 1.1rem;

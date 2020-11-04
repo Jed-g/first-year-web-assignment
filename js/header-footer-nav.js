@@ -12,11 +12,14 @@ function redirectToIndexHtml() {
 
 // Highlight current page link in menu
 const currentHtmlFileName = window.location.pathname.split("/").pop().replace(".html", "");
-const linkOfCurrentPage = document.querySelector(`#${currentHtmlFileName}`);
-linkOfCurrentPage.style.color = "#252422";
+const linkOfCurrentPage = document.querySelectorAll(`.${currentHtmlFileName}`);
+linkOfCurrentPage.forEach(link => link.style.color = "#252422");
 
 // Select all anchors in the "#anchor-tags" div
-const menuLinkArray = document.querySelectorAll("#anchor-tags a");
+const menuLinkArrayMobile = document.querySelectorAll("#anchor-tags a");
+
+const menuLinkArrayLeft = document.querySelectorAll("#anchor-tags-left a");
+const menuLinkArrayRight = document.querySelectorAll("#anchor-tags-right a");;
 
 // Attach "click" event listener to the menu hamburger icon in order execute "animateMenuIconClick" function
 const menuButton = document.querySelector("#menu-icon");
@@ -29,6 +32,8 @@ function animateMenuIconClick() {
 
   // "If" regarding whether to animate menu expansion or closure
   if (this.classList.contains("animate-menu-icon")) {
+
+    this.classList.toggle("push-menu-button-top");
 
     // Prevent scrolling of page
     document.body.style.overflow = "hidden";
@@ -48,13 +53,26 @@ function animateMenuIconClick() {
     // Expand "#anchor-tags" div from left
     // (has to be hidden when menu not in use, otherwise clicking on the screen is obscured by the transparent div)
     document.querySelector("#anchor-tags").style.left = 0;
+
+    document.querySelector("#anchor-tags-left").style.left = 0;
+    document.querySelector("#anchor-tags-right").style.left = "50vw";
    
     // Animate each of the menu links from the left
-    menuLinkArray.forEach((link, index) => {
-      setTimeout(() => link.style.marginLeft = "8%", index * 70);
+    menuLinkArrayMobile.forEach((link, index) => {
+      setTimeout(() => link.style.marginLeft = "8vw", index * 70);
+    });
+
+    menuLinkArrayLeft.forEach((link, index) => {
+      setTimeout(() => link.style.marginLeft = "12vw", index * 140);
+    });
+
+    menuLinkArrayRight.forEach((link, index) => {
+      setTimeout(() => link.style.marginLeft = "12vw", index * 140);
     });
 
   } else {
+
+    this.classList.toggle("push-menu-button-top");
 
     // Enable scrolling of page
     document.body.style.overflow = "visible";
@@ -74,10 +92,20 @@ function animateMenuIconClick() {
     // Hide "#anchor-tags" div
     document.querySelector("#anchor-tags").style.left = "-100vw";
 
+    document.querySelector("#anchor-tags-left").style.left = "-50vw";
+    document.querySelector("#anchor-tags-right").style.left = "100vw";
+
     // Hide menu links
-    menuLinkArray.forEach((link, index) => {
-      setTimeout(() => link.style.marginLeft = "-200%", index * 40);
+    menuLinkArrayMobile.forEach((link, index) => {
+      setTimeout(() => link.style.marginLeft = "-200vw", index * 40);
     });
 
+    menuLinkArrayLeft.forEach((link, index) => {
+      setTimeout(() => link.style.marginLeft = "-200vw", index * 80);
+    });
+
+    menuLinkArrayRight.forEach((link, index) => {
+      setTimeout(() => link.style.marginLeft = "200vw", index * 80);
+    });
   }
 }
