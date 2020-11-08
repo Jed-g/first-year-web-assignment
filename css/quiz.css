@@ -17,7 +17,7 @@ h2{
 .answers p{
     padding: 1.5vh 5vw;
     box-shadow: 0 0 2px 2px #EB5E28;
-    border-radius: 20px;
+    border-radius: 20px 0 20px 0;
     margin: 0 1px 15px;
     color: #CCC5B9;
     background-color: #403D39;
