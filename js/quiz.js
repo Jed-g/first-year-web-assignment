@@ -238,7 +238,7 @@ function buttonClicked(){
     if (this.textContent === data[currentQuestion].answers[data[currentQuestion].correct]){
         this.style.backgroundColor = "#32CD32";
         this.style.transition = "all 640ms ease-out 0s";
-        this.style.transform = "scale(1.1, 1.1)";
+        this.style.transform = "scale(1.1)";
 
         let audio = new Audio("./sounds/correct-sound-fx.mp3");
         audio.currentTime = 0.35;
@@ -271,9 +271,9 @@ function buttonClicked(){
 function wrongPressed(button, recursiveIndex) {
     if (recursiveIndex < 8){
     if (recursiveIndex % 2 === 0) {
-        button.style.transform = "rotate(10deg) scale(1.05, 1.05)";
+        button.style.transform = "rotate(10deg) scale(1.05)";
     } else {
-        button.style.transform = "rotate(-10deg) scale(1.05, 1.05)";
+        button.style.transform = "rotate(-10deg) scale(1.05)";
     }
     setTimeout(() => wrongPressed(button, ++recursiveIndex), 80);
 } else {
