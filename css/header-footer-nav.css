@@ -49,25 +49,42 @@ header {
 }
 
 #menu-desktop-inner h1{
-  margin: 0 8px 0 0;
+  margin: 0 0.6vw 0 0;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 200;
 }
 
+#menu-desktop-arrow{
+  position: relative;
+  top: calc(min(3rem, min(8vw, 6vh)) * (-0.02));
+}
+
 #menu-desktop-arrow *{
-  height: calc(min(3rem, min(8vw, 6vh)) * 0.05);
+  height: calc(min(3rem, min(8vw, 6vh)) * 0.04);
   width: calc(min(3rem, min(8vw, 6vh)) * 0.2);
+  position: absolute;
   border-radius: 2px;
+  transition: 0.1s;
+  transition-timing-function: ease-in-out;
   background-color: #ccc5b9;
-  margin: 0;
 }
 
 #desktop-line-1{
-  transform: translate(calc(min(3rem, min(8vw, 6vh)) * (-0.12)), 0) rotate(45deg);
+  transform-origin: 0 50%;
+  transform: rotate(45deg) translate(calc(min(3rem, min(8vw, 6vh)) * (-0.07)), -50%);
 }
 
 #desktop-line-2{
-  transform: translate(0, calc(min(3rem, min(8vw, 6vh)) * (-0.05))) rotate(-45deg);
+  transform-origin: 100% 50%;
+  transform: rotate(-45deg) translate(calc(min(3rem, min(8vw, 6vh)) * (0.07)), -50%);
+}
+
+.animate-menu-desktop-icon#desktop-line-1{
+  transform: rotate(-45deg) translate(calc(min(3rem, min(8vw, 6vh)) * (-0.07)), 50%);
+}
+
+.animate-menu-desktop-icon#desktop-line-2{
+  transform: rotate(45deg) translate(calc(min(3rem, min(8vw, 6vh)) * (0.07)), 50%);
 }
 
 /* Styling of individual header elements */
@@ -124,7 +141,7 @@ header {
   margin: 0;
   position: absolute;
   transform: translate(-50%, -50%);
-  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.75);
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.85);
   font-weight: 400;
   color: #ccc5b9;
   transition: 0.4s;
@@ -291,7 +308,7 @@ footer {
   }
 
   #page-title-info{
-    font-size: calc(min(3rem, min(8vw, 6vh)) * 0.8);
+    font-size: calc(min(3rem, min(8vw, 6vh)) * 0.9);
   }
 
   #logo {
@@ -318,7 +335,7 @@ footer {
 
 @media screen and (min-width: 768px){
   #page-title-info{
-    font-size: calc(min(3rem, min(8vw, 6vh)) * 0.85);
+    font-size: calc(min(3rem, min(8vw, 6vh)) * 0.95);
   }
 
   #menu-icon, #anchor-tags, #anchor-tags-left, #anchor-tags-right {

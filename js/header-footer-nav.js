@@ -109,3 +109,13 @@ function animateMenuIconClick() {
     });
   }
 }
+
+document.querySelector("#menu-desktop-inner").addEventListener("click", () => {
+  document.querySelectorAll("#menu-desktop-arrow *").forEach(x => {
+    x.style.transform = "scale(0.5, 1)";
+    setTimeout(() => {
+      x.style.transform = "";
+      x.classList.toggle("animate-menu-desktop-icon");
+    }, 100);
+  });
+});
