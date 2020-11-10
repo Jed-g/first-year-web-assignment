@@ -41,9 +41,6 @@ function animateMenuIconClick() {
 
     menuIcon.classList.toggle("push-menu-button-top");
 
-    // Prevent scrolling of page
-    document.body.style.overflow = "hidden";
-
     // Remove "click" event listener from logo
     document.querySelector("#logo-mobile").removeEventListener("click", redirectToIndexHtml);
     document.querySelector("#logo-mobile").style.cursor = "default";
@@ -79,9 +76,6 @@ function animateMenuIconClick() {
   } else {
 
     menuIcon.classList.toggle("push-menu-button-top");
-
-    // Enable scrolling of page
-    document.body.style.overflow = "visible";
 
     // Add "click" event listener to logo enabling redirection to home
     document.querySelector("#logo-mobile").addEventListener("click", redirectToIndexHtml);

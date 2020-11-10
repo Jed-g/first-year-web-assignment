@@ -267,7 +267,7 @@ This is to allow seperate animation of each individual link */
   transition: 0.4s;
   transition-timing-function: ease-in-out;
   text-align: center;
-  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
+  font-size: calc(min(4vw, 6vh) * 0.6);
   font-weight: 300;
 }
 
