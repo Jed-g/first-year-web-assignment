@@ -28,30 +28,35 @@ header {
   transition-timing-function: ease-in-out;
 }
 
-#menu-desktop{
-  left: min(5vw, 50px);
+#menu-desktop-icon{
+  left: min(5vw, 60px);
   height: 12vh;
-  width: calc(min(3rem, min(8vw, 6vh)) * 4);
+  width: calc(min(3rem, min(8vw, 6vh)) * 3);
   color: #ccc5b9;
   position: absolute;
   display: none;
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
 }
 
 #menu-desktop-inner{
   top: 50%;
   left: 50%;
+  padding-right: 0.8vw;
   transform: translate(-50%, -50%);
   position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
 }
 
 #menu-desktop-inner h1{
   margin: 0 0.6vw 0 0;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 200;
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
 }
 
 #menu-desktop-arrow{
@@ -64,8 +69,7 @@ header {
   width: calc(min(3rem, min(8vw, 6vh)) * 0.2);
   position: absolute;
   border-radius: 2px;
-  transition: 0.1s;
-  transition-timing-function: ease-in-out;
+  transition: all 0.15s ease-in-out, background-color 0.4s ease-in-out;
   background-color: #ccc5b9;
 }
 
@@ -85,6 +89,25 @@ header {
 
 .animate-menu-desktop-icon#desktop-line-2{
   transform: rotate(45deg) translate(calc(min(3rem, min(8vw, 6vh)) * (0.07)), 50%);
+}
+
+#menu-desktop-anchor-tags{
+  height: 24vh;
+  width: 100vw;
+  top: -12vh;
+  position: fixed;
+  z-index: 1;
+  background-color: #eb5e28;
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
+}
+
+#menu-desktop-anchor-tags-inner{
+  height: 12vh;
+  margin: 12vh min(5vw, 60px) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Styling of individual header elements */
@@ -234,6 +257,12 @@ This is to allow seperate animation of each individual link */
   margin-left: 200vw;
 }
 
+#menu-desktop-anchor-tags-inner a{
+  text-align: center;
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
+  font-weight: 300;
+}
+
 /* Specify color and text decoration for all menu links */
 #anchor-tags a,
 #anchor-tags a:visited,
@@ -246,7 +275,11 @@ This is to allow seperate animation of each individual link */
 #anchor-tags-right a,
 #anchor-tags-right a:visited,
 #anchor-tags-right a:hover,
-#anchor-tags-right a:active {
+#anchor-tags-right a:active,
+#menu-desktop-anchor-tags-inner a,
+#menu-desktop-anchor-tags-inner a:visited,
+#menu-desktop-anchor-tags-inner a:hover,
+#menu-desktop-anchor-tags-inner a:active {
   color: #403d39;
   text-decoration: none;
 }
@@ -298,7 +331,7 @@ footer {
     height: 10vh;
   }
 
-  #menu-desktop{
+  #menu-desktop-icon{
     height: 10vh;
   }
 
@@ -331,6 +364,16 @@ footer {
   #anchor-tags-left, #anchor-tags-right {
     display: flex;
   }
+
+  #menu-desktop-anchor-tags{
+    height: 20vh;
+    top: -10vh;
+  }
+
+  #menu-desktop-anchor-tags-inner{
+    height: 10vh;
+    margin: 10vh min(5vw, 60px) 0;
+  }
 }
 
 @media screen and (min-width: 768px){
@@ -342,7 +385,7 @@ footer {
     display: none;
   }
 
-  #menu-desktop{
+  #menu-desktop-icon{
     display: inline-block;
   }
 }

@@ -110,12 +110,46 @@ function animateMenuIconClick() {
   }
 }
 
-document.querySelector("#menu-desktop-inner").addEventListener("click", () => {
-  document.querySelectorAll("#menu-desktop-arrow *").forEach(x => {
-    x.style.transform = "scale(0.5, 1)";
-    setTimeout(() => {
-      x.style.transform = "";
-      x.classList.toggle("animate-menu-desktop-icon");
-    }, 100);
-  });
-});
+let desktopMenuOpen = false;
+
+const desktopMenuButton = document.querySelector("#menu-desktop-icon");
+const desktopMenuButtonH1 = document.querySelector("#menu-desktop-inner h1");
+const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-desktop-arrow *");
+const desktopMenuBackground = document.querySelector("#menu-desktop-anchor-tags");
+
+desktopMenuButton.addEventListener("click", animateDesktopMenuIcon);
+
+function animateDesktopMenuIcon() {
+
+  desktopMenuOpen = !desktopMenuOpen;
+
+  if (desktopMenuOpen){
+    desktopMenuButtonArrowElementsArray.forEach(line => {
+      line.style.transform = "scale(0.5, 1)";
+      line.style.backgroundColor = "#403d39";
+      setTimeout(() => {
+        line.style.transform = "";
+        line.classList.toggle("animate-menu-desktop-icon");
+      }, 150);
+    });
+
+    desktopMenuBackground.style.top = 0;
+    this.style.backgroundColor = "#eb5e28";
+    desktopMenuButtonH1.style.color = "#403d39";
+
+  } else {
+    desktopMenuBackground.style.top = "";
+    desktopMenuButtonArrowElementsArray.forEach(line => {
+      line.style.transform = "scale(0.5, 1)";
+      line.style.backgroundColor = "#ccc5b9";
+      setTimeout(() => {
+        line.style.transform = "";
+        line.classList.toggle("animate-menu-desktop-icon");
+      }, 100);
+    });
+
+    this.style.backgroundColor = "";
+    desktopMenuButtonH1.style.color = "#ccc5b9";
+  }
+
+};
