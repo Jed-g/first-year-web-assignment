@@ -58,7 +58,7 @@ header {
 #menu-desktop-inner h1{
   margin: 0 0.6vw 0 0;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
-  font-weight: 200;
+  font-weight: 300;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
 }

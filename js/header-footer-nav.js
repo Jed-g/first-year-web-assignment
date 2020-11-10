@@ -149,7 +149,7 @@ function animateDesktopMenu() {
     desktopMenuButtonH1.style.color = "#403d39";
 
     desktopMenuAnchorTagsArray.forEach((link, index) => {
-      setTimeout(() => link.style.marginTop = 0, index * 80);
+      setTimeout(() => link.style.marginTop = 0, index * 70 + 2);
     });
 
   } else {
@@ -171,5 +171,4 @@ function animateDesktopMenu() {
   desktopMenuAnchorTagsArray.forEach((link, index) => {
     setTimeout(() => link.style.marginTop = "", index * 40);
   });
-
 };
