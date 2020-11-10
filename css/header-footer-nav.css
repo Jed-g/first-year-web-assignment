@@ -28,6 +28,10 @@ header {
   transition-timing-function: ease-in-out;
 }
 
+#desktop-header{
+  display: none;
+}
+
 #menu-desktop-icon{
   left: min(5vw, 60px);
   height: 12vh;
@@ -43,7 +47,7 @@ header {
 #menu-desktop-inner{
   top: 50%;
   left: 50%;
-  padding-right: 0.8vw;
+  padding-right: 1vw;
   transform: translate(-50%, -50%);
   position: absolute;
   display: flex;
@@ -159,7 +163,7 @@ header {
 }
 
 /* Excluded from flex flow to always keep centered */
-#page-title-info {
+.page-title-info {
   top: 50%;
   left: 50%;
   margin: 0;
@@ -172,7 +176,7 @@ header {
   transition-timing-function: ease-in-out;
 }
 
-#logo {
+.logo {
   height: 8vh;
   top: 6vh;
   right: min(6vw, 120px);
@@ -259,6 +263,9 @@ This is to allow seperate animation of each individual link */
 }
 
 #menu-desktop-anchor-tags-inner a{
+  margin-top: -24vh;
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
   text-align: center;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 300;
@@ -306,7 +313,7 @@ footer {
 }
 
 /* Noscript styling */
-#page-blur{
+#page-hide{
   height: 100vh;
   width: 100vw;
   top: 0;
@@ -316,7 +323,7 @@ footer {
   background-color: rgba(0,0,0, 0.9);
 }
 
-#page-blur h1{
+#page-hide h1{
   width: 95vw;
   top: 50vh;
   left: 50vw;
@@ -341,11 +348,11 @@ footer {
     left: 12vw;
   }
 
-  #page-title-info{
+  .page-title-info{
     font-size: calc(min(3rem, min(8vw, 6vh)) * 0.9);
   }
 
-  #logo {
+  .logo {
     top: 5vh;
   }
 
@@ -375,10 +382,22 @@ footer {
     height: 10vh;
     margin: 10vh min(5vw, 60px) 0;
   }
+
+  #menu-desktop-anchor-tags-inner a{
+    margin-top: -20vh;
+  }
 }
 
 @media screen and (min-width: 768px){
-  #page-title-info{
+  #mobile-tablet-header{
+    display: none;
+  }
+
+  #desktop-header{
+    display: initial;
+  }
+
+  .page-title-info{
     font-size: calc(min(3rem, min(8vw, 6vh)) * 0.95);
   }
 

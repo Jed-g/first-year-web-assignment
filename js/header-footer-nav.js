@@ -4,7 +4,7 @@ const date = new Date();
 document.querySelector("#copyright").textContent = `© Jedrzej Golebiewski ${date.getFullYear()}`;
 
 // Attach "click" event listener to the logo in order to redirect to home
-document.querySelector("#logo").addEventListener("click", redirectToIndexHtml);
+document.querySelectorAll(".logo").forEach(element => element.addEventListener("click", redirectToIndexHtml));
 
 function redirectToIndexHtml() {
   window.location.href = "./index.html";
@@ -30,7 +30,7 @@ menuButton.addEventListener("click", animateMenuIconClick);
 function animateMenuIconClick() {
 
   if (this.classList != undefined){
-    animateDesktopMenuIcon();
+    animateDesktopMenu();
   }
 
   // Toggle css class to cross outer lines and make inner one transparent
@@ -45,13 +45,13 @@ function animateMenuIconClick() {
     document.body.style.overflow = "hidden";
 
     // Remove "click" event listener from logo
-    document.querySelector("#logo").removeEventListener("click", redirectToIndexHtml);
-    document.querySelector("#logo").style.cursor = "default";
+    document.querySelector("#logo-mobile").removeEventListener("click", redirectToIndexHtml);
+    document.querySelector("#logo-mobile").style.cursor = "default";
 
     // Make header elements transparent (didn't use z-index = -1 etc. because of conflict with hamburger icon disappearing)
-    document.querySelector("#logo").style.opacity = 0;
-    document.querySelector("#page-title-info").style.opacity = 0;
-    document.querySelector("header").style.backgroundColor = "#EB5E28";
+    document.querySelector("#logo-mobile").style.opacity = 0;
+    document.querySelector("#page-title-info-mobile").style.opacity = 0;
+    document.querySelector("#mobile-tablet-header").style.backgroundColor = "#EB5E28";
 
     // Expand menu orange background from top
     document.querySelector("#side-menu").style.top = 0;
@@ -84,13 +84,13 @@ function animateMenuIconClick() {
     document.body.style.overflow = "visible";
 
     // Add "click" event listener to logo enabling redirection to home
-    document.querySelector("#logo").addEventListener("click", redirectToIndexHtml);
-    document.querySelector("#logo").style.cursor = "pointer";
+    document.querySelector("#logo-mobile").addEventListener("click", redirectToIndexHtml);
+    document.querySelector("#logo-mobile").style.cursor = "pointer";
 
     // Make header opaque
-    document.querySelector("#logo").style.opacity = "100%";
-    document.querySelector("#page-title-info").style.opacity = "100%";
-    document.querySelector("header").style.backgroundColor = "#252422";
+    document.querySelector("#logo-mobile").style.opacity = "100%";
+    document.querySelector("#page-title-info-mobile").style.opacity = "100%";
+    document.querySelector("#mobile-tablet-header").style.backgroundColor = "#252422";
 
     // Hide menu background
     document.querySelector("#side-menu").style.top = "-100vh";
@@ -103,15 +103,15 @@ function animateMenuIconClick() {
 
     // Hide menu links
     menuLinkArrayMobile.forEach((link, index) => {
-      setTimeout(() => link.style.marginLeft = "-200vw", index * 40);
+      setTimeout(() => link.style.marginLeft = "", index * 40);
     });
 
     menuLinkArrayLeft.forEach((link, index) => {
-      setTimeout(() => link.style.marginLeft = "-200vw", index * 80);
+      setTimeout(() => link.style.marginLeft = "", index * 80);
     });
 
     menuLinkArrayRight.forEach((link, index) => {
-      setTimeout(() => link.style.marginLeft = "200vw", index * 80);
+      setTimeout(() => link.style.marginLeft = "", index * 80);
     });
   }
 }
@@ -122,10 +122,11 @@ const desktopMenuButton = document.querySelector("#menu-desktop-icon");
 const desktopMenuButtonH1 = document.querySelector("#menu-desktop-inner h1");
 const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-desktop-arrow *");
 const desktopMenuBackground = document.querySelector("#menu-desktop-anchor-tags");
+const desktopMenuAnchorTagsArray = document.querySelectorAll("#menu-desktop-anchor-tags-inner a");
 
-desktopMenuButton.addEventListener("click", animateDesktopMenuIcon);
+desktopMenuButton.addEventListener("click", animateDesktopMenu);
 
-function animateDesktopMenuIcon() {
+function animateDesktopMenu() {
 
   desktopMenuOpen = !desktopMenuOpen;
 
@@ -147,6 +148,10 @@ function animateDesktopMenuIcon() {
     desktopMenuButton.style.backgroundColor = "#eb5e28";
     desktopMenuButtonH1.style.color = "#403d39";
 
+    desktopMenuAnchorTagsArray.forEach((link, index) => {
+      setTimeout(() => link.style.marginTop = 0, index * 80);
+    });
+
   } else {
 
     desktopMenuButtonArrowElementsArray.forEach(line => {
@@ -162,5 +167,9 @@ function animateDesktopMenuIcon() {
     desktopMenuButton.style.backgroundColor = "";
     desktopMenuButtonH1.style.color = "#ccc5b9";
   }
+
+  desktopMenuAnchorTagsArray.forEach((link, index) => {
+    setTimeout(() => link.style.marginTop = "", index * 40);
+  });
 
 };
