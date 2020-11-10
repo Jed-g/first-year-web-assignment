@@ -96,6 +96,7 @@ header {
   width: 100vw;
   top: -12vh;
   position: fixed;
+  display: none;
   z-index: 1;
   background-color: #eb5e28;
   transition: 0.4s;
@@ -381,11 +382,15 @@ footer {
     font-size: calc(min(3rem, min(8vw, 6vh)) * 0.95);
   }
 
-  #menu-icon, #anchor-tags, #anchor-tags-left, #anchor-tags-right {
+  #menu-icon, #side-menu, #anchor-tags, #anchor-tags-left, #anchor-tags-right {
     display: none;
   }
 
   #menu-desktop-icon{
-    display: inline-block;
+    display: initial;
+  }
+
+  #menu-desktop-anchor-tags{
+    display: initial;
   }
 }

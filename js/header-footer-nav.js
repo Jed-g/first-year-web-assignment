@@ -15,6 +15,8 @@ const currentHtmlFileName = window.location.pathname.split("/").pop().replace(".
 const linkOfCurrentPage = document.querySelectorAll(`.${currentHtmlFileName}`);
 linkOfCurrentPage.forEach(link => link.style.color = "#252422");
 
+const menuIcon = document.querySelector("#menu-icon");
+
 // Select all anchors in the "#anchor-tags" div
 const menuLinkArrayMobile = document.querySelectorAll("#anchor-tags a");
 
@@ -27,13 +29,17 @@ menuButton.addEventListener("click", animateMenuIconClick);
 
 function animateMenuIconClick() {
 
+  if (this.classList != undefined){
+    animateDesktopMenuIcon();
+  }
+
   // Toggle css class to cross outer lines and make inner one transparent
-  this.classList.toggle("animate-menu-icon");
+  menuIcon.classList.toggle("animate-menu-icon");
 
   // "If" regarding whether to animate menu expansion or closure
-  if (this.classList.contains("animate-menu-icon")) {
+  if (menuIcon.classList.contains("animate-menu-icon")) {
 
-    this.classList.toggle("push-menu-button-top");
+    menuIcon.classList.toggle("push-menu-button-top");
 
     // Prevent scrolling of page
     document.body.style.overflow = "hidden";
@@ -72,7 +78,7 @@ function animateMenuIconClick() {
 
   } else {
 
-    this.classList.toggle("push-menu-button-top");
+    menuIcon.classList.toggle("push-menu-button-top");
 
     // Enable scrolling of page
     document.body.style.overflow = "visible";
@@ -123,6 +129,10 @@ function animateDesktopMenuIcon() {
 
   desktopMenuOpen = !desktopMenuOpen;
 
+  if (this.classList != undefined){
+    animateMenuIconClick();
+  }
+
   if (desktopMenuOpen){
     desktopMenuButtonArrowElementsArray.forEach(line => {
       line.style.transform = "scale(0.5, 1)";
@@ -134,11 +144,11 @@ function animateDesktopMenuIcon() {
     });
 
     desktopMenuBackground.style.top = 0;
-    this.style.backgroundColor = "#eb5e28";
+    desktopMenuButton.style.backgroundColor = "#eb5e28";
     desktopMenuButtonH1.style.color = "#403d39";
 
   } else {
-    desktopMenuBackground.style.top = "";
+
     desktopMenuButtonArrowElementsArray.forEach(line => {
       line.style.transform = "scale(0.5, 1)";
       line.style.backgroundColor = "#ccc5b9";
@@ -148,7 +158,8 @@ function animateDesktopMenuIcon() {
       }, 100);
     });
 
-    this.style.backgroundColor = "";
+    desktopMenuBackground.style.top = "";
+    desktopMenuButton.style.backgroundColor = "";
     desktopMenuButtonH1.style.color = "#ccc5b9";
   }
 
