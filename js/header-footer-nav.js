@@ -112,13 +112,46 @@ function animateMenuIconClick() {
 
 let desktopMenuOpen = false;
 
+let desktopMenuButtonAreaEntered = false;
+let desktopMenuLinkAreaEntered = false;
+
 const desktopMenuButton = document.querySelector("#menu-desktop-icon");
 const desktopMenuButtonH1 = document.querySelector("#menu-desktop-inner h1");
 const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-desktop-arrow *");
 const desktopMenuBackground = document.querySelector("#menu-desktop-anchor-tags");
 const desktopMenuAnchorTagsArray = document.querySelectorAll("#menu-desktop-anchor-tags-inner a");
 
-desktopMenuButton.addEventListener("click", animateDesktopMenu);
+desktopMenuButton.addEventListener("mouseenter", () => {
+  desktopMenuButtonAreaEntered = !desktopMenuButtonAreaEntered;
+  if (!desktopMenuLinkAreaEntered){
+    animateDesktopMenu();
+  }
+});
+
+desktopMenuButton.addEventListener("mouseleave", () => {
+  setTimeout(() => {
+    desktopMenuButtonAreaEntered = !desktopMenuButtonAreaEntered;
+    if (!desktopMenuLinkAreaEntered){
+      animateDesktopMenu();
+    }
+  }, 1);
+});
+
+desktopMenuBackground.addEventListener("mouseenter", () => {
+  desktopMenuLinkAreaEntered = !desktopMenuLinkAreaEntered;
+  if (!desktopMenuButtonAreaEntered){
+    animateDesktopMenu();
+  }
+});
+
+desktopMenuBackground.addEventListener("mouseleave", () => {
+  setTimeout(() => {
+    desktopMenuLinkAreaEntered = !desktopMenuLinkAreaEntered;
+    if (!desktopMenuButtonAreaEntered){
+      animateDesktopMenu();
+    }
+  }, 1);
+});
 
 function animateDesktopMenu() {
 
@@ -134,7 +167,7 @@ function animateDesktopMenu() {
       line.style.backgroundColor = "#403d39";
       setTimeout(() => {
         line.style.transform = "";
-        line.classList.toggle("animate-menu-desktop-icon");
+        line.classList.add("animate-menu-desktop-icon");
       }, 150);
     });
 
@@ -153,7 +186,7 @@ function animateDesktopMenu() {
       line.style.backgroundColor = "#ccc5b9";
       setTimeout(() => {
         line.style.transform = "";
-        line.classList.toggle("animate-menu-desktop-icon");
+        line.classList.remove("animate-menu-desktop-icon");
       }, 100);
     });
 
