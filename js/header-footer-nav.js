@@ -30,6 +30,21 @@ menuButton.addEventListener("click", () => animateMenuIconClick("mobile"));
 function animateMenuIconClick(sourceOfCall) {
 
   if (sourceOfCall === "mobile"){
+
+    if (!desktopMenuLockedOpen){
+      desktopMenuLockedOpen = true;
+      desktopMenuButton.removeEventListener("mouseenter", buttonMouseEnter);
+      desktopMenuButton.removeEventListener("mouseleave", buttonMouseLeave);
+      desktopMenuLinkArea.removeEventListener("mouseenter", linkAreaMouseEnter);
+      desktopMenuLinkArea.removeEventListener("mouseleave", linkAreaMouseLeave);
+    } else {
+      desktopMenuLockedOpen = false;
+      desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
+      desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
+      desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
+      desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
+    }
+
     animateDesktopMenu("mobile");
   }
 
@@ -120,9 +135,6 @@ let desktopMenuLockedOpen = false;
 let desktopMenuButtonAreaEntered = false;
 let desktopMenuLinkAreaEntered = false;
 
-// Declaration for being global
-let attachEventListenersTimeoutFunction;
-
 const desktopMenuButton = document.querySelector("#menu-desktop-icon");
 const desktopMenuButtonH1 = document.querySelector("#menu-desktop-inner h1");
 const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-desktop-arrow *");
@@ -137,7 +149,6 @@ function buttonClick(){
     if (!desktopMenuOpen){
       animateDesktopMenu("desktop");
     }
-    desktopMenuButton.removeEventListener("mouseleave", attachEventListeners);
     desktopMenuButton.removeEventListener("mouseenter", buttonMouseEnter);
     desktopMenuButton.removeEventListener("mouseleave", buttonMouseLeave);
     desktopMenuLinkArea.removeEventListener("mouseenter", linkAreaMouseEnter);
@@ -146,21 +157,16 @@ function buttonClick(){
   } else {
     desktopMenuLockedOpen = false;
     animateDesktopMenu("desktop");
-    desktopMenuButton.addEventListener("mouseleave", attachEventListeners);
+
+    var attachEventListenersTimeoutFunction = setTimeout(() => {
+      desktopMenuButtonAreaEntered = false;
+      desktopMenuLinkAreaEntered = false;
+      desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
+      desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
+      desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
+      desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
+    }, 400);
   }
-}
-
-function attachEventListeners() {
-  desktopMenuButton.removeEventListener("mouseleave", attachEventListeners);
-
-  attachEventListenersTimeoutFunction = setTimeout(() => {
-    desktopMenuButtonAreaEntered = false;
-    desktopMenuLinkAreaEntered = false;
-    desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
-    desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
-    desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
-    desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
-  }, 400);
 }
 
 function linkAreaClick() {
@@ -210,6 +216,19 @@ desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
 desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
 desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
 desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
+
+document.querySelector("main").addEventListener("click", () => {
+  if (desktopMenuOpen){
+    animateDesktopMenu("desktop");
+    desktopMenuLockedOpen = false;
+    desktopMenuButtonAreaEntered = false;
+    desktopMenuLinkAreaEntered = false;
+    desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
+    desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
+    desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
+    desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
+  }
+});
 
 function animateDesktopMenu(sourceOfCall) {
 

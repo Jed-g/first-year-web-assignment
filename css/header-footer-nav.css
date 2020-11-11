@@ -298,8 +298,8 @@ This is to allow seperate animation of each individual link */
 
 /* Padding from top to not be obscured by header (which is excluded from flow) */
 main {
-  padding-top: 15vh;
-  margin: 0 8vw;
+  padding: 15vh 8vw 0;
+  margin: 0;
   text-align: center;
   color: #252422;
 }
@@ -361,8 +361,7 @@ footer {
   }
 
   main{
-    padding-top: 18vh;
-    margin: 0 12vw;
+    padding: 12.5vh 12vw 0;
   }
 
   .push-menu-button-top#menu-icon{
