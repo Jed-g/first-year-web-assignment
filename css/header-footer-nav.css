@@ -14,6 +14,10 @@ body {
   background-color: #fffcf2;
 }
 
+body.hide-overflow {
+  overflow: hidden;
+}
+
 /* Remove header from flow and fix it at the top.
 Z-index added because of conflict with buttons on quiz page */
 header {
@@ -389,6 +393,10 @@ footer {
 }
 
 @media screen and (min-width: 768px){
+  body.hide-overflow {
+    overflow: initial;
+  }
+
   #mobile-tablet-header{
     display: none;
   }

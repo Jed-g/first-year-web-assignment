@@ -25,12 +25,12 @@ const menuLinkArrayRight = document.querySelectorAll("#anchor-tags-right a");;
 
 // Attach "click" event listener to the menu hamburger icon in order execute "animateMenuIconClick" function
 const menuButton = document.querySelector("#menu-icon");
-menuButton.addEventListener("click", animateMenuIconClick);
+menuButton.addEventListener("click", () => animateMenuIconClick("mobile"));
 
-function animateMenuIconClick() {
+function animateMenuIconClick(sourceOfCall) {
 
-  if (this.classList != undefined){
-    animateDesktopMenu();
+  if (sourceOfCall === "mobile"){
+    animateDesktopMenu("mobile");
   }
 
   // Toggle css class to cross outer lines and make inner one transparent
@@ -38,6 +38,8 @@ function animateMenuIconClick() {
 
   // "If" regarding whether to animate menu expansion or closure
   if (menuIcon.classList.contains("animate-menu-icon")) {
+
+    document.body.classList.toggle("hide-overflow");
 
     menuIcon.classList.toggle("push-menu-button-top");
 
@@ -74,6 +76,8 @@ function animateMenuIconClick() {
     });
 
   } else {
+
+    document.body.classList.toggle("hide-overflow");
 
     menuIcon.classList.toggle("push-menu-button-top");
 
@@ -131,7 +135,7 @@ function buttonClick(){
     desktopMenuLockedOpen = true;
 
     if (!desktopMenuOpen){
-      animateDesktopMenu();
+      animateDesktopMenu("desktop");
     }
     desktopMenuButton.removeEventListener("mouseleave", attachEventListeners);
     desktopMenuButton.removeEventListener("mouseenter", buttonMouseEnter);
@@ -141,7 +145,7 @@ function buttonClick(){
     clearTimeout(attachEventListenersTimeoutFunction);
   } else {
     desktopMenuLockedOpen = false;
-    animateDesktopMenu();
+    animateDesktopMenu("desktop");
     desktopMenuButton.addEventListener("mouseleave", attachEventListeners);
   }
 }
@@ -170,8 +174,8 @@ function linkAreaClick() {
 
 function buttonMouseEnter() {
   desktopMenuButtonAreaEntered = true;
-  if (!desktopMenuLinkAreaEntered){
-    animateDesktopMenu();
+  if (!desktopMenuLinkAreaEntered && !desktopMenuOpen){
+    animateDesktopMenu("desktop");
   }
 }
 
@@ -179,23 +183,23 @@ function buttonMouseLeave() {
   setTimeout(() => {
     desktopMenuButtonAreaEntered = false;
     if (!desktopMenuLinkAreaEntered && desktopMenuOpen){
-      animateDesktopMenu();
+      animateDesktopMenu("desktop");
     }
   }, 1);
 }
 
 function linkAreaMouseEnter() {
   desktopMenuLinkAreaEntered = true;
-  if (!desktopMenuButtonAreaEntered){
-    animateDesktopMenu();
+  if (!desktopMenuButtonAreaEntered && !desktopMenuOpen){
+    animateDesktopMenu("desktop");
   }
 }
 
 function linkAreaMouseLeave() {
   setTimeout(() => {
     desktopMenuLinkAreaEntered = false;
-    if (!desktopMenuButtonAreaEntered){
-      animateDesktopMenu();
+    if (!desktopMenuButtonAreaEntered && desktopMenuOpen){
+      animateDesktopMenu("desktop");
     }
   }, 1);
 }
@@ -207,12 +211,12 @@ desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
 desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
 desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
 
-function animateDesktopMenu() {
+function animateDesktopMenu(sourceOfCall) {
 
   desktopMenuOpen = !desktopMenuOpen;
 
-  if (this.classList != undefined){
-    animateMenuIconClick();
+  if (sourceOfCall === "desktop"){
+    animateMenuIconClick("desktop");
   }
 
   if (desktopMenuOpen){
