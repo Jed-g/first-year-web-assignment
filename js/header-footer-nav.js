@@ -1,7 +1,7 @@
 // Dynamically add year to footer copyright
 const date = new Date();
 
-document.querySelector("#copyright").textContent = `© Jedrzej Golebiewski ${date.getFullYear()}`;
+document.querySelector("#copyright").textContent += ` ${date.getFullYear()}`;
 
 // Attach "click" event listener to the logo in order to redirect to home
 document.querySelectorAll(".logo").forEach(element => element.addEventListener("click", redirectToIndexHtml));
@@ -112,46 +112,100 @@ function animateMenuIconClick() {
 
 let desktopMenuOpen = false;
 
+let desktopMenuLockedOpen = false;
 let desktopMenuButtonAreaEntered = false;
 let desktopMenuLinkAreaEntered = false;
+
+// Declaration for being global
+let attachEventListenersTimeoutFunction;
 
 const desktopMenuButton = document.querySelector("#menu-desktop-icon");
 const desktopMenuButtonH1 = document.querySelector("#menu-desktop-inner h1");
 const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-desktop-arrow *");
-const desktopMenuBackground = document.querySelector("#menu-desktop-anchor-tags");
+const desktopMenuLinkArea = document.querySelector("#menu-desktop-anchor-tags");
 const desktopMenuAnchorTagsArray = document.querySelectorAll("#menu-desktop-anchor-tags-inner a");
 
-desktopMenuButton.addEventListener("mouseenter", () => {
-  desktopMenuButtonAreaEntered = !desktopMenuButtonAreaEntered;
+function buttonClick(){
+  if (!desktopMenuLockedOpen){
+
+    desktopMenuLockedOpen = true;
+
+    if (!desktopMenuOpen){
+      animateDesktopMenu();
+    }
+    desktopMenuButton.removeEventListener("mouseleave", attachEventListeners);
+    desktopMenuButton.removeEventListener("mouseenter", buttonMouseEnter);
+    desktopMenuButton.removeEventListener("mouseleave", buttonMouseLeave);
+    desktopMenuLinkArea.removeEventListener("mouseenter", linkAreaMouseEnter);
+    desktopMenuLinkArea.removeEventListener("mouseleave", linkAreaMouseLeave);
+    clearTimeout(attachEventListenersTimeoutFunction);
+  } else {
+    desktopMenuLockedOpen = false;
+    animateDesktopMenu();
+    desktopMenuButton.addEventListener("mouseleave", attachEventListeners);
+  }
+}
+
+function attachEventListeners() {
+  desktopMenuButton.removeEventListener("mouseleave", attachEventListeners);
+
+  attachEventListenersTimeoutFunction = setTimeout(() => {
+    desktopMenuButtonAreaEntered = false;
+    desktopMenuLinkAreaEntered = false;
+    desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
+    desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
+    desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
+    desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
+  }, 400);
+}
+
+function linkAreaClick() {
+  desktopMenuLockedOpen = true;
+
+  desktopMenuButton.removeEventListener("mouseenter", buttonMouseEnter);
+  desktopMenuButton.removeEventListener("mouseleave", buttonMouseLeave);
+  desktopMenuLinkArea.removeEventListener("mouseenter", linkAreaMouseEnter);
+  desktopMenuLinkArea.removeEventListener("mouseleave", linkAreaMouseLeave);
+}
+
+function buttonMouseEnter() {
+  desktopMenuButtonAreaEntered = true;
   if (!desktopMenuLinkAreaEntered){
     animateDesktopMenu();
   }
-});
+}
 
-desktopMenuButton.addEventListener("mouseleave", () => {
+function buttonMouseLeave() {
   setTimeout(() => {
-    desktopMenuButtonAreaEntered = !desktopMenuButtonAreaEntered;
-    if (!desktopMenuLinkAreaEntered){
+    desktopMenuButtonAreaEntered = false;
+    if (!desktopMenuLinkAreaEntered && desktopMenuOpen){
       animateDesktopMenu();
     }
   }, 1);
-});
+}
 
-desktopMenuBackground.addEventListener("mouseenter", () => {
-  desktopMenuLinkAreaEntered = !desktopMenuLinkAreaEntered;
+function linkAreaMouseEnter() {
+  desktopMenuLinkAreaEntered = true;
   if (!desktopMenuButtonAreaEntered){
     animateDesktopMenu();
   }
-});
+}
 
-desktopMenuBackground.addEventListener("mouseleave", () => {
+function linkAreaMouseLeave() {
   setTimeout(() => {
-    desktopMenuLinkAreaEntered = !desktopMenuLinkAreaEntered;
+    desktopMenuLinkAreaEntered = false;
     if (!desktopMenuButtonAreaEntered){
       animateDesktopMenu();
     }
   }, 1);
-});
+}
+
+desktopMenuButton.addEventListener("click", buttonClick);
+desktopMenuLinkArea.addEventListener("click", linkAreaClick);
+desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
+desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
+desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
+desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
 
 function animateDesktopMenu() {
 
@@ -171,12 +225,12 @@ function animateDesktopMenu() {
       }, 150);
     });
 
-    desktopMenuBackground.style.top = 0;
+    desktopMenuLinkArea.style.top = 0;
     desktopMenuButton.style.backgroundColor = "#eb5e28";
     desktopMenuButtonH1.style.color = "#403d39";
 
     desktopMenuAnchorTagsArray.forEach((link, index) => {
-      setTimeout(() => link.style.marginTop = 0, index * 70 + 2);
+      setTimeout(() => link.style.marginTop = 0, index * 60 + 2);
     });
 
   } else {
@@ -190,12 +244,12 @@ function animateDesktopMenu() {
       }, 100);
     });
 
-    desktopMenuBackground.style.top = "";
+    desktopMenuLinkArea.style.top = "";
     desktopMenuButton.style.backgroundColor = "";
     desktopMenuButtonH1.style.color = "#ccc5b9";
   }
 
   desktopMenuAnchorTagsArray.forEach((link, index) => {
-    setTimeout(() => link.style.marginTop = "", index * 40);
+    setTimeout(() => link.style.marginTop = "", index * 30);
   });
 };
