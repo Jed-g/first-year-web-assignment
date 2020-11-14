@@ -141,6 +141,10 @@ const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-des
 const desktopMenuLinkArea = document.querySelector("#menu-desktop-anchor-tags");
 const desktopMenuAnchorTagsArray = document.querySelectorAll("#menu-desktop-anchor-tags-inner a");
 
+// Global Declaration
+let attachEventListenersTimeoutFunction;
+
+
 function buttonClick(){
   if (!desktopMenuLockedOpen){
 
@@ -158,7 +162,23 @@ function buttonClick(){
     desktopMenuLockedOpen = false;
     animateDesktopMenu("desktop");
 
-    var attachEventListenersTimeoutFunction = setTimeout(() => {
+      attachEventListenersTimeoutFunction = setTimeout(() => {
+      desktopMenuButtonAreaEntered = false;
+      desktopMenuLinkAreaEntered = false;
+      desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
+      desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
+      desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
+      desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
+    }, 400);
+  }
+}
+
+function clickOutsideDesktopMenuCloseMenu() {
+  if (desktopMenuOpen){
+    desktopMenuLockedOpen = false;
+    animateDesktopMenu("desktop");
+
+      attachEventListenersTimeoutFunction = setTimeout(() => {
       desktopMenuButtonAreaEntered = false;
       desktopMenuLinkAreaEntered = false;
       desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
@@ -218,25 +238,12 @@ desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
 desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
 
 document.querySelector("#desktop-header").addEventListener("click", (evt) => {
-  if (evt.target.getAttribute("id") !== "menu-desktop-icon" && evt.target.getAttribute("id") !== null){
-    closeMenuClickOutsideDesktopMenu();
+  if (["desktop-header", "page-title-info-desktop"].includes(evt.target.getAttribute("id"))){
+  clickOutsideDesktopMenuCloseMenu();
   }
 });
 
-document.querySelector("main").addEventListener("click", closeMenuClickOutsideDesktopMenu);
-
-function closeMenuClickOutsideDesktopMenu() {
-  if (desktopMenuOpen){
-    animateDesktopMenu("desktop");
-    desktopMenuLockedOpen = false;
-    desktopMenuButtonAreaEntered = false;
-    desktopMenuLinkAreaEntered = false;
-    desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
-    desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
-    desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
-    desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
-  }
-}
+document.querySelector("main").addEventListener("click", clickOutsideDesktopMenuCloseMenu);
 
 function animateDesktopMenu(sourceOfCall) {
 
