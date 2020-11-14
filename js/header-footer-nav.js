@@ -217,7 +217,15 @@ desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
 desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
 desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
 
-document.querySelector("main").addEventListener("click", () => {
+document.querySelector("#desktop-header").addEventListener("click", (evt) => {
+  if (evt.target.getAttribute("id") !== "menu-desktop-icon" && evt.target.getAttribute("id") !== null){
+    closeMenuClickOutsideDesktopMenu();
+  }
+});
+
+document.querySelector("main").addEventListener("click", closeMenuClickOutsideDesktopMenu);
+
+function closeMenuClickOutsideDesktopMenu() {
   if (desktopMenuOpen){
     animateDesktopMenu("desktop");
     desktopMenuLockedOpen = false;
@@ -228,7 +236,7 @@ document.querySelector("main").addEventListener("click", () => {
     desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
     desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
   }
-});
+}
 
 function animateDesktopMenu(sourceOfCall) {
 
@@ -253,7 +261,7 @@ function animateDesktopMenu(sourceOfCall) {
     desktopMenuButtonH1.style.color = "#403d39";
 
     desktopMenuAnchorTagsArray.forEach((link, index) => {
-      setTimeout(() => link.style.marginTop = 0, index * 60 + 2);
+      setTimeout(() => link.style.marginTop = 0, index * 60 + 10);
     });
 
   } else {
