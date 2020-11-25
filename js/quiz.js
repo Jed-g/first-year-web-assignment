@@ -231,13 +231,12 @@ function previousQuestion() {
 }
 
 function buttonClicked(){
-    // remember to disable hover animation
     answerButtonsArray.forEach(button => button.removeEventListener("click", buttonClicked));
-    this.style.transitionTimingFunction = "ease-out";
-    this.style.color = "#252422";
+
     if (this.textContent === data[currentQuestion].answers[data[currentQuestion].correct]){
+        this.style.transition = "all 80ms ease-in 0s, transform 1500ms ease-in 0s";
         this.style.backgroundColor = "#32CD32";
-        this.style.transition = "all 640ms ease-out 0s";
+        this.style.color = "#252422";
         this.style.transform = "scale(1.1)";
 
         let audio = new Audio("./sounds/correct-sound-fx.mp3");
@@ -251,11 +250,12 @@ function buttonClicked(){
         }, 1500);
 
     } else{
+        this.style.transition = "all 80ms linear 0s";
         this.style.backgroundColor = "#DC143C";
+        this.style.color = "#252422";
+        answerButtonsArray[data[currentQuestion].correct].style.transition = "all 80ms ease-out 0s";
         answerButtonsArray[data[currentQuestion].correct].style.backgroundColor = "#32CD32";
         answerButtonsArray[data[currentQuestion].correct].style.color = "#252422";
-        answerButtonsArray[data[currentQuestion].correct].style.transitionTimingFunction = "ease-out";
-        this.style.transition = "all 80ms linear 0s";
 
         let audio = new Audio("./sounds/wrong-sound-fx.mp3");
         audio.currentTime = 1.2;
