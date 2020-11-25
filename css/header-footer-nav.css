@@ -6,6 +6,7 @@
 }
 
 html{
+  overflow: overlay;
   line-height: 1.35;
 }
 

@@ -67,15 +67,15 @@ function nextQuestion() {
         element.style.transition = "all 0.5s ease-in 0s";
     });
 
-    questionNumberIndicator.style.transform = "translate(-200%, 0) rotate(-25deg)";
-    image.style.transform = "translate(200%, 0) rotate(25deg)";
-    question.style.transform = "translate(-200%, 0) rotate(-25deg)";
+    questionNumberIndicator.style.transform = "translate(-60%, 0) rotate(-5deg)";
+    image.style.transform = "translate(60%, 0) rotate(5deg)";
+    question.style.transform = "translate(-60%, 0) rotate(-5deg)";
 
     answerButtonsArray.forEach((button, index) => {
         if (index % 2 === 0) {
-            button.style.transform = "translate(200%, 0) rotate(25deg)";
+            button.style.transform = "translate(60%, 0) rotate(5deg)";
         } else {
-            button.style.transform = "translate(-200%, 0) rotate(-25deg)";
+            button.style.transform = "translate(-60%, 0) rotate(-5deg)";
         }
     });
 
@@ -90,15 +90,15 @@ function nextQuestion() {
         });
 
         setTimeout(() => {
-            questionNumberIndicator.style.transform = "translate(200%, 0) rotate(25deg)";
-            image.style.transform = "translate(-200%, 0) rotate(-25deg)";
-            question.style.transform = "translate(200%, 0) rotate(25deg)";
+            questionNumberIndicator.style.transform = "translate(60%, 0) rotate(5deg)";
+            image.style.transform = "translate(-60%, 0) rotate(-5deg)";
+            question.style.transform = "translate(60%, 0) rotate(5deg)";
 
             answerButtonsArray.forEach((button, index) => {
                 if (index % 2 === 0) {
-                    button.style.transform = "translate(-200%, 0) rotate(-25deg)";
+                    button.style.transform = "translate(-60%, 0) rotate(-5deg)";
                 } else {
-                    button.style.transform = "translate(200%, 0) rotate(25deg)";
+                    button.style.transform = "translate(60%, 0) rotate(5deg)";
                 }
             });
 
@@ -155,15 +155,15 @@ function previousQuestion() {
     rightButton.removeEventListener("click", nextQuestion);
     leftButton.removeEventListener("click", previousQuestion);
 
-    questionNumberIndicator.style.transform = "translate(200%, 0) rotate(25deg)";
-    image.style.transform = "translate(-200%, 0) rotate(-25deg)";
-    question.style.transform = "translate(200%, 0) rotate(25deg)";
+    questionNumberIndicator.style.transform = "translate(60%, 0) rotate(5deg)";
+    image.style.transform = "translate(-60%, 0) rotate(-5deg)";
+    question.style.transform = "translate(60%, 0) rotate(5deg)";
 
     answerButtonsArray.forEach((button, index) => {
         if (index % 2 === 0) {
-            button.style.transform = "translate(-200%, 0) rotate(-25deg)";
+            button.style.transform = "translate(-60%, 0) rotate(-5deg)";
         } else {
-            button.style.transform = "translate(200%, 0) rotate(25deg)";
+            button.style.transform = "translate(60%, 0) rotate(5deg)";
         }
     });
 
@@ -178,15 +178,15 @@ function previousQuestion() {
         });
 
         setTimeout(() => {
-            questionNumberIndicator.style.transform = "translate(-200%, 0) rotate(-25deg)";
-            image.style.transform = "translate(200%, 0) rotate(25deg)";
-            question.style.transform = "translate(-200%, 0) rotate(-25deg)";
+            questionNumberIndicator.style.transform = "translate(-60%, 0) rotate(-5deg)";
+            image.style.transform = "translate(60%, 0) rotate(5deg)";
+            question.style.transform = "translate(-60%, 0) rotate(-5deg)";
 
             answerButtonsArray.forEach((button, index) => {
                 if (index % 2 === 0) {
-                    button.style.transform = "translate(200%, 0) rotate(25deg)";
+                    button.style.transform = "translate(60%, 0) rotate(5deg)";
                 } else {
-                    button.style.transform = "translate(-200%, 0) rotate(-25deg)";
+                    button.style.transform = "translate(-60%, 0) rotate(-5deg)";
                 }
             });
 
@@ -240,7 +240,7 @@ function buttonClicked(){
         this.style.transform = "scale(1.1)";
 
         let audio = new Audio("./sounds/correct-sound-fx.mp3");
-        audio.currentTime = 0.35;
+        audio.currentTime = 0.4;
         audio.volume = 0.1;
         audio.play();
 
@@ -271,9 +271,9 @@ function buttonClicked(){
 function wrongPressed(button, recursiveIndex) {
     if (recursiveIndex < 8){
     if (recursiveIndex % 2 === 0) {
-        button.style.transform = "rotate(10deg) scale(1.05)";
+        button.style.transform = "rotate(5deg) scale(1.05)";
     } else {
-        button.style.transform = "rotate(-10deg) scale(1.05)";
+        button.style.transform = "rotate(-5deg) scale(1.05)";
     }
     setTimeout(() => wrongPressed(button, ++recursiveIndex), 80);
 } else {

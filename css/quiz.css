@@ -19,11 +19,15 @@ h2{
     font-size: 1.6rem;
 }
 
+.answers{
+    margin-bottom: 30px;
+}
+
 .answers p{
     padding: 1.5vh 5vw;
     box-shadow: 0 0 2px 2px #EB5E28;
     border-radius: 20px 0 20px 0;
-    margin: 0 1px 15px;
+    margin: 0 20px 15px;
     color: #CCC5B9;
     background-color: #403D39;
     cursor: pointer;
@@ -63,4 +67,16 @@ h2{
 section *{
     transition: 0.5s;
     transition-timing-function: ease-in;
+}
+
+@media screen and (orientation: landscape){
+    .answers p{
+        margin: 0 90px 16px;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .answers p{
+        margin: 0 40px 16px;
+    }
 }
