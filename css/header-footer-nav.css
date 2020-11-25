@@ -5,6 +5,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html{
+  line-height: 1.35;
+}
+
 /* Force body to take up whole screen and attach main & footer to top & bottom of screen respectively */
 body {
   height: 100vh;
@@ -361,7 +365,7 @@ footer {
   }
 
   main{
-    padding: 12.5vh 12vw 0;
+    padding: 12.5vh 16vw 0;
   }
 
   .push-menu-button-top#menu-icon{
@@ -418,5 +422,9 @@ footer {
 
   #menu-desktop-anchor-tags{
     display: initial;
+  }
+
+  main{
+    padding: 12.5vh 30vw 0;
   }
 }

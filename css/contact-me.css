@@ -29,7 +29,7 @@ main{
 }
 
 #email{
-    width: 82vw;
+    width: 100%;
     margin: 6px 0 25px;
     font-size: 1.1rem;
     outline: none;
@@ -38,7 +38,7 @@ main{
 }
 
 #message{
-    width: 82vw;
+    width: 100%;
     resize: vertical;
     margin: 6px 0 10px;
     font-size: 1.1rem;
