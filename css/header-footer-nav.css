@@ -395,7 +395,7 @@ footer {
   }
 }
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 1024px){
   body.hide-overflow {
     overflow: initial;
   }
