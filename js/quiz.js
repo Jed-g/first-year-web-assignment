@@ -132,7 +132,7 @@ function nextQuestion() {
                         .forEach(
                             element => element.style.transitionTimingFunction = "ease-in"
                         );
-                    document.body.style.overflow = "visible";
+                    document.body.style.overflow = "";
                     rightButton.addEventListener("click", nextQuestion);
                     leftButton.addEventListener("click", previousQuestion);
                     answerButtonsArray.forEach(button => button.addEventListener("click", buttonClicked));
@@ -220,7 +220,7 @@ function previousQuestion() {
                         .forEach(
                             element => element.style.transitionTimingFunction = "ease-in"
                         );
-                    document.body.style.overflow = "visible";
+                    document.body.style.overflow = "";
                     rightButton.addEventListener("click", nextQuestion);
                     leftButton.addEventListener("click", previousQuestion);
                 }, 500);

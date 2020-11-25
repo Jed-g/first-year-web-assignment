@@ -3,6 +3,11 @@ main h1{
     font-size: 2rem;
 }
 
+#img-wrap{
+    display: inline-block;
+    position: relative;
+}
+
 main img{
     width: min(50vw, 30vh);
     box-shadow: 0 0 1px 2px #403D39;
@@ -27,7 +32,8 @@ h2{
 #left-button-nav, #right-button-nav{
     height: 30px;
     width: 30px;
-    top: calc(18vh + 32px + min(50vw, 30vh) * 0.5 - 15px);
+    top: 50%;
+    transform: translate(0, -50%);
     position: absolute;
     color: #403D39;
     z-index: 1;
@@ -38,11 +44,11 @@ h2{
 }
 
 #left-button-nav{
-    left: 8vw;
+    left: -50px;
 }
 
 #right-button-nav{
-    right: 8vw;
+    right: -50px;
 }
 
 #left-button-nav p, #right-button-nav p{
