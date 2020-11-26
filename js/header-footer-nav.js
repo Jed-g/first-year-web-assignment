@@ -275,11 +275,11 @@ function animateDesktopMenu(sourceOfCall) {
 
     desktopMenuButtonArrowElementsArray.forEach(line => {
       line.style.transform = "scale(0.5, 1)";
-      line.style.backgroundColor = "#ccc5b9";
+      line.style.backgroundColor = "";
       setTimeout(() => {
         line.style.transform = "";
         line.classList.remove("animate-menu-desktop-icon");
-      }, 100);
+      }, 150);
     });
 
     desktopMenuLinkArea.style.top = "";
