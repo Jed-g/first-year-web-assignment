@@ -7,12 +7,12 @@ function expandDescription(element) {
         const titleH2 = element.previousElementSibling.querySelector("h2");
         const arrowLinesArray = element.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
     
-        titleH2.style.color = "#403d39";
+        titleH2.style.color = "#252422";
         element.previousElementSibling.style.backgroundColor = "#EB5E28";
     
         arrowLinesArray.forEach(line => {
             line.style.transform = "scale(0.5, 1)";
-            line.style.backgroundColor = "#403d39";
+            line.style.backgroundColor = "#252422";
             setTimeout(() => {
               line.style.transform = "";
               line.classList.add("animate-arrow");

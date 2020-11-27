@@ -1,4 +1,5 @@
 #prefix{
+  font-size: min(3rem, min(8vw, 6vh));
   margin: 0 0 3vh;
 }
 
@@ -57,6 +58,7 @@
 }
 
 .mobile-description{
+  text-align: center;
   background-color: #ccc5b9;
   overflow: hidden;
   transition: height 0.4s ease-in-out;
@@ -64,7 +66,24 @@
 }
 
 .mobile-desciption-inner h1{
-  margin: 0;
+  margin: 2vh 0;
+  padding: 0 4vw;
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.8);
+}
+
+.mobile-desciption-inner h2{
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.5);
+  margin: 0 0 8vh 0;
+}
+
+.mobile-desciption-inner img{
+  width: 50%;
+  border-radius: 20px;
+}
+
+.mobile-desciption-inner p{
+  margin: 2vh 8vw;
+  text-align: left;
 }
 
 .first{
@@ -77,5 +96,10 @@
 }
 
 .mobile-description.last{
-  margin-bottom: 30px;
+  margin-bottom: 3vh;
+}
+
+#more-info{
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
+  margin-bottom: 3vh;
 }

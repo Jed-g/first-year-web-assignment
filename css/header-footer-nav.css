@@ -180,6 +180,7 @@ header {
   transform: translate(-50%, -50%);
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.85);
   font-weight: 400;
+  line-height: 1;
   color: #ccc5b9;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
