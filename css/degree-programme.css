@@ -1,3 +1,7 @@
+#prefix{
+  margin: 0 0 3vh;
+}
+
 #mobile{
   width: 100%;
   text-align: left;
@@ -8,6 +12,7 @@
   background-color: #252422;
   color: #ccc5b9;
   transition: all 0.4s ease-in-out, border-radius 0.1s ease-in-out;
+  border-bottom: 1px solid #ccc5b9;
 }
 
 .mobile-title-inner{
@@ -17,8 +22,9 @@
   padding: 2vh 0 2vh 5vw;
 }
 
-.mobile-title-inner h1{
+.mobile-title-inner h2{
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
+  font-weight: 300;
   margin: 0 1.5vw 0 0;
   transition: all 0.4s ease-in-out;
 }
@@ -66,5 +72,10 @@
 }
 
 .last{
+  border-bottom: 0;
   border-radius: 0 0 30px 0;
+}
+
+.mobile-description.last{
+  margin-bottom: 30px;
 }

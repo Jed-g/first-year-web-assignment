@@ -4,10 +4,10 @@ function expandDescription(element) {
     }
 
     requestAnimationFrame(() => {
-        const titleH1 = element.previousElementSibling.querySelector("h1");
+        const titleH2 = element.previousElementSibling.querySelector("h2");
         const arrowLinesArray = element.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
     
-        titleH1.style.color = "#403d39";
+        titleH2.style.color = "#403d39";
         element.previousElementSibling.style.backgroundColor = "#EB5E28";
     
         arrowLinesArray.forEach(line => {
@@ -30,10 +30,10 @@ function expandDescription(element) {
 }
 
 function collapseDescription(element) {
-    const titleH1 = element.previousElementSibling.querySelector("h1");
+    const titleH2 = element.previousElementSibling.querySelector("h2");
     const arrowLinesArray = element.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
 
-    titleH1.style.color = "";
+    titleH2.style.color = "";
     element.previousElementSibling.style.backgroundColor = "";
 
     arrowLinesArray.forEach(line => {
