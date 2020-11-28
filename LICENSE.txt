@@ -1,5 +1,7 @@
 favicon.ico - https://hatchful.shopify.com/terms free
+
 logo_transparent.png - https://hatchful.shopify.com/terms free
+
 profile_picture.png - https://pixabay.com/service/license/ free
 neural_network.png - https://pixabay.com/service/license/ free
 HTML_tag.png - https://pixabay.com/service/license/ free
@@ -9,4 +11,13 @@ wrong-sound-fx.mp3 - https://www.youtube.com/watch?v=FRpq7o1mKXY
 
 quiz-1.jpg - https://sebastianraschka.com/faq/docs/relu-derivative.html
 quiz-2.jpg - https://www.thesslstore.com/blog/difference-encryption-hashing-salting/
-quiz-3.jpg - https://techcrunch.com/wp-content/uploads/2016/02/shutterstock_147776027.jpg
+quiz-3.jpg - https://pixabay.com/service/license/
+
+software_engineering.jpg - https://unsplash.com/license
+computer_science.jpg - https://www.pexels.com/license/
+java.jpg - https://en.wikipedia.org/wiki/Java_(programming_language)
+machines_intelligence.jpg - https://pixabay.com/service/license/
+web_technology.jpg - https://unsplash.com/license
+algorithms_data.jpg - https://pixabay.com/service/license/
+engineering_week.jpg - https://unsplash.com/license
+cognitive_psychology.jpg - https://www.pexels.com/license/

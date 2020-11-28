@@ -66,24 +66,25 @@
 }
 
 .mobile-desciption-inner h1{
-  margin: 2vh 0;
-  padding: 0 4vw;
+  margin: 2vh 8vw;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.8);
 }
 
 .mobile-desciption-inner h2{
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.5);
-  margin: 0 0 8vh 0;
+  margin: 0 8vw 2vh;
 }
 
 .mobile-desciption-inner img{
+  margin-bottom: 8vh;
   width: 50%;
   border-radius: 20px;
 }
 
 .mobile-desciption-inner p{
-  margin: 2vh 8vw;
+  margin: 0 8vw 2vh;
   text-align: left;
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.5);
 }
 
 .first{
