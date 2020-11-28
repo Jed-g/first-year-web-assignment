@@ -25,6 +25,7 @@ function expandDescription(element) {
             element.removeEventListener('transitionend', arguments.callee);
             element.style.height = "auto";
             arrayOfMobileTitles.forEach( element => element.addEventListener('click', clickHappened));
+            closeButtons.forEach(button => button.addEventListener("click", closeDescriptionButtonClicked));
       });
     });    
 }
@@ -51,6 +52,7 @@ function collapseDescription(element) {
         element.addEventListener('transitionend', function(evt) {
             element.removeEventListener('transitionend', arguments.callee);
             arrayOfMobileTitles.forEach( element => element.addEventListener('click', clickHappened));
+            closeButtons.forEach(button => button.addEventListener("click", closeDescriptionButtonClicked));
             if (element.classList.contains("last")){
                 element.previousElementSibling.classList.add("last");
             }
@@ -60,6 +62,7 @@ function collapseDescription(element) {
 
 function clickHappened(evt){
     arrayOfMobileTitles.forEach( element => element.removeEventListener('click', clickHappened));
+    closeButtons.forEach(button => button.removeEventListener("click", closeDescriptionButtonClicked));
     if (isCollapsed) {
         expandDescription(evt.currentTarget.nextElementSibling);
         isCollapsed = false;
@@ -76,7 +79,17 @@ function clickHappened(evt){
     }
 }
 
+function closeDescriptionButtonClicked(){
+    arrayOfMobileTitles.forEach( element => element.removeEventListener('click', clickHappened));
+    closeButtons.forEach(button => button.removeEventListener("click", closeDescriptionButtonClicked));
+    collapseDescription(this.parentElement.parentElement);
+    isCollapsed = true;
+}
+
 let isCollapsed = true;
 let titleObjectOfOpenedDesc = null;
 const arrayOfMobileTitles = document.querySelectorAll('.mobile-title');
+const closeButtons = document.querySelectorAll(".bar-to-close");
+
 arrayOfMobileTitles.forEach( element => element.addEventListener('click', clickHappened));
+closeButtons.forEach(button => button.addEventListener("click", closeDescriptionButtonClicked));

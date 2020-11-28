@@ -1,6 +1,7 @@
 #course{
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.8);
   margin: 0 0 3vh;
+  font-weight: 500;
 }
 
 #overview{
@@ -94,9 +95,26 @@
 }
 
 .mobile-desciption-inner p{
-  margin: 0 8vw 2vh;
+  margin: 0 8vw 1vh;
   text-align: left;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.5);
+}
+
+.bar-to-close{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 2vh;
+  width: 5vh;
+  margin: 0 0.75vh 1.2vh auto;
+}
+
+.bar-to-close-inner{
+  border-radius: 4px 0 4px 0;
+  height: 0.4vh;
+  width: 2.5vh;
+  background-color: #403D39;
 }
 
 .first{
