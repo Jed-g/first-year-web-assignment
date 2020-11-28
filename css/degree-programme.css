@@ -1,6 +1,18 @@
-#prefix{
-  font-size: min(3rem, min(8vw, 6vh));
+#course{
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.8);
   margin: 0 0 3vh;
+}
+
+#overview{
+  text-align: left;
+  margin: 0 0 3vh;
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.5);
+}
+
+#prefix{
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.8);
+  margin: 0 0 3vh;
+  font-weight: 300;
 }
 
 #mobile{
