@@ -130,13 +130,14 @@
 #desktop-right{
   width: 62%;
   background-color: #ccc5b9;
+  position: relative;
 }
 
 .desktop-title{
   cursor: pointer;
   background-color: #252422;
   color: #ccc5b9;
-  transition: all 0.4s ease-in-out, border-radius 0.1s ease-in-out;
+  transition: all 0.4s ease-in-out;
   border-bottom: 1px solid #ccc5b9;
 }
 
@@ -182,11 +183,49 @@
 }
 
 .desktop-description{
+  position: absolute;
   text-align: center;
-  background-color: #ccc5b9;
+  background-color: #eb5e28;
   overflow: hidden;
-  transition: height 0.4s ease-in-out;
-  height: 0;
+  transition: all 0.4s ease-in-out;
+  width: 0;
+  height: calc((100% - 7px) / 8);
+}
+
+#desktop-module-1-description{
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ccc5b9;
+  overflow-y: overlay;
+}
+
+#desktop-module-2-description{
+  top: calc(1 * (100% - 7px) / 8 + 1 * 1px);
+}
+
+#desktop-module-3-description{
+  top: calc(2 * (100% - 7px) / 8 + 2 * 1px);
+}
+
+#desktop-module-4-description{
+  top: calc(3 * (100% - 7px) / 8 + 3 * 1px);
+}
+
+#desktop-module-5-description{
+  top: calc(4 * (100% - 7px) / 8 + 4 * 1px);
+}
+
+#desktop-module-6-description{
+  top: calc(5 * (100% - 7px) / 8 + 5 * 1px);
+}
+
+#desktop-module-7-description{
+  top: calc(6 * (100% - 7px) / 8 + 6 * 1px);
+}
+
+#desktop-module-8-description{
+  top: calc(7 * (100% - 7px) / 8 + 7 * 1px);
 }
 
 .desktop-desciption-inner h1{
@@ -220,8 +259,12 @@
   border-radius: 0 0 25px 0;
 }
 
+#desktop-module-8-title.last{
+  border-radius: 0;
+}
+
 #more-info{
-  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
+  font-size: calc(min(3rem, min(8vw, 6vh)) * 0.5);
   margin-bottom: 3vh;
 }
 

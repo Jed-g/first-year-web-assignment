@@ -15,7 +15,6 @@ main{
 #email-link:visited,
 #email-link:hover,
 #email-link:active{
-    cursor: pointer;
     text-decoration: none;
     color: #252422;
 }

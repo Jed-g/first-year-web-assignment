@@ -256,9 +256,9 @@ function animateDesktopMenu(sourceOfCall) {
   if (desktopMenuOpen){
     desktopMenuButtonArrowElementsArray.forEach(line => {
       if (line.classList.contains("desktop-line-1")){
-          line.style.transform = "translate(15%, -50%) scale(0.5, 1)";
+          line.style.transform = "translate(16%, -50%) scale(0.5, 1)";
       } else {
-          line.style.transform = "translate(-15%, -50%) scale(0.5, 1)";
+          line.style.transform = "translate(-16%, -50%) scale(0.5, 1)";
       }
       line.style.backgroundColor = "#403d39";
       setTimeout(() => {
@@ -279,9 +279,9 @@ function animateDesktopMenu(sourceOfCall) {
 
     desktopMenuButtonArrowElementsArray.forEach(line => {
       if (line.classList.contains("desktop-line-1")){
-        line.style.transform = "translate(15%, -50%) scale(0.5, 1)";
+        line.style.transform = "translate(16%, -50%) scale(0.5, 1)";
       } else {
-          line.style.transform = "translate(-15%, -50%) scale(0.5, 1)";
+          line.style.transform = "translate(-16%, -50%) scale(0.5, 1)";
       }
       line.style.backgroundColor = "";
       setTimeout(() => {
