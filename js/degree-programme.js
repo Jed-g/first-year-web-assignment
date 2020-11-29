@@ -54,7 +54,10 @@ function collapseDescriptionMobile(element) {
         }, 150);
     });
 
-    // transition height: auto -> height: scrollHeight is instant so the requestAnimationFrame() fires for this transition
+    // Wait for re-render between height: auto -> height: scrollHeight and height: scrollHeight -> height: 0
+    // to avoid height: auto -> height: 0
+    // height: auto is not an animatable property.
+
     element.style.height = `${element.scrollHeight}px`;
 
     requestAnimationFrame(() => {

@@ -23,6 +23,7 @@
 
 #desktop{
   display: none;
+  align-items: stretch;
 }
 
 .mobile-title{
@@ -126,6 +127,11 @@
   width: 38%;
 }
 
+#desktop-right{
+  width: 62%;
+  background-color: #ccc5b9;
+}
+
 .desktop-title{
   cursor: pointer;
   background-color: #252422;
@@ -214,10 +220,6 @@
   border-radius: 0 0 25px 0;
 }
 
-.mobile-description.last{
-  margin-bottom: 3vh;
-}
-
 #more-info{
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   margin-bottom: 3vh;
@@ -229,6 +231,6 @@
   }
 
   #desktop{
-    display: initial;
+    display: flex;
   }  
 }
