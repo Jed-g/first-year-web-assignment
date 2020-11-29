@@ -5,11 +5,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html{
-  overflow: overlay;
-  line-height: 1.35;
-}
-
 /* Force body to take up whole screen and attach main & footer to top & bottom of screen respectively */
 body {
   height: 100vh;
@@ -17,6 +12,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   background-color: #fffcf2;
+  line-height: 1.35;
+  overflow: overlay;
 }
 
 body.hide-overflow {
@@ -393,7 +390,7 @@ footer {
 
 @media screen and (min-width: 1024px){
   body.hide-overflow {
-    overflow: initial;
+    overflow: overlay;
   }
 
   #mobile-tablet-header{
@@ -401,7 +398,7 @@ footer {
   }
 
   #desktop-header{
-    display: initial;
+    display: inline-block;
   }
 
   .page-title-info{
@@ -413,11 +410,11 @@ footer {
   }
 
   #menu-desktop-icon{
-    display: initial;
+    display: inline-block;
   }
 
   #menu-desktop-anchor-tags{
-    display: initial;
+    display: inline-block;
   }
 
   main{
