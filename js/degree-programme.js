@@ -87,8 +87,8 @@ function clickHappenedMobile(evt){
     if (isCollapsedMobile) {
         isCollapsedMobile = false;
         expandDescriptionMobile(evt.currentTarget.nextElementSibling);
-        expandDescriptionDesktop(document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6, 16)}description`));
         collapseDescriptionDesktop(document.querySelector(`#${titleObjectOfOpenedDescriptionDesktop.getAttribute("id").substring(0, 17)}description`));
+        expandDescriptionDesktop(document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6, 16)}description`));
         titleObjectOfOpenedDescriptionMobile = evt.currentTarget;
         titleObjectOfOpenedDescriptionDesktop = document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6)}`);
     } else {
@@ -98,8 +98,8 @@ function clickHappenedMobile(evt){
         } else {
             collapseDescriptionMobile(titleObjectOfOpenedDescriptionMobile.nextElementSibling);
             expandDescriptionMobile(evt.currentTarget.nextElementSibling);
-            expandDescriptionDesktop(document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6, 16)}description`));
             collapseDescriptionDesktop(document.querySelector(`#${titleObjectOfOpenedDescriptionDesktop.getAttribute("id").substring(0, 17)}description`));
+            expandDescriptionDesktop(document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6, 16)}description`));
             titleObjectOfOpenedDescriptionMobile = evt.currentTarget;
             titleObjectOfOpenedDescriptionDesktop = document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6)}`);
         }
