@@ -94,6 +94,8 @@ function closeDescriptionButtonClicked(){
 }
 
 function expandDescriptionDesktop(element) {
+    element.classList.add("expanding");
+    element.classList.remove("collapsing");
     const correspondingTitle = document.querySelector(`#${element.getAttribute("id").substring(0, 17)}title`);
     const titleH2 = correspondingTitle.querySelector("h2");
     const arrowLinesArray = correspondingTitle.querySelectorAll(".desktop-title-inner-arrow *");
@@ -110,30 +112,41 @@ function expandDescriptionDesktop(element) {
 
         line.style.backgroundColor = "#252422";
         setTimeout(() => {
-          line.style.transform = "";
-          line.classList.add("animate-arrow");
+            if (!element.classList.contains("collapsing")){
+                line.style.transform = "";
+                line.classList.add("animate-arrow");
+            }
         }, 150);
     });
 
     setTimeout(() => {
-        element.style.width = "100%";
-        element.getAttribute("id").includes("8") && element.classList.add("last");
-        setTimeout(() => {
-            element.style.top = 0;
-            element.style.height = "100%";
-            element.style.backgroundColor = "#ccc5b9";
-            element.classList.add("last");
+        if (!element.classList.contains("collapsing")){
+            element.style.width = "100%";
+            element.getAttribute("id").includes("8") && element.classList.add("last");
             setTimeout(() => {
-                element.style.overflowY = "overlay";
+                if (!element.classList.contains("collapsing")){
+                    element.style.top = 0;
+                    element.style.height = "100%";
+                    element.style.backgroundColor = "#ccc5b9";
+                    element.classList.add("last");
+                    setTimeout(() => {
+                        if (!element.classList.contains("collapsing")){
+                            element.style.overflowY = "overlay";
+                        }
+                    }, 400);
+                }
             }, 400);
-        }, 400);
+        }
     }, 400);
 }
 
 function collapseDescriptionDesktop(element) {
+    element.classList.remove("expanding");
+    element.classList.add("collapsing");
     const correspondingTitle = document.querySelector(`#${element.getAttribute("id").substring(0, 17)}title`);
     const titleH2 = correspondingTitle.querySelector("h2");
     const arrowLinesArray = correspondingTitle.querySelectorAll(".desktop-title-inner-arrow *");
+
 
     element.style.overflowY = "hidden";
 
@@ -142,26 +155,32 @@ function collapseDescriptionDesktop(element) {
     element.style.backgroundColor = "#eb5e28";
     element.getAttribute("id").includes("8") || element.classList.remove("last");
     setTimeout(() => {
-        element.style.width = 0;
-        element.classList.remove("last");
-        setTimeout(() => {            
-            titleH2.style.color = "";
-            correspondingTitle.style.backgroundColor = "";
-
-            arrowLinesArray.forEach(line => {
-                if (line.classList.contains("desktop-title-inner-line-1")){
-                    line.style.transform = "translate(0, calc(-50% - 150%)) rotate(90deg) translate(-50%, 0) scale(0.5, 1)";
-                } else {
-                    line.style.transform = "translate(0, calc(-50% + 150%)) rotate(-90deg) translate(-50%, 0) scale(0.5, 1)";
+        if (!element.classList.contains("expanding")){
+            element.style.width = 0;
+            element.classList.remove("last");
+            setTimeout(() => {
+                if (!element.classList.contains("expanding")){
+                    titleH2.style.color = "";
+                    correspondingTitle.style.backgroundColor = "";
+        
+                    arrowLinesArray.forEach(line => {
+                        if (line.classList.contains("desktop-title-inner-line-1")){
+                            line.style.transform = "translate(0, calc(-50% - 150%)) rotate(90deg) translate(-50%, 0) scale(0.5, 1)";
+                        } else {
+                            line.style.transform = "translate(0, calc(-50% + 150%)) rotate(-90deg) translate(-50%, 0) scale(0.5, 1)";
+                        }
+        
+                        line.style.backgroundColor = "";
+                        setTimeout(() => {
+                            if (!element.classList.contains("expanding")){
+                                line.style.transform = "";
+                                line.classList.remove("animate-arrow");
+                            }
+                        }, 150);
+                    });
                 }
-
-                line.style.backgroundColor = "";
-                setTimeout(() => {
-                line.style.transform = "";
-                line.classList.remove("animate-arrow");
-                }, 150);
-            });
-        }, 400);
+            }, 400);
+        }        
     }, 400);
 }
 
