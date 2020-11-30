@@ -1,10 +1,12 @@
 #contact-details h1{
     margin: 0;
+    font-size: 2.2rem;
 }
 
 #contact-details p{
     margin: 12px 0;
     line-height: 1.3;
+    font-size: 1.2rem;
 }
 
 main{
@@ -21,10 +23,11 @@ main{
 
 #contact-form h1{
     margin: 3vh 0 18px;
+    font-size: 2.2rem;
 }
 
 #contact-form label{
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 
 #email{

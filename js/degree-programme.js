@@ -147,6 +147,7 @@ function expandDescriptionDesktop(description) {
                     description.style.height = "100%";
                     description.style.backgroundColor = "#ccc5b9";
                     description.classList.add("last");
+                    description.firstElementChild.style.opacity = "100%";
                     setTimeout(() => {
                         if (!description.classList.contains("collapsing")){
                             description.style.overflowY = "overlay";
@@ -172,14 +173,15 @@ function collapseDescriptionDesktop(description) {
     description.style.height = "calc((100% - 7px) / 8)";
     description.style.backgroundColor = "#eb5e28";
     description.getAttribute("id").includes("8") || description.classList.remove("last");
+    description.firstElementChild.style.opacity = 0;
     setTimeout(() => {
         if (!description.classList.contains("expanding")){
             description.style.width = 0;
             description.classList.remove("last");
             setTimeout(() => {
                 if (!description.classList.contains("expanding")){
-                    titleH2.style.color = "";
-                    correspondingTitle.style.backgroundColor = "";
+                    titleH2.style.color = "#ccc5b9";
+                    correspondingTitle.style.backgroundColor = "#252422";
         
                     arrowLinesArray.forEach(line => {
                         if (line.classList.contains("desktop-title-inner-line-1")){
@@ -188,7 +190,7 @@ function collapseDescriptionDesktop(description) {
                             line.style.transform = "translate(0, calc(-50% + 150%)) rotate(-90deg) translate(-50%, 0) scale(0.5, 1)";
                         }
         
-                        line.style.backgroundColor = "";
+                        line.style.backgroundColor = "#ccc5b9";
                         setTimeout(() => {
                             if (!description.classList.contains("expanding")){
                                 line.style.transform = "";

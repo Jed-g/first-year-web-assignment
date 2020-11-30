@@ -8,6 +8,10 @@
   font-size: 2rem;
 }
 
+#intro{
+  font-size: 1.2rem;
+}
+
 #welcome{
 margin: 0 0 3vh;
 font-weight: 600;
@@ -28,4 +32,5 @@ font-size: 3rem;
 
 #about-me-paragraph{
   text-align: left;
+  font-size: 1.2rem;
 }
