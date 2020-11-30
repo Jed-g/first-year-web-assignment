@@ -1,14 +1,14 @@
-function expandDescriptionMobile(element) {
-    if (element.classList.contains("last")){
-        element.previousElementSibling.classList.remove("last");
+function expandDescriptionMobile(description) {
+    if (description.classList.contains("last")){
+        description.previousElementSibling.classList.remove("last");
     }
 
     requestAnimationFrame(() => {
-        const titleH2 = element.previousElementSibling.querySelector("h2");
-        const arrowLinesArray = element.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
+        const titleH2 = description.previousElementSibling.querySelector("h2");
+        const arrowLinesArray = description.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
     
         titleH2.style.color = "#252422";
-        element.previousElementSibling.style.backgroundColor = "#EB5E28";
+        description.previousElementSibling.style.backgroundColor = "#EB5E28";
     
         arrowLinesArray.forEach(line => {
             if (line.classList.contains("mobile-title-inner-line-1")){
@@ -23,23 +23,28 @@ function expandDescriptionMobile(element) {
             }, 150);
         });
     
-        element.style.height = `${element.scrollHeight}px`;
+        if (description.scrollHeight !== 0){
+            description.style.height = `${description.scrollHeight}px`;
     
-        element.addEventListener('transitionend', function() {
-            element.removeEventListener('transitionend', arguments.callee);
-            if (element.style.height != 0){
-                element.style.height = "auto";
-            }
-      });
+            description.addEventListener('transitionend', function() {
+                description.removeEventListener('transitionend', arguments.callee);
+                if (description.style.height != 0){
+                    description.style.height = "auto";
+                }
+          });
+        } else {
+            description.style.height = "auto"
+        }
+
     });    
 }
 
-function collapseDescriptionMobile(element) {
-    const titleH2 = element.previousElementSibling.querySelector("h2");
-    const arrowLinesArray = element.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
+function collapseDescriptionMobile(description) {
+    const titleH2 = description.previousElementSibling.querySelector("h2");
+    const arrowLinesArray = description.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
 
     titleH2.style.color = "";
-    element.previousElementSibling.style.backgroundColor = "";
+    description.previousElementSibling.style.backgroundColor = "";
 
     arrowLinesArray.forEach(line => {
         if (line.classList.contains("mobile-title-inner-line-1")){
@@ -57,25 +62,35 @@ function collapseDescriptionMobile(element) {
     // Wait for re-render between height: auto -> height: scrollHeight and height: scrollHeight -> height: 0
     // to avoid height: auto -> height: 0
     // height: auto is not an animatable property.
+    if (description.scrollHeight !== 0){
+        description.style.height = `${description.scrollHeight}px`;
 
-    element.style.height = `${element.scrollHeight}px`;
-
-    requestAnimationFrame(() => {
-        element.style.height = "";
-        element.addEventListener('transitionend', function() {
-            element.removeEventListener('transitionend', arguments.callee);
-            if (element.classList.contains("last")){
-                element.previousElementSibling.classList.add("last");
-            }
+        requestAnimationFrame(() => {
+            description.style.height = "";
+            description.addEventListener('transitionend', function() {
+                description.removeEventListener('transitionend', arguments.callee);
+                if (description.classList.contains("last")){
+                    description.previousElementSibling.classList.add("last");
+                }
+            });
         });
-    });
+    } else {
+        description.style.height = "";
+        if (description.classList.contains("last")){
+            description.previousElementSibling.classList.add("last");
+        }
+    }
+
 }
 
 function clickHappenedMobile(evt){
     if (isCollapsedMobile) {
         isCollapsedMobile = false;
         expandDescriptionMobile(evt.currentTarget.nextElementSibling);
+        expandDescriptionDesktop(document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6, 16)}description`));
+        collapseDescriptionDesktop(document.querySelector(`#${titleObjectOfOpenedDescriptionDesktop.getAttribute("id").substring(0, 17)}description`));
         titleObjectOfOpenedDescriptionMobile = evt.currentTarget;
+        titleObjectOfOpenedDescriptionDesktop = document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6)}`);
     } else {
         if (evt.currentTarget === titleObjectOfOpenedDescriptionMobile) {
             isCollapsedMobile = true;
@@ -83,7 +98,10 @@ function clickHappenedMobile(evt){
         } else {
             collapseDescriptionMobile(titleObjectOfOpenedDescriptionMobile.nextElementSibling);
             expandDescriptionMobile(evt.currentTarget.nextElementSibling);
+            expandDescriptionDesktop(document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6, 16)}description`));
+            collapseDescriptionDesktop(document.querySelector(`#${titleObjectOfOpenedDescriptionDesktop.getAttribute("id").substring(0, 17)}description`));
             titleObjectOfOpenedDescriptionMobile = evt.currentTarget;
+            titleObjectOfOpenedDescriptionDesktop = document.querySelector(`#desktop${evt.currentTarget.getAttribute("id").substring(6)}`);
         }
     }
 }
@@ -93,10 +111,10 @@ function closeDescriptionButtonClicked(){
     collapseDescriptionMobile(this.parentElement.parentElement);
 }
 
-function expandDescriptionDesktop(element) {
-    element.classList.add("expanding");
-    element.classList.remove("collapsing");
-    const correspondingTitle = document.querySelector(`#${element.getAttribute("id").substring(0, 17)}title`);
+function expandDescriptionDesktop(description) {
+    description.classList.add("expanding");
+    description.classList.remove("collapsing");
+    const correspondingTitle = document.querySelector(`#${description.getAttribute("id").substring(0, 17)}title`);
     const titleH2 = correspondingTitle.querySelector("h2");
     const arrowLinesArray = correspondingTitle.querySelectorAll(".desktop-title-inner-arrow *");
 
@@ -112,7 +130,7 @@ function expandDescriptionDesktop(element) {
 
         line.style.backgroundColor = "#252422";
         setTimeout(() => {
-            if (!element.classList.contains("collapsing")){
+            if (!description.classList.contains("collapsing")){
                 line.style.transform = "";
                 line.classList.add("animate-arrow");
             }
@@ -120,18 +138,18 @@ function expandDescriptionDesktop(element) {
     });
 
     setTimeout(() => {
-        if (!element.classList.contains("collapsing")){
-            element.style.width = "100%";
-            element.getAttribute("id").includes("8") && element.classList.add("last");
+        if (!description.classList.contains("collapsing")){
+            description.style.width = "100%";
+            description.getAttribute("id").includes("8") && description.classList.add("last");
             setTimeout(() => {
-                if (!element.classList.contains("collapsing")){
-                    element.style.top = 0;
-                    element.style.height = "100%";
-                    element.style.backgroundColor = "#ccc5b9";
-                    element.classList.add("last");
+                if (!description.classList.contains("collapsing")){
+                    description.style.top = 0;
+                    description.style.height = "100%";
+                    description.style.backgroundColor = "#ccc5b9";
+                    description.classList.add("last");
                     setTimeout(() => {
-                        if (!element.classList.contains("collapsing")){
-                            element.style.overflowY = "overlay";
+                        if (!description.classList.contains("collapsing")){
+                            description.style.overflowY = "overlay";
                         }
                     }, 400);
                 }
@@ -140,26 +158,26 @@ function expandDescriptionDesktop(element) {
     }, 400);
 }
 
-function collapseDescriptionDesktop(element) {
-    element.classList.remove("expanding");
-    element.classList.add("collapsing");
-    const correspondingTitle = document.querySelector(`#${element.getAttribute("id").substring(0, 17)}title`);
+function collapseDescriptionDesktop(description) {
+    description.classList.remove("expanding");
+    description.classList.add("collapsing");
+    const correspondingTitle = document.querySelector(`#${description.getAttribute("id").substring(0, 17)}title`);
     const titleH2 = correspondingTitle.querySelector("h2");
     const arrowLinesArray = correspondingTitle.querySelectorAll(".desktop-title-inner-arrow *");
 
 
-    element.style.overflowY = "hidden";
+    description.style.overflowY = "hidden";
 
-    element.style.top = "";
-    element.style.height = "calc((100% - 7px) / 8)";
-    element.style.backgroundColor = "#eb5e28";
-    element.getAttribute("id").includes("8") || element.classList.remove("last");
+    description.style.top = "";
+    description.style.height = "calc((100% - 7px) / 8)";
+    description.style.backgroundColor = "#eb5e28";
+    description.getAttribute("id").includes("8") || description.classList.remove("last");
     setTimeout(() => {
-        if (!element.classList.contains("expanding")){
-            element.style.width = 0;
-            element.classList.remove("last");
+        if (!description.classList.contains("expanding")){
+            description.style.width = 0;
+            description.classList.remove("last");
             setTimeout(() => {
-                if (!element.classList.contains("expanding")){
+                if (!description.classList.contains("expanding")){
                     titleH2.style.color = "";
                     correspondingTitle.style.backgroundColor = "";
         
@@ -172,7 +190,7 @@ function collapseDescriptionDesktop(element) {
         
                         line.style.backgroundColor = "";
                         setTimeout(() => {
-                            if (!element.classList.contains("expanding")){
+                            if (!description.classList.contains("expanding")){
                                 line.style.transform = "";
                                 line.classList.remove("animate-arrow");
                             }
@@ -188,7 +206,16 @@ function clickHappenedDesktop(evt){
     if (titleObjectOfOpenedDescriptionDesktop !== evt.currentTarget){
         expandDescriptionDesktop(document.querySelector(`#${evt.currentTarget.getAttribute("id").substring(0, 17)}description`));
         collapseDescriptionDesktop(document.querySelector(`#${titleObjectOfOpenedDescriptionDesktop.getAttribute("id").substring(0, 17)}description`));
+        expandDescriptionMobile(document.querySelector(`#mobile${evt.currentTarget.getAttribute("id").substring(7)}`).nextElementSibling);
+        if (isCollapsedMobile){
+            isCollapsedMobile = false;
+        } else {
+            collapseDescriptionMobile(titleObjectOfOpenedDescriptionMobile.nextElementSibling);
+        }
+
         titleObjectOfOpenedDescriptionDesktop = evt.currentTarget;
+        titleObjectOfOpenedDescriptionMobile = document.querySelector(`#mobile${evt.currentTarget.getAttribute("id").substring(7)}`);
+
     }
 }
 
