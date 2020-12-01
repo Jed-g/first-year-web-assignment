@@ -1,0 +1,35 @@
+h1, h2{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 3vh;
+}
+
+table{
+    display: inline-block;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 2px solid #403D39;
+    padding: 0.2rem 0.3rem;
+    font-size: min(3.4vw, 2.4vh);
+}
+
+th {
+    font-weight: 500;
+}
+
+p{
+    font-size: 0.7rem;
+    margin: 1vh 0 3vh;
+}
+
+h2{
+    font-size: 1.4rem;
+    margin: 0 0 2vh;
+}
+
+canvas{
+    width: 100%;
+}
