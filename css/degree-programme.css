@@ -128,6 +128,7 @@
 #desktop-left{
   /* Golden Ratio */
   width: 38%;
+  overflow: hidden;
 }
 
 #desktop-right{
@@ -251,7 +252,7 @@
 }
 
 .desktop-description-inner h1{
-  margin: 2vh 0;
+  margin: 3vh 0 2vh;
   font-size: 1.4rem;
 }
 
@@ -296,5 +297,48 @@
 
   #desktop{
     display: flex;
-  }  
+  }
+}
+
+@media screen and (min-width: 1024px) and (orientation:landscape){
+  main{
+    padding: 12.5vh 10vw 0;
+  }
+
+  #sections-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 4vh;
+  }
+
+  #overview-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 36%;
+    margin-right: 2%;
+    background-color: #ccc5b9;
+    border-radius: 25px 0 25px 0;
+    padding: 0 3vw;
+  }
+
+  #course{
+    font-size: 1.6rem;
+    margin: 4vh 0 5vh;
+  }
+
+  #overview{
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  #module-section{
+    width: 60%;
+    margin-left: 2%;
+  }
+
+  .desktop-description-inner{
+    margin: 0 2vw;
+  }
 }

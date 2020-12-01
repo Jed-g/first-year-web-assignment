@@ -357,7 +357,7 @@ footer {
   }
 
   main{
-    padding: 12.5vh 12vw 0;
+    padding: 13vh 12vw 0;
   }
 
   .push-menu-button-top#menu-icon{
@@ -417,6 +417,12 @@ footer {
   }
 
   main{
-    padding: 12.5vh 30vw 0;
+    padding: 13vh 30vw 0;
+  }
+}
+
+@media screen and (min-width: 1024px) and (orientation: portrait){
+  main{
+    padding: 15vh 25vw 0;
   }
 }
