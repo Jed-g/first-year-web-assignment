@@ -30,6 +30,6 @@ h2{
     margin: 0 0 2vh;
 }
 
-canvas{
+#canvas-container{
     width: 100%;
 }
