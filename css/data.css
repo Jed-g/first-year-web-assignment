@@ -53,6 +53,7 @@ h2{
 }
 
 svg{
+    border-radius: 5px;
     width: 6vw;
     height: 6vw;
     cursor: pointer;

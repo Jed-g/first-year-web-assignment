@@ -45,7 +45,7 @@ canvas.style.width = `${canvas.width/upscaleRes}px`;
 canvas.style.height = `${canvas.height/upscaleRes}px`;
 const c = canvas.getContext("2d");
 
-let chartType = 2;
+let chartType = 1;
 document.querySelector("#chart-1").style.boxShadow = "0 0 3px 2px #EB5E28";
 
 const colorSchemeButton1 = document.querySelector("#scheme-1");
@@ -319,6 +319,7 @@ const barChart = {
     barAmount: 28,
     originX: canvas.width/12,
     originY: 11 * canvas.height/12,
+    opacityOnHover: 0.5,
     open: () => {
         if (barChart.axisYHeight < barChart.axisYMaxHeight){
             barChart.axisXWidth += barChart.openingSpeed * barChart.axisXMaxWidth;
@@ -342,10 +343,8 @@ const barChart = {
             barChart.legendOpacity = 1;
         }
 
-        drawBars();
-
         drawXYAxes();
-
+        drawBars();
         drawLegend(barChart.legendOpacity);
 
         c.font = `${canvas.height/12}px sans-serif`;
@@ -357,10 +356,8 @@ const barChart = {
         c.fillText(barChart.title.substring(30), canvas.width/2, 3 * canvas.height/22);
     },
     update: () => {
-        drawBars();
-
         drawXYAxes();
-
+        drawBars();
         drawLegend();
 
         c.font = `${canvas.height/12}px sans-serif`;
@@ -440,7 +437,7 @@ function drawExtraInfoPieChart(areaInFocus = null){
         
         c.fillRect(extraInfoRectangle.x, extraInfoRectangle.y, rectangleWidth, rectangleHeight);
 
-        c.fillStyle = "#FFFCF2";
+        c.fillStyle = "#";
         c.fillText(`${Math.round(pieChart.sleepingPercentageOfWeek * 10000) / 100}%`,
          extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
         c.fillText(`${sleepingTimeWeek}H`,
@@ -530,6 +527,7 @@ function drawXYAxes(){
 function drawBars(){
     const maxWidth = barChart.axisXMaxWidth - 3 * barChart.axisThickness / 2;
     const barThickness = maxWidth / barChart.barAmount;
+    const barSeperation = barThickness / 8;
 
     c.font = `500 ${canvas.height/24}px sans-serif`;
     c.font = `500 ${canvas.height/24}px Poppins`;
@@ -543,30 +541,63 @@ function drawBars(){
     }
 
     for (let i = 0; i < barChart.barAmount; i++){
+        const bar = new Path2D();
+
         if (i % 4 === 1){
-            const heightOfActivity = (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][0] / barChart.barChartMaxValue
-             * barChart.axisYHeight/barChart.axisYMaxHeight;
             c.fillStyle = `rgb(${colorSchemeRGB.sleeping})`;
-            c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
-                barChart.originY - barChart.axisThickness/2 - heightOfActivity,barThickness, heightOfActivity);
         } else if (i % 4 === 2){
-            const heightOfActivity = (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][1] / barChart.barChartMaxValue
-             * barChart.axisYHeight/barChart.axisYMaxHeight;
             c.fillStyle = `rgb(${colorSchemeRGB.exercising})`;
-            c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
-                barChart.originY - barChart.axisThickness/2 - heightOfActivity,barThickness, heightOfActivity);
         } else if (i % 4 === 3){
-            const heightOfActivity = (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][2] / barChart.barChartMaxValue
-             * barChart.axisYHeight/barChart.axisYMaxHeight;
             c.fillStyle = `rgb(${colorSchemeRGB.relaxing})`;
-            c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
-                 barChart.originY - barChart.axisThickness/2 - heightOfActivity,barThickness, heightOfActivity);
         }
+
+        const heightOfActivity = i % 4 >= 0 ? (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][i % 4 - 1] / barChart.barChartMaxValue
+        * barChart.axisYHeight/barChart.axisYMaxHeight : 0;
+        bar.rect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
+            barChart.originY - barChart.axisThickness/2 - heightOfActivity, barThickness - barSeperation, heightOfActivity);
+        c.fill(bar);
+
+        barChart.openingAnimationComplete && c.isPointInPath(bar, cursor.x, cursor.y) && drawExtraInfoBarChart(i, barThickness, barSeperation);
     }
 }
 
+function drawExtraInfoBarChart(i, barThickness, barSeperation){
+    const rectangleWidth = canvas.width/6;
+    const rectangleHeight = canvas.height/16;
+    c.fillStyle = "#403D39";
+    c.textAlign = "center";
+    c.textBaseline = "middle";
+    c.font = `${2 * rectangleHeight/3}px sans-serif`;
+    c.font = `${2 * rectangleHeight/3}px Poppins`;
+
+    const extraInfoRectangle = {
+        x: barChart.originX + barChart.axisThickness/2 + barThickness * (i + 1/2) - rectangleWidth/2,
+        y: barChart.originY + canvas.height/96
+    }
+
+    c.fillRect(extraInfoRectangle.x, extraInfoRectangle.y, rectangleWidth, rectangleHeight);
+
+    c.fillStyle = "#FFFCF2";
+    c.fillText(`${days[Math.floor(i/4)][i % 4 - 1]}H / ${Math.round(days[Math.floor(i/4)][i % 4 - 1]
+         / days[Math.floor(i/4)].reduce((a, b) => a + b) * 10000)/100}%`, extraInfoRectangle.x + rectangleWidth/2,
+          extraInfoRectangle.y + rectangleHeight/2);
+
+    if (i % 4 === 1){
+        c.fillStyle = `rgba(${colorSchemeRGB.sleeping}, ${barChart.opacityOnHover})`;
+    } else if (i % 4 === 2){
+        c.fillStyle = `rgba(${colorSchemeRGB.exercising}, ${barChart.opacityOnHover})`;
+    } else if (i % 4 === 3){
+        c.fillStyle = `rgba(${colorSchemeRGB.relaxing}, ${barChart.opacityOnHover})`;
+    }
+
+    const heightOfActivity = i % 4 >= 0 ? (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][i % 4 - 1] / barChart.barChartMaxValue
+    * barChart.axisYHeight/barChart.axisYMaxHeight : 0;
+    c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i - barSeperation,
+        barChart.originY - barChart.axisThickness/2 - heightOfActivity - barSeperation, barThickness + barSeperation, heightOfActivity + barSeperation);
+}
+
 function drawLegend(opacity = 1){
-    c.fillStyle = `rgbA(64, 61, 57, ${opacity})`;
+    c.fillStyle = `rgba(64, 61, 57, ${opacity})`;
     c.textAlign = "start";
     c.textBaseline = "middle";
     c.font = `${canvas.height/24}px sans-serif`;
@@ -579,13 +610,13 @@ function drawLegend(opacity = 1){
     c.fillText("Exercising", 77 * canvas.width/96 + offsetX, canvas.height/3 + offsetY);
     c.fillText("Relaxing", 77 * canvas.width/96 + offsetX, 19 * canvas.height/48 + offsetY);
 
-    c.fillStyle = `rgbA(${colorSchemeRGB.sleeping}, ${opacity})`;
+    c.fillStyle = `rgba(${colorSchemeRGB.sleeping}, ${opacity})`;
     c.fillRect(3 * canvas.width/4 + offsetX, canvas.height/4 + offsetY, canvas.width/24, canvas.height/24);
 
-    c.fillStyle = `rgbA(${colorSchemeRGB.exercising}, ${opacity})`;
+    c.fillStyle = `rgba(${colorSchemeRGB.exercising}, ${opacity})`;
     c.fillRect(3 * canvas.width/4 + offsetX, 15 * canvas.height / 48 + offsetY, canvas.width/24, canvas.height/24);
 
-    c.fillStyle = `rgbA(${colorSchemeRGB.relaxing}, ${opacity})`;
+    c.fillStyle = `rgba(${colorSchemeRGB.relaxing}, ${opacity})`;
     c.fillRect(3 * canvas.width/4 + offsetX, 9 * canvas.height / 24 + offsetY, canvas.width/24, canvas.height/24);
 }
 
