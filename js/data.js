@@ -47,9 +47,14 @@ const c = canvas.getContext("2d");
 
 let chartType = 1;
 document.querySelector("#chart-1").style.boxShadow = "0 0 3px 2px #EB5E28";
-document.querySelector("#scheme-1").style.boxShadow = "0 0 3px 2px #EB5E28";
 
-const colorSchemeRGB = {sleeping: "255, 0, 0", exercising: "0, 255, 0", relaxing: "0, 0, 255"};
+const colorSchemeButton1 = document.querySelector("#scheme-1");
+colorSchemeButton1.style.boxShadow = "0 0 3px 2px #EB5E28";
+
+const colorSchemeRGB = {sleeping: window.getComputedStyle(colorSchemeButton1.children[0]).backgroundColor.substring(4, 13),
+     exercising: window.getComputedStyle(colorSchemeButton1.children[1]).backgroundColor.substring(4, 13),
+      relaxing: window.getComputedStyle(colorSchemeButton1.children[2]).backgroundColor.substring(4, 13)
+};
 
 const cursor = {
     x: undefined,
@@ -62,15 +67,24 @@ const arrayOfChartTypeButtons = document.querySelectorAll("#chart-type svg");
 window.addEventListener("resize", () => {
     cursor.x *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
     cursor.y *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+
+    pieChart.radius *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    pieChart.centerX *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    pieChart.centerY *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+
+    barChart.originX *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    barChart.originY *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    barChart.axisYHeight *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    barChart.axisXWidth *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    barChart.axisYMaxHeight *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    barChart.axisXMaxWidth *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    barChart.axisThickness *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+
     canvas.width = upscaleRes * canvasContainer.offsetWidth;
     canvas.height = canvas.width * 0.62;
 
     canvas.style.width = `${canvas.width/upscaleRes}px`;
     canvas.style.height = `${canvas.height/upscaleRes}px`;
-
-    pieChart.radius = canvas.height / 3;
-    pieChart.centerX = canvas.width / 2;
-    pieChart.centerY = 5 * canvas.height / 8;
 });
 
 canvas.addEventListener("mousemove", evt => {
@@ -101,7 +115,7 @@ arrayOfColorSchemeButtons.forEach(button => button.addEventListener("click", () 
 arrayOfChartTypeButtons.forEach(button => button.addEventListener("click", () => {
     arrayOfChartTypeButtons.forEach(button => button.style.boxShadow = "");
     button.style.boxShadow = "0 0 3px 2px #EB5E28";
-    chartType = button.getAttribute("id").slice(-1);
+    chartType = parseInt(button.getAttribute("id").slice(-1));
 }));
 
 const sleepingTimeWeek = data.sleeping.timeSpentDuringEachDayInHours.reduce((a, b) => a + b);
@@ -182,8 +196,8 @@ const pieChart = {
         drawLinesBetweenActivityPartsPieChart();
         drawLegend(pieChart.legendOpacity);
 
-        c.font = `normal ${canvas.height/12}px sans-serif`;
-        c.font = `normal ${canvas.height/12}px Poppins`;
+        c.font = `${canvas.height/12}px sans-serif`;
+        c.font = `${canvas.height/12}px Poppins`;
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.fillStyle = `rgba(37, 36, 34, ${pieChart.titleOpacity})`;
@@ -254,10 +268,10 @@ const pieChart = {
 
         drawLinesBetweenActivityPartsPieChart(areaInFocus);
         drawLegend();
-        drawExtraInfo(areaInFocus);
+        drawExtraInfoPieChart(areaInFocus);
 
-        c.font = `normal ${canvas.height/12}px sans-serif`;
-        c.font = `normal ${canvas.height/12}px Poppins`;
+        c.font = `${canvas.height/12}px sans-serif`;
+        c.font = `${canvas.height/12}px Poppins`;
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.fillStyle = "rgb(37, 36, 34)";
@@ -275,6 +289,98 @@ const pieChart = {
         pieChart.legendOpacity = 0;
     }
 };
+
+const days = [];
+
+for (let i = 0; i < 7; i++){
+    days.push([data.sleeping.timeSpentDuringEachDayInHours[i],
+         data.exercising.timeSpentDuringEachDayInHours[i],
+          data.relaxing.timeSpentDuringEachDayInHours[i]]);
+}
+
+const barChartHeightInHours = days.reduce((a, b) => Math.max(a, Math.max(...b)), 0);
+
+const barChart = {
+    title: "Time spent doing each activity in a given day:",
+    titleOpacity: 0,
+    titleOpacityChangeRate: 0.02,
+    legendOpacity: 0,
+    legendOpacityChangeRate: 0.02,
+    openingAnimationComplete: false,
+    barChartMaxValue: barChartHeightInHours,
+    daysOfWeekNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    axisYHeight: 0,
+    axisXWidth: 0,
+    axisYMaxHeight: 5 * canvas.height / 8,
+    axisXMaxWidth: 3 * canvas.width / 4,
+    axisThickness: canvas.width / 128,
+    openingSpeed: 0.02,
+    openingSpeedChangeRate: 0.0002,
+    barAmount: 28,
+    originX: canvas.width/12,
+    originY: 23 * canvas.height/24,
+    open: () => {
+        if (barChart.axisYHeight < barChart.axisYMaxHeight){
+            barChart.axisXWidth += barChart.openingSpeed * barChart.axisXMaxWidth;
+            barChart.axisYHeight += barChart.openingSpeed * barChart.axisYMaxHeight;
+            barChart.openingSpeed -= barChart.openingSpeedChangeRate;
+        } else {
+            barChart.openingAnimationComplete = true;
+            barChart.axisXWidth = barChart.axisXMaxWidth;
+            barChart.axisYHeight = barChart.axisYMaxHeight;
+        }
+
+        if (barChart.titleOpacity < 1) {
+            barChart.titleOpacity += barChart.titleOpacityChangeRate;
+        } else {
+            barChart.titleOpacity = 1;
+        }
+
+        if (barChart.legendOpacity < 1) {
+            barChart.legendOpacity += barChart.legendOpacityChangeRate;
+        } else {
+            barChart.legendOpacity = 1;
+        }
+
+        drawBars();
+
+        drawXYAxes();
+
+        drawLegend(barChart.legendOpacity);
+
+        c.font = `${canvas.height/12}px sans-serif`;
+        c.font = `${canvas.height/12}px Poppins`;
+        c.textAlign = "center";
+        c.textBaseline = "middle";
+        c.fillStyle = `rgba(37, 36, 34, ${barChart.titleOpacity})`;
+        c.fillText(barChart.title.substring(0, 30), canvas.width/2, canvas.height/22);
+        c.fillText(barChart.title.substring(31), canvas.width/2, 3 * canvas.height/22);
+    },
+    update: () => {
+        drawBars();
+
+        drawXYAxes();
+
+        drawLegend();
+
+        c.font = `${canvas.height/12}px sans-serif`;
+        c.font = `${canvas.height/12}px Poppins`;
+        c.textAlign = "center";
+        c.textBaseline = "middle";
+        c.fillStyle = `rgba(37, 36, 34, ${barChart.titleOpacity})`;
+        c.fillText(barChart.title.substring(0, 30), canvas.width/2, canvas.height/22);
+        c.fillText(barChart.title.substring(31), canvas.width/2, 3 * canvas.height/22);
+    },
+    close: () => {
+        barChart.openingAnimationComplete = false;
+        barChart.openingSpeed = 0.02;
+        barChart.openingSpeedChangeRate = 0.0002;
+        barChart.titleOpacity = 0;
+        barChart.legendOpacity = 0;
+        barChart.axisYHeight = 0;
+        barChart.axisXWidth = 0;
+    }
+}
 
 function drawLinesBetweenActivityPartsPieChart(onFocus = null){
     c.lineWidth = 2;
@@ -317,14 +423,14 @@ function drawLinesBetweenActivityPartsPieChart(onFocus = null){
     c.stroke();
 }
 
-function drawExtraInfo(areaInFocus = null){
+function drawExtraInfoPieChart(areaInFocus = null){
     const rectangleWidth = canvas.width/6;
     const rectangleHeight = canvas.height/6;
     c.fillStyle = "#403D39";
     c.textAlign = "start";
     c.textBaseline = "middle";
-    c.font = `normal ${rectangleHeight/3}px sans-serif`;
-    c.font = `normal ${rectangleHeight/3}px Poppins`;
+    c.font = `${rectangleHeight/3}px sans-serif`;
+    c.font = `${rectangleHeight/3}px Poppins`;
 
     if (areaInFocus === 1){
         const extraInfoRectangle = {
@@ -375,25 +481,101 @@ function drawExtraInfo(areaInFocus = null){
     }
 }
 
+function drawXYAxes(){
+    c.beginPath();
+    c.strokeStyle = "#252422";
+    c.lineWidth = canvas.width / 128;
+    c.lineCap = "square";
+
+    c.moveTo(barChart.originX, barChart.originY);
+    c.lineTo(barChart.originX, barChart.originY - barChart.axisYHeight);
+
+    c.moveTo(barChart.originX, barChart.originY);
+    c.lineTo(barChart.originX + barChart.axisXWidth, barChart.originY);
+
+    c.moveTo(barChart.originX, barChart.originY);
+    c.lineTo(barChart.originX - canvas.width / 128, barChart.originY);
+    c.moveTo(barChart.originX, barChart.originY - barChart.axisYHeight / 4);
+    c.lineTo(barChart.originX - canvas.width / 128, barChart.originY - barChart.axisYHeight / 4);
+    c.moveTo(barChart.originX, barChart.originY - barChart.axisYHeight / 2);
+    c.lineTo(barChart.originX - canvas.width / 128, barChart.originY - barChart.axisYHeight / 2);
+    c.moveTo(barChart.originX, barChart.originY - 3 * barChart.axisYHeight / 4);
+    c.lineTo(barChart.originX - canvas.width / 128, barChart.originY - 3 * barChart.axisYHeight / 4);
+    c.moveTo(barChart.originX, barChart.originY - barChart.axisYHeight);
+    c.lineTo(barChart.originX - canvas.width / 128, barChart.originY - barChart.axisYHeight);
+
+    c.stroke();
+
+    const intervals = [0, barChart.barChartMaxValue / 4, barChart.barChartMaxValue / 2,
+         3 * barChart.barChartMaxValue / 4, barChart.barChartMaxValue];
+
+    c.font = `500 ${canvas.height/24}px sans-serif`;
+    c.font = `500 ${canvas.height/24}px Poppins`;
+    c.textAlign = "end";
+    c.textBaseline = "middle";
+    c.fillStyle = `rgba(37, 36, 34, ${barChart.titleOpacity})`;
+    c.fillText(`${intervals[0]}`, barChart.originX - canvas.width / 48, barChart.originY);
+    c.fillText(`${intervals[1]}`, barChart.originX - canvas.width / 48, barChart.originY - barChart.axisYHeight / 4);
+    c.fillText(`${intervals[2]}`, barChart.originX - canvas.width / 48, barChart.originY - barChart.axisYHeight / 2);
+    c.fillText(`${intervals[3]}`, barChart.originX - canvas.width / 48, barChart.originY - 3 * barChart.axisYHeight / 4);
+    c.fillText(`${intervals[4]}`, barChart.originX - canvas.width / 48, barChart.originY - barChart.axisYHeight);
+
+    c.font = `600 ${canvas.height/24}px sans-serif`;
+    c.font = `600 ${canvas.height/24}px Poppins`;
+    c.textAlign = "center";
+    c.textBaseline = "bottom";
+    c.fillText("(H)", barChart.originX, barChart.originY - barChart.axisYHeight - canvas.height / 24);
+}
+
+function drawBars(){
+    const maxWidth = barChart.axisXMaxWidth - 3 * barChart.axisThickness / 2;
+    const barThickness = maxWidth / barChart.barAmount;
+
+    for (let i = 0; i < barChart.barAmount; i++){
+        if (i % 4 === 1){
+            const heightOfActivity = (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][0] / barChart.barChartMaxValue
+             * barChart.axisYHeight/barChart.axisYMaxHeight;
+            c.fillStyle = `rgb(${colorSchemeRGB.sleeping})`;
+            c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
+                barChart.originY - barChart.axisThickness/2 - heightOfActivity,barThickness, heightOfActivity);
+        } else if (i % 4 === 2){
+            const heightOfActivity = (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][1] / barChart.barChartMaxValue
+             * barChart.axisYHeight/barChart.axisYMaxHeight;
+            c.fillStyle = `rgb(${colorSchemeRGB.exercising})`;
+            c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
+                barChart.originY - barChart.axisThickness/2 - heightOfActivity,barThickness, heightOfActivity);
+        } else if (i % 4 === 3){
+            const heightOfActivity = (barChart.axisYMaxHeight - barChart.axisThickness/2) * days[Math.floor(i/4)][2] / barChart.barChartMaxValue
+             * barChart.axisYHeight/barChart.axisYMaxHeight;
+            c.fillStyle = `rgb(${colorSchemeRGB.relaxing})`;
+            c.fillRect(barChart.originX + barChart.axisThickness/2 + barThickness * i,
+                 barChart.originY - barChart.axisThickness/2 - heightOfActivity,barThickness, heightOfActivity);
+        }
+    }
+}
+
 function drawLegend(opacity = 1){
     c.fillStyle = `rgbA(64, 61, 57, ${opacity})`;
     c.textAlign = "start";
     c.textBaseline = "middle";
-    c.font = `normal ${canvas.height/24}px sans-serif`;
-    c.font = `normal ${canvas.height/24}px Poppins`;
+    c.font = `${canvas.height/24}px sans-serif`;
+    c.font = `${canvas.height/24}px Poppins`;
 
-    c.fillText("Sleeping", 77 * canvas.width/96, 13 * canvas.height/48);
-    c.fillText("Exercising", 77 * canvas.width/96, canvas.height/3);
-    c.fillText("Relaxing", 77 * canvas.width/96, 19 * canvas.height/48);
+    const offsetX = canvas.width / 18;
+    const offsetY = 0;
+
+    c.fillText("Sleeping", 77 * canvas.width/96 + offsetX, 13 * canvas.height/48 + offsetY);
+    c.fillText("Exercising", 77 * canvas.width/96 + offsetX, canvas.height/3 + offsetY);
+    c.fillText("Relaxing", 77 * canvas.width/96 + offsetX, 19 * canvas.height/48 + offsetY);
 
     c.fillStyle = `rgbA(${colorSchemeRGB.sleeping}, ${opacity})`;
-    c.fillRect(3 * canvas.width/4, canvas.height/4, canvas.width/24, canvas.height/24);
+    c.fillRect(3 * canvas.width/4 + offsetX, canvas.height/4 + offsetY, canvas.width/24, canvas.height/24);
 
     c.fillStyle = `rgbA(${colorSchemeRGB.exercising}, ${opacity})`;
-    c.fillRect(3 * canvas.width/4, 15 * canvas.height / 48, canvas.width/24, canvas.height/24);
+    c.fillRect(3 * canvas.width/4 + offsetX, 15 * canvas.height / 48 + offsetY, canvas.width/24, canvas.height/24);
 
     c.fillStyle = `rgbA(${colorSchemeRGB.relaxing}, ${opacity})`;
-    c.fillRect(3 * canvas.width/4, 9 * canvas.height / 24, canvas.width/24, canvas.height/24);
+    c.fillRect(3 * canvas.width/4 + offsetX, 9 * canvas.height / 24 + offsetY, canvas.width/24, canvas.height/24);
 }
 
 function main() {
@@ -401,6 +583,14 @@ function main() {
     if (chartType === 1){
         pieChart.openingAnimationComplete || pieChart.open();
         pieChart.openingAnimationComplete && pieChart.update();
+        barChart.close();
+    } else if (chartType === 2) {
+        barChart.openingAnimationComplete || barChart.open();
+        barChart.openingAnimationComplete && barChart.update();
+        pieChart.close();
+    } else if (chartType === 3) {
+        pieChart.close();
+        barChart.close();
     }
 
     requestAnimationFrame(main);
