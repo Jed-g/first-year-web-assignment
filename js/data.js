@@ -45,7 +45,7 @@ canvas.style.width = `${canvas.width/upscaleRes}px`;
 canvas.style.height = `${canvas.height/upscaleRes}px`;
 const c = canvas.getContext("2d");
 
-let chartType = 1;
+let chartType = 2;
 document.querySelector("#chart-1").style.boxShadow = "0 0 3px 2px #EB5E28";
 
 const colorSchemeButton1 = document.querySelector("#scheme-1");
@@ -65,8 +65,8 @@ const arrayOfColorSchemeButtons = document.querySelectorAll(".color-scheme-inner
 const arrayOfChartTypeButtons = document.querySelectorAll("#chart-type svg");
 
 window.addEventListener("resize", () => {
-    cursor.x *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
-    cursor.y *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    cursor.x = undefined;
+    cursor.y = undefined;
 
     pieChart.radius *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
     pieChart.centerX *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
@@ -124,7 +124,7 @@ const relaxingTimeWeek = data.relaxing.timeSpentDuringEachDayInHours.reduce((a, 
 const totalTimeSpentOnActivities = sleepingTimeWeek + exercisingTimeWeek + relaxingTimeWeek;
 
 const pieChart = {
-    title: "Total time spent doing each activity during the whole week:",
+    title: "Total time spent doing each activity during an average whole week:",
     titleOpacity: 0,
     titleOpacityChangeRate: 0.02,
     legendOpacity: 0,
@@ -301,14 +301,14 @@ for (let i = 0; i < 7; i++){
 const barChartHeightInHours = days.reduce((a, b) => Math.max(a, Math.max(...b)), 0);
 
 const barChart = {
-    title: "Time spent doing each activity in a given day:",
+    title: "Typical time spent doing each activity on a given day:",
     titleOpacity: 0,
     titleOpacityChangeRate: 0.02,
     legendOpacity: 0,
     legendOpacityChangeRate: 0.02,
     openingAnimationComplete: false,
     barChartMaxValue: barChartHeightInHours,
-    daysOfWeekNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    daysOfWeekNames: ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"],
     axisYHeight: 0,
     axisXWidth: 0,
     axisYMaxHeight: 5 * canvas.height / 8,
@@ -318,7 +318,7 @@ const barChart = {
     openingSpeedChangeRate: 0.0002,
     barAmount: 28,
     originX: canvas.width/12,
-    originY: 23 * canvas.height/24,
+    originY: 11 * canvas.height/12,
     open: () => {
         if (barChart.axisYHeight < barChart.axisYMaxHeight){
             barChart.axisXWidth += barChart.openingSpeed * barChart.axisXMaxWidth;
@@ -353,8 +353,8 @@ const barChart = {
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.fillStyle = `rgba(37, 36, 34, ${barChart.titleOpacity})`;
-        c.fillText(barChart.title.substring(0, 30), canvas.width/2, canvas.height/22);
-        c.fillText(barChart.title.substring(31), canvas.width/2, 3 * canvas.height/22);
+        c.fillText(barChart.title.substring(0, 29), canvas.width/2, canvas.height/22);
+        c.fillText(barChart.title.substring(30), canvas.width/2, 3 * canvas.height/22);
     },
     update: () => {
         drawBars();
@@ -368,8 +368,8 @@ const barChart = {
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.fillStyle = `rgba(37, 36, 34, ${barChart.titleOpacity})`;
-        c.fillText(barChart.title.substring(0, 30), canvas.width/2, canvas.height/22);
-        c.fillText(barChart.title.substring(31), canvas.width/2, 3 * canvas.height/22);
+        c.fillText(barChart.title.substring(0, 29), canvas.width/2, canvas.height/22);
+        c.fillText(barChart.title.substring(30), canvas.width/2, 3 * canvas.height/22);
     },
     close: () => {
         barChart.openingAnimationComplete = false;
@@ -484,7 +484,7 @@ function drawExtraInfoPieChart(areaInFocus = null){
 function drawXYAxes(){
     c.beginPath();
     c.strokeStyle = "#252422";
-    c.lineWidth = canvas.width / 128;
+    c.lineWidth = barChart.axisThickness;
     c.lineCap = "square";
 
     c.moveTo(barChart.originX, barChart.originY);
@@ -530,6 +530,17 @@ function drawXYAxes(){
 function drawBars(){
     const maxWidth = barChart.axisXMaxWidth - 3 * barChart.axisThickness / 2;
     const barThickness = maxWidth / barChart.barAmount;
+
+    c.font = `500 ${canvas.height/24}px sans-serif`;
+    c.font = `500 ${canvas.height/24}px Poppins`;
+    c.textAlign = "center";
+    c.textBaseline = "top";
+    c.fillStyle = `rgba(37, 36, 34, ${barChart.titleOpacity})`;
+
+    for (let i = 0; i < 7; i++){
+        c.fillText(barChart.daysOfWeekNames[i], barChart.originX + barChart.axisThickness/2 + barThickness * i * 4 + 5 * barThickness/2,
+            barChart.originY + canvas.height/48);
+    }
 
     for (let i = 0; i < barChart.barAmount; i++){
         if (i % 4 === 1){
