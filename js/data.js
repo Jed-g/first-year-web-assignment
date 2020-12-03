@@ -60,10 +60,14 @@ const arrayOfColorSchemeButtons = document.querySelectorAll(".color-scheme-inner
 const arrayOfChartTypeButtons = document.querySelectorAll("#chart-type svg");
 
 window.addEventListener("resize", () => {
-    cursor.x *= canvasContainer.offsetWidth/canvas.width;
-    cursor.y *= canvasContainer.offsetWidth/canvas.width;
-    canvas.width = canvasContainer.offsetWidth;
+    cursor.x *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    cursor.y *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    canvas.width = upscaleRes * canvasContainer.offsetWidth;
     canvas.height = canvas.width * 0.62;
+
+    canvas.style.width = `${canvas.width/upscaleRes}px`;
+    canvas.style.height = `${canvas.height/upscaleRes}px`;
+
     pieChart.radius = canvas.height / 3;
     pieChart.centerX = canvas.width / 2;
     pieChart.centerY = 5 * canvas.height / 8;
