@@ -21,3 +21,5 @@ web_technology.jpg - https://unsplash.com/license
 algorithms_data.jpg - https://pixabay.com/service/license/
 engineering_week.jpg - https://unsplash.com/license
 cognitive_psychology.jpg - https://www.pexels.com/license/
+
+icons on canvas page - https://tablericons.com/

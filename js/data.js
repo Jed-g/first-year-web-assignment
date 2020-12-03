@@ -37,11 +37,17 @@ const canvasContainer = document.querySelector("#canvas-container");
 
 const canvas = document.querySelector("#canvas");
 
-canvas.width = canvasContainer.offsetWidth;
+const upscaleRes = 2;
+
+canvas.width = upscaleRes * canvasContainer.offsetWidth;
 canvas.height = canvas.width * 0.62;
+canvas.style.width = `${canvas.width/upscaleRes}px`;
+canvas.style.height = `${canvas.height/upscaleRes}px`;
 const c = canvas.getContext("2d");
 
 let chartType = 1;
+document.querySelector("#chart-1").style.boxShadow = "0 0 3px 2px #EB5E28";
+document.querySelector("#scheme-1").style.boxShadow = "0 0 3px 2px #EB5E28";
 
 const colorSchemeRGB = {sleeping: "255, 0, 0", exercising: "0, 255, 0", relaxing: "0, 0, 255"};
 
@@ -49,6 +55,9 @@ const cursor = {
     x: undefined,
     y: undefined
 };
+
+const arrayOfColorSchemeButtons = document.querySelectorAll(".color-scheme-inner");
+const arrayOfChartTypeButtons = document.querySelectorAll("#chart-type svg");
 
 window.addEventListener("resize", () => {
     cursor.x *= canvasContainer.offsetWidth/canvas.width;
@@ -61,13 +70,13 @@ window.addEventListener("resize", () => {
 });
 
 canvas.addEventListener("mousemove", evt => {
-    cursor.x = evt.offsetX;
-    cursor.y = evt.offsetY;
+    cursor.x = evt.offsetX * upscaleRes;
+    cursor.y = evt.offsetY * upscaleRes;
 });
 
 canvas.addEventListener("click", evt => {
-    cursor.x = evt.offsetX;
-    cursor.y = evt.offsetY;
+    cursor.x = evt.offsetX * upscaleRes;
+    cursor.y = evt.offsetY * upscaleRes;
 });
 
 document.addEventListener("click", evt => {
@@ -76,6 +85,20 @@ document.addEventListener("click", evt => {
         cursor.y = undefined;
     }
 });
+
+arrayOfColorSchemeButtons.forEach(button => button.addEventListener("click", () => {
+    arrayOfColorSchemeButtons.forEach(button => button.style.boxShadow = "");
+    button.style.boxShadow = "0 0 3px 2px #EB5E28";
+    colorSchemeRGB.sleeping = window.getComputedStyle(button.children[0]).backgroundColor.substring(4, 13);
+    colorSchemeRGB.exercising = window.getComputedStyle(button.children[1]).backgroundColor.substring(4, 13);
+    colorSchemeRGB.relaxing = window.getComputedStyle(button.children[2]).backgroundColor.substring(4, 13);
+}));
+
+arrayOfChartTypeButtons.forEach(button => button.addEventListener("click", () => {
+    arrayOfChartTypeButtons.forEach(button => button.style.boxShadow = "");
+    button.style.boxShadow = "0 0 3px 2px #EB5E28";
+    chartType = button.getAttribute("id").slice(-1);
+}));
 
 const sleepingTimeWeek = data.sleeping.timeSpentDuringEachDayInHours.reduce((a, b) => a + b);
 const exercisingTimeWeek = data.exercising.timeSpentDuringEachDayInHours.reduce((a, b) => a + b);
@@ -102,7 +125,8 @@ const pieChart = {
     centerX: canvas.width/2,
     centerY: 5 * canvas.height/8,
     open: () => {
-        if (pieChart.sleepingCurrentAngle + pieChart.openingSpeed * 2 * Math.PI * pieChart.sleepingPercentageOfWeek < 2 * Math.PI * pieChart.sleepingPercentageOfWeek){
+        if (pieChart.sleepingCurrentAngle + pieChart.openingSpeed * 2 * Math.PI * pieChart.sleepingPercentageOfWeek
+             < 2 * Math.PI * pieChart.sleepingPercentageOfWeek){
             pieChart.sleepingCurrentAngle += pieChart.openingSpeed * 2 * Math.PI * pieChart.sleepingPercentageOfWeek;
             pieChart.exercisingCurrentAngle += pieChart.openingSpeed * 2 * Math.PI * pieChart.exercisingPercentageOfWeek;
             pieChart.relaxingCurrentAngle += pieChart.openingSpeed * 2 * Math.PI * pieChart.relaxingPercentageOfWeek;
@@ -146,7 +170,8 @@ const pieChart = {
         relaxingPart.moveTo(pieChart.centerX, pieChart.centerY);
         relaxingPart.arc(pieChart.centerX, pieChart.centerY, pieChart.radius,
              -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle),
-              -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle), true);
+              -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle
+                 + pieChart.relaxingCurrentAngle), true);
         c.fillStyle = `rgb(${colorSchemeRGB.relaxing})`;
         c.fill(relaxingPart);
 
@@ -158,8 +183,8 @@ const pieChart = {
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.fillStyle = `rgba(37, 36, 34, ${pieChart.titleOpacity})`;
-        c.fillText(pieChart.title.substring(0, 36), pieChart.centerX, canvas.height/12 - canvas.height/24);
-        c.fillText(pieChart.title.substring(37), pieChart.centerX, canvas.height/12 + canvas.height/24);
+        c.fillText(pieChart.title.substring(0, 36), pieChart.centerX, canvas.height/22);
+        c.fillText(pieChart.title.substring(37), pieChart.centerX, 3 * canvas.height/22);
     },
     update: () => {
         let areaInFocus = null;
@@ -205,7 +230,8 @@ const pieChart = {
         relaxingPart.moveTo(pieChart.centerX, pieChart.centerY);
         relaxingPart.arc(pieChart.centerX, pieChart.centerY, pieChart.radius,
              -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle),
-              -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle), true);
+              -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle
+                 + pieChart.relaxingCurrentAngle), true);
         c.fillStyle = `rgb(${colorSchemeRGB.relaxing})`;
         c.fill(relaxingPart);
 
@@ -216,7 +242,8 @@ const pieChart = {
             relaxingPart.moveTo(pieChart.centerX, pieChart.centerY);
             relaxingPart.arc(pieChart.centerX, pieChart.centerY, pieChart.radius * 1.1,
                  -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle),
-                  -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle), true);
+                  -Math.PI / 2 - (pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle
+                     + pieChart.relaxingCurrentAngle), true);
                   c.fillStyle = `rgba(${colorSchemeRGB.relaxing}, ${pieChart.opacityOnHover})`;
             c.fill(relaxingPart);
         }
@@ -230,8 +257,8 @@ const pieChart = {
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.fillStyle = "rgb(37, 36, 34)";
-        c.fillText(pieChart.title.substring(0, 36), pieChart.centerX, canvas.height/12 - canvas.height/24);
-        c.fillText(pieChart.title.substring(37), pieChart.centerX, canvas.height/12 + canvas.height/24);
+        c.fillText(pieChart.title.substring(0, 36), pieChart.centerX, canvas.height/22);
+        c.fillText(pieChart.title.substring(37), pieChart.centerX, 3 * canvas.height/22);
     },
     close: () => {
         pieChart.openingAnimationComplete = false;
@@ -269,16 +296,20 @@ function drawLinesBetweenActivityPartsPieChart(onFocus = null){
 
     c.moveTo(pieChart.centerX, pieChart.centerY);
     if (onFocus === 2 || onFocus === 3){
-        c.lineTo(pieChart.centerX - (pieChart.radius * 1.1) * Math.sin(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle),
-        pieChart.centerY - (pieChart.radius * 1.1) * Math.cos(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle));
+        c.lineTo(pieChart.centerX - (pieChart.radius * 1.1) * Math.sin(pieChart.sleepingCurrentAngle
+             + pieChart.exercisingCurrentAngle),
+        pieChart.centerY - (pieChart.radius * 1.1) * Math.cos(pieChart.sleepingCurrentAngle
+             + pieChart.exercisingCurrentAngle));
     } else {
         c.lineTo(pieChart.centerX - pieChart.radius * Math.sin(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle),
         pieChart.centerY - pieChart.radius * Math.cos(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle));
     }
 
     c.moveTo(pieChart.centerX, pieChart.centerY);
-    c.lineTo(pieChart.centerX - pieChart.radius * Math.sin(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle),
-    pieChart.centerY - pieChart.radius * Math.cos(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle));
+    c.lineTo(pieChart.centerX - pieChart.radius * Math.sin(pieChart.sleepingCurrentAngle
+         + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle),
+    pieChart.centerY - pieChart.radius * Math.cos(pieChart.sleepingCurrentAngle
+         + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle));
     c.stroke();
 }
 
@@ -300,32 +331,42 @@ function drawExtraInfo(areaInFocus = null){
         c.fillRect(extraInfoRectangle.x, extraInfoRectangle.y, rectangleWidth, rectangleHeight);
 
         c.fillStyle = "#FFFCF2";
-        c.fillText(`${Math.round(pieChart.sleepingPercentageOfWeek * 10000) / 100}%`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
-        c.fillText(`${sleepingTimeWeek}H`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + 2 * rectangleHeight/3);
+        c.fillText(`${Math.round(pieChart.sleepingPercentageOfWeek * 10000) / 100}%`,
+         extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
+        c.fillText(`${sleepingTimeWeek}H`,
+         extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + 2 * rectangleHeight/3);
 
     } else if (areaInFocus === 2){
         const extraInfoRectangle = {
-            x: pieChart.centerX - (pieChart.radius * 1.2) * Math.sin(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle / 2),
-            y: pieChart.centerY - (pieChart.radius * 1.2) * Math.cos(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle / 2) - rectangleHeight/2
+            x: pieChart.centerX - (pieChart.radius * 1.2) * Math.sin(pieChart.sleepingCurrentAngle
+                 + pieChart.exercisingCurrentAngle / 2),
+            y: pieChart.centerY - (pieChart.radius * 1.2) * Math.cos(pieChart.sleepingCurrentAngle
+                 + pieChart.exercisingCurrentAngle / 2) - rectangleHeight/2
         }
 
         c.fillRect(extraInfoRectangle.x, extraInfoRectangle.y, rectangleWidth, rectangleHeight);
 
         c.fillStyle = "#FFFCF2";
-        c.fillText(`${Math.round(pieChart.exercisingPercentageOfWeek * 10000) / 100}%`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
-        c.fillText(`${Math.floor(exercisingTimeWeek)}H ${(exercisingTimeWeek % 1) * 60}MIN`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + 2 * rectangleHeight/3);
+        c.fillText(`${Math.round(pieChart.exercisingPercentageOfWeek * 10000) / 100}%`,
+         extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
+        c.fillText(`${Math.floor(exercisingTimeWeek)}H ${(exercisingTimeWeek % 1) * 60}MIN`,
+         extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + 2 * rectangleHeight/3);
 
     } else if (areaInFocus === 3){
         const extraInfoRectangle = {
-            x: pieChart.centerX - (pieChart.radius * 1.2) * Math.sin(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle / 3),
-            y: pieChart.centerY - (pieChart.radius * 1.2) * Math.cos(pieChart.sleepingCurrentAngle + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle / 3) - rectangleHeight
+            x: pieChart.centerX - (pieChart.radius * 1.2) * Math.sin(pieChart.sleepingCurrentAngle
+                 + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle / 3),
+            y: pieChart.centerY - (pieChart.radius * 1.2) * Math.cos(pieChart.sleepingCurrentAngle
+                 + pieChart.exercisingCurrentAngle + pieChart.relaxingCurrentAngle / 3) - rectangleHeight
         }
 
         c.fillRect(extraInfoRectangle.x, extraInfoRectangle.y, rectangleWidth, rectangleHeight);
 
         c.fillStyle = "#FFFCF2";
-        c.fillText(`${Math.round(pieChart.relaxingPercentageOfWeek * 10000) / 100}%`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
-        c.fillText(`${relaxingTimeWeek}H`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + 2 * rectangleHeight/3);
+        c.fillText(`${Math.round(pieChart.relaxingPercentageOfWeek * 10000) / 100}%`,
+         extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
+        c.fillText(`${relaxingTimeWeek}H`, extraInfoRectangle.x + rectangleWidth/12,
+         extraInfoRectangle.y + 2 * rectangleHeight/3);
 
     }
 }
@@ -337,18 +378,18 @@ function drawLegend(opacity = 1){
     c.font = `normal ${canvas.height/24}px sans-serif`;
     c.font = `normal ${canvas.height/24}px Poppins`;
 
-    c.fillText("Sleeping", 3 * canvas.width/4 + canvas.width/24 + canvas.width/96, canvas.height/4 + canvas.height/48);
-    c.fillText("Exercising", 3 * canvas.width/4 + canvas.width/24 + canvas.width/96, canvas.height/4 + canvas.height/12);
-    c.fillText("Relaxing", 3 * canvas.width/4 + canvas.width/24 + canvas.width/96, canvas.height/4 + canvas.height/12 + canvas.height/24 + canvas.height/48);
+    c.fillText("Sleeping", 77 * canvas.width/96, 13 * canvas.height/48);
+    c.fillText("Exercising", 77 * canvas.width/96, canvas.height/3);
+    c.fillText("Relaxing", 77 * canvas.width/96, 19 * canvas.height/48);
 
     c.fillStyle = `rgbA(${colorSchemeRGB.sleeping}, ${opacity})`;
     c.fillRect(3 * canvas.width/4, canvas.height/4, canvas.width/24, canvas.height/24);
 
     c.fillStyle = `rgbA(${colorSchemeRGB.exercising}, ${opacity})`;
-    c.fillRect(3 * canvas.width/4, canvas.height/4 + canvas.height/24 + canvas.height/48, canvas.width/24, canvas.height/24);
+    c.fillRect(3 * canvas.width/4, 15 * canvas.height / 48, canvas.width/24, canvas.height/24);
 
     c.fillStyle = `rgbA(${colorSchemeRGB.relaxing}, ${opacity})`;
-    c.fillRect(3 * canvas.width/4, canvas.height/4 + canvas.height/12 + canvas.height/24, canvas.width/24, canvas.height/24);
+    c.fillRect(3 * canvas.width/4, 9 * canvas.height / 24, canvas.width/24, canvas.height/24);
 }
 
 function main() {
