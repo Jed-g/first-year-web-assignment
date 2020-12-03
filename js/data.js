@@ -124,7 +124,7 @@ const relaxingTimeWeek = data.relaxing.timeSpentDuringEachDayInHours.reduce((a, 
 const totalTimeSpentOnActivities = sleepingTimeWeek + exercisingTimeWeek + relaxingTimeWeek;
 
 const pieChart = {
-    title: "Total time spent doing each activity during an average whole week:",
+    title: "Total time spent doing each activity during an average week:",
     titleOpacity: 0,
     titleOpacityChangeRate: 0.02,
     legendOpacity: 0,
@@ -437,7 +437,7 @@ function drawExtraInfoPieChart(areaInFocus = null){
         
         c.fillRect(extraInfoRectangle.x, extraInfoRectangle.y, rectangleWidth, rectangleHeight);
 
-        c.fillStyle = "#";
+        c.fillStyle = "#FFFCF2";
         c.fillText(`${Math.round(pieChart.sleepingPercentageOfWeek * 10000) / 100}%`,
          extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + rectangleHeight/3);
         c.fillText(`${sleepingTimeWeek}H`,
@@ -562,7 +562,7 @@ function drawBars(){
 }
 
 function drawExtraInfoBarChart(i, barThickness, barSeperation){
-    const rectangleWidth = canvas.width/6;
+    const rectangleWidth = canvas.width/5;
     const rectangleHeight = canvas.height/16;
     c.fillStyle = "#403D39";
     c.textAlign = "center";
