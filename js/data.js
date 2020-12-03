@@ -86,6 +86,8 @@ const pieChart = {
     title: "Total time spent doing each activity during the whole week:",
     titleOpacity: 0,
     titleOpacityChangeRate: 0.02,
+    legendOpacity: 0,
+    legendOpacityChangeRate: 0.02,
     openingAnimationComplete: false,
     sleepingPercentageOfWeek: sleepingTimeWeek / totalTimeSpentOnActivities,
     exercisingPercentageOfWeek: exercisingTimeWeek / totalTimeSpentOnActivities,
@@ -118,6 +120,12 @@ const pieChart = {
             pieChart.titleOpacity = 1;
         }
 
+        if (pieChart.legendOpacity < 1) {
+            pieChart.legendOpacity += pieChart.legendOpacityChangeRate;
+        } else {
+            pieChart.legendOpacity = 1;
+        }
+
         const sleepingPart = new Path2D();
         sleepingPart.moveTo(pieChart.centerX, pieChart.centerY);
         sleepingPart.arc(pieChart.centerX, pieChart.centerY, pieChart.radius,
@@ -143,6 +151,7 @@ const pieChart = {
         c.fill(relaxingPart);
 
         drawLinesBetweenActivityPartsPieChart();
+        drawLegend(pieChart.legendOpacity);
 
         c.font = `normal ${canvas.height/12}px sans-serif`;
         c.font = `normal ${canvas.height/12}px Poppins`;
@@ -181,7 +190,6 @@ const pieChart = {
         c.fillStyle = `rgb(${colorSchemeRGB.exercising})`;
         c.fill(exercisingPart);
 
-
         if (c.isPointInPath(exercisingPart, cursor.x, cursor.y)){
             areaInFocus = 2;
             const exercisingPart = new Path2D();
@@ -214,6 +222,7 @@ const pieChart = {
         }
 
         drawLinesBetweenActivityPartsPieChart(areaInFocus);
+        drawLegend();
         drawExtraInfo(areaInFocus);
 
         c.font = `normal ${canvas.height/12}px sans-serif`;
@@ -232,6 +241,7 @@ const pieChart = {
         pieChart.exercisingCurrentAngle = 0;
         pieChart.relaxingCurrentAngle = 0;
         pieChart.titleOpacity = 0;
+        pieChart.legendOpacity = 0;
     }
 };
 
@@ -318,6 +328,27 @@ function drawExtraInfo(areaInFocus = null){
         c.fillText(`${relaxingTimeWeek}H`, extraInfoRectangle.x + rectangleWidth/12, extraInfoRectangle.y + 2 * rectangleHeight/3);
 
     }
+}
+
+function drawLegend(opacity = 1){
+    c.fillStyle = `rgbA(64, 61, 57, ${opacity})`;
+    c.textAlign = "start";
+    c.textBaseline = "middle";
+    c.font = `normal ${canvas.height/24}px sans-serif`;
+    c.font = `normal ${canvas.height/24}px Poppins`;
+
+    c.fillText("Sleeping", 3 * canvas.width/4 + canvas.width/24 + canvas.width/96, canvas.height/4 + canvas.height/48);
+    c.fillText("Exercising", 3 * canvas.width/4 + canvas.width/24 + canvas.width/96, canvas.height/4 + canvas.height/12);
+    c.fillText("Relaxing", 3 * canvas.width/4 + canvas.width/24 + canvas.width/96, canvas.height/4 + canvas.height/12 + canvas.height/24 + canvas.height/48);
+
+    c.fillStyle = `rgbA(${colorSchemeRGB.sleeping}, ${opacity})`;
+    c.fillRect(3 * canvas.width/4, canvas.height/4, canvas.width/24, canvas.height/24);
+
+    c.fillStyle = `rgbA(${colorSchemeRGB.exercising}, ${opacity})`;
+    c.fillRect(3 * canvas.width/4, canvas.height/4 + canvas.height/24 + canvas.height/48, canvas.width/24, canvas.height/24);
+
+    c.fillStyle = `rgbA(${colorSchemeRGB.relaxing}, ${opacity})`;
+    c.fillRect(3 * canvas.width/4, canvas.height/4 + canvas.height/12 + canvas.height/24, canvas.width/24, canvas.height/24);
 }
 
 function main() {
