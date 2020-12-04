@@ -80,6 +80,20 @@ window.addEventListener("resize", () => {
     barChart.axisXMaxWidth *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
     barChart.axisThickness *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
 
+    bubbleChart.borderThickness *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    bubbleChart.borderCurrentWidth *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    bubbleChart.borderCurrentHeight *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    bubbleChart.bubbleRadius *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    bubbleChart.boxHeight *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    bubbleChart.boxWidth *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+
+    bubbleChart.bubbleArray !== null && bubbleChart.bubbleArray.forEach(bubble => {
+        bubble.x *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+        bubble.y *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+        bubble.dx *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+        bubble.dy *= upscaleRes * canvasContainer.offsetWidth / canvas.width;
+    });
+
     canvas.width = upscaleRes * canvasContainer.offsetWidth;
     canvas.height = canvas.width * 0.62;
 
@@ -321,7 +335,7 @@ const barChart = {
     originY: 11 * canvas.height/12,
     opacityOnHover: 0.5,
     open: () => {
-        if (barChart.axisYHeight < barChart.axisYMaxHeight){
+        if (barChart.axisYHeight + barChart.openingSpeed * barChart.axisYMaxHeight < barChart.axisYMaxHeight){
             barChart.axisXWidth += barChart.openingSpeed * barChart.axisXMaxWidth;
             barChart.axisYHeight += barChart.openingSpeed * barChart.axisYMaxHeight;
             barChart.openingSpeed -= barChart.openingSpeedChangeRate;
@@ -377,6 +391,174 @@ const barChart = {
         barChart.axisYHeight = 0;
         barChart.axisXWidth = 0;
     }
+}
+
+const bubbleChart = {
+    title: "Total time spent doing each activity during an average week. 1 Bubble = 1 Hour.",
+    openingAnimationComplete: false,
+    borderThickness: canvas.width/96,
+    borderCurrentWidth: 0,
+    borderCurrentHeight: 0,
+    openingSpeed: 0.02,
+    openingSpeedChangeRate: 0.0002,
+    bubbleRadius: canvas.width/36,
+    bubbleArray: null,
+    opacity: 0,
+    opacityChangeRate: 0.02,
+    boxHeight: 3 * canvas.height/4,
+    boxWidth: canvas.width,
+    open: () => {
+        if (bubbleChart.bubbleArray === null){
+            const temp = [];
+            fillBubbleArray(temp);
+            bubbleChart.bubbleArray = temp;
+        }
+
+        if (bubbleChart.borderCurrentHeight + bubbleChart.boxHeight * bubbleChart.openingSpeed
+             + bubbleChart.borderThickness < bubbleChart.boxHeight){
+            bubbleChart.borderCurrentWidth += bubbleChart.boxWidth * bubbleChart.openingSpeed;
+            bubbleChart.borderCurrentHeight += bubbleChart.boxHeight * bubbleChart.openingSpeed;
+            bubbleChart.openingSpeed -= bubbleChart.openingSpeedChangeRate;
+        } else {
+            bubbleChart.borderCurrentWidth = bubbleChart.boxWidth - bubbleChart.borderThickness;
+            bubbleChart.borderCurrentHeight = bubbleChart.boxHeight - bubbleChart.borderThickness;
+            bubbleChart.openingAnimationComplete = true;
+        }
+
+        if (bubbleChart.opacity < 1){
+            bubbleChart.opacity += bubbleChart.opacityChangeRate;
+        } else {
+            bubbleChart.opacity = 1;
+        }
+
+        drawBorder();
+
+        bubbleChart.bubbleArray.forEach(bubble => {
+            bubble.update();
+            bubble.draw();
+        });
+
+        c.font = `${canvas.height/18}px sans-serif`;
+        c.font = `${canvas.height/18}px Poppins`;
+        c.textAlign = "center";
+        c.textBaseline = "middle";
+        c.fillStyle = `rgba(37, 36, 34, ${bubbleChart.opacity})`;
+        c.fillText(bubbleChart.title.substring(0, 43), canvas.width/2, canvas.height/22);
+        c.fillText(bubbleChart.title.substring(44), canvas.width/2, 5 * canvas.height/44);
+
+        drawLegendBubbleChart(bubbleChart.opacity);
+    },
+    update: () => {
+        drawBorder();
+
+        bubbleChart.bubbleArray.forEach(bubble => {
+            bubble.update();
+            bubble.draw();
+        });
+
+        c.font = `${canvas.height/18}px sans-serif`;
+        c.font = `${canvas.height/18}px Poppins`;
+        c.textAlign = "center";
+        c.textBaseline = "middle";
+        c.fillStyle = `rgba(37, 36, 34, ${bubbleChart.opacity})`;
+        c.fillText(bubbleChart.title.substring(0, 43), canvas.width/2, canvas.height/22);
+        c.fillText(bubbleChart.title.substring(44), canvas.width/2, 5 * canvas.height/44);
+
+        drawLegendBubbleChart();
+    },
+    close: () => {
+        bubbleChart.openingAnimationComplete = false;
+        bubbleChart.borderCurrentWidth = 0;
+        bubbleChart.borderCurrentHeight = 0;
+        bubbleChart.openingSpeed = 0.02;
+        bubbleChart.openingSpeedChangeRate = 0.0002;
+        bubbleChart.bubbleArray = null;
+        bubbleChart.opacity = 0;
+    }
+};
+
+function Bubble(x, y, type){
+    this.x = x,
+    this.y = y,
+    this.type = type,
+    this.dx = Math.random() * canvas.width/250 - canvas.width/500,
+    this.dy = Math.random() * canvas.width/250 - canvas.width/500,
+
+    this.update = () => {
+        if (this.x + bubbleChart.bubbleRadius >= bubbleChart.boxWidth - bubbleChart.borderThickness || 
+            this.x - bubbleChart.bubbleRadius <= bubbleChart.borderThickness) {
+                this.dx = -this.dx;
+            }
+        if (this.y + bubbleChart.bubbleRadius >= canvas.height - bubbleChart.borderThickness || 
+            this.y - bubbleChart.bubbleRadius <= (canvas.height - bubbleChart.boxHeight) + bubbleChart.borderThickness) {
+                this.dy = -this.dy;
+            }
+        this.x += this.dx;
+        this.y += this.dy;
+    },
+
+    this.draw = () => {
+        c.beginPath();
+        c.fillStyle = `rgba(${colorSchemeRGB[type]}, ${bubbleChart.opacity})`;
+        c.lineWidth = bubbleChart.borderThickness/2;
+        c.arc(this.x, this.y, bubbleChart.bubbleRadius, 0, Math.PI * 2);
+        c.fill();
+
+        c.beginPath();
+        c.strokeStyle = `rgba(37, 36, 34, ${bubbleChart.opacity})`;
+        c.arc(this.x, this.y, bubbleChart.bubbleRadius - bubbleChart.borderThickness/4, 0, Math.PI * 2);
+        c.stroke();
+    }
+}
+
+function fillBubbleArray(array){
+    for (let i = 0; i < Math.floor(sleepingTimeWeek); i++){
+        const x = Math.random() * (bubbleChart.boxWidth - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
+         + bubbleChart.borderThickness + bubbleChart.bubbleRadius + 2;
+    
+        const y = Math.random() * (bubbleChart.boxHeight - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
+        + (canvas.height - bubbleChart.boxHeight) + bubbleChart.borderThickness + bubbleChart.bubbleRadius + 2;
+    
+        array.push(new Bubble(x, y, "sleeping"));
+    }
+
+    for (let i = 0; i < Math.floor(relaxingTimeWeek); i++){
+        const x = Math.random() * (canvas.width - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
+         + bubbleChart.borderThickness + bubbleChart.bubbleRadius + 2;
+    
+         const y = Math.random() * (bubbleChart.boxHeight - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
+         + (canvas.height - bubbleChart.boxHeight) + bubbleChart.borderThickness + bubbleChart.bubbleRadius + 2;
+    
+        array.push(new Bubble(x, y, "relaxing"));
+    }
+    
+    for (let i = 0; i < Math.floor(exercisingTimeWeek); i++){
+        const x = Math.random() * (canvas.width - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
+         + bubbleChart.borderThickness + bubbleChart.bubbleRadius + 2;
+    
+         const y = Math.random() * (bubbleChart.boxHeight - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
+         + (canvas.height - bubbleChart.boxHeight) + bubbleChart.borderThickness + bubbleChart.bubbleRadius + 2;
+    
+        array.push(new Bubble(x, y, "exercising"));
+    }
+}
+
+function drawBorder(){
+    c.beginPath();
+    c.strokeStyle = "#252422";
+    c.lineWidth = bubbleChart.borderThickness;
+    c.lineCap = "square";
+
+    c.moveTo(bubbleChart.borderThickness/2, canvas.height - bubbleChart.borderThickness/2);
+    c.lineTo(bubbleChart.borderThickness/2, canvas.height - bubbleChart.borderThickness/2 - bubbleChart.borderCurrentHeight);
+    c.moveTo(bubbleChart.borderThickness/2, bubbleChart.borderThickness/2 + (canvas.height - bubbleChart.boxHeight));
+    c.lineTo(bubbleChart.borderThickness/2 + bubbleChart.borderCurrentWidth, bubbleChart.borderThickness/2 + (canvas.height - bubbleChart.boxHeight));
+    c.moveTo(canvas.width - bubbleChart.borderThickness/2, bubbleChart.borderThickness/2 + (canvas.height - bubbleChart.boxHeight));
+    c.lineTo(canvas.width - bubbleChart.borderThickness/2, bubbleChart.borderThickness/2 + (canvas.height - bubbleChart.boxHeight) + bubbleChart.borderCurrentHeight);
+    c.moveTo(canvas.width - bubbleChart.borderThickness/2, canvas.height - bubbleChart.borderThickness/2);
+    c.lineTo(canvas.width - bubbleChart.borderThickness/2 - bubbleChart.borderCurrentWidth, canvas.height - bubbleChart.borderThickness/2);
+
+    c.stroke();
 }
 
 function drawLinesBetweenActivityPartsPieChart(onFocus = null){
@@ -620,17 +802,45 @@ function drawLegend(opacity = 1){
     c.fillRect(3 * canvas.width/4 + offsetX, 9 * canvas.height / 24 + offsetY, canvas.width/24, canvas.height/24);
 }
 
+function drawLegendBubbleChart(opacity = 1){
+    c.fillStyle = `rgba(64, 61, 57, ${opacity})`;
+    c.textAlign = "start";
+    c.textBaseline = "middle";
+    c.font = `${canvas.height/24}px sans-serif`;
+    c.font = `${canvas.height/24}px Poppins`;
+
+    const offsetX = -canvas.width/30;
+    const offsetY = 0;
+
+    c.fillText("Sleeping", canvas.width/4 + offsetX, canvas.height/5 + offsetY);
+    c.fillText("Exercising", canvas.width/2 + offsetX, canvas.height/5 + offsetY);
+    c.fillText("Relaxing", 3 * canvas.width/4 - canvas.width/32 + canvas.width/20 + offsetX, canvas.height/5 + offsetY);
+
+    c.fillStyle = `rgba(${colorSchemeRGB.sleeping}, ${opacity})`;
+    c.fillRect(canvas.width/5 + offsetX, canvas.height/5 - canvas.height/48 + offsetY, canvas.width/24, canvas.height/24);
+
+    c.fillStyle = `rgba(${colorSchemeRGB.exercising}, ${opacity})`;
+    c.fillRect(canvas.width/2 - canvas.width/20 + offsetX, canvas.height/5 - canvas.height/48  + offsetY, canvas.width/24, canvas.height/24);
+
+    c.fillStyle = `rgba(${colorSchemeRGB.relaxing}, ${opacity})`;
+    c.fillRect(3 * canvas.width/4 - canvas.width/32 + offsetX, canvas.height/5 - canvas.height/48  + offsetY, canvas.width/24, canvas.height/24);
+}
+
 function main() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     if (chartType === 1){
         pieChart.openingAnimationComplete || pieChart.open();
         pieChart.openingAnimationComplete && pieChart.update();
         barChart.close();
+        bubbleChart.close();
     } else if (chartType === 2) {
         barChart.openingAnimationComplete || barChart.open();
         barChart.openingAnimationComplete && barChart.update();
         pieChart.close();
+        bubbleChart.close();
     } else if (chartType === 3) {
+        bubbleChart.openingAnimationComplete || bubbleChart.open();
+        bubbleChart.openingAnimationComplete && bubbleChart.update();
         pieChart.close();
         barChart.close();
     }
