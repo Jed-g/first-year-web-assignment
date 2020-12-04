@@ -69,110 +69,114 @@
       <img class="logo" id="logo-desktop" src="./img/header/logo_transparent.png" alt="logo"/>
     </header>
     <main>
-      <h1>Typical time spent on a given activity throughout the week:</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Sleeping</th>
-            <th>Exercising</th>
-            <th>Relaxing</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Monday</td>
-            <td>7H</td>
-            <td>30Min</td>
-            <td>2H</td>
-          </tr>
-          <tr>
-            <td>Tuesday</td>
-            <td>8H</td>
-            <td>20Min</td>
-            <td>1H&nbsp30Min</td>
-          </tr>
-          <tr>
-            <td>Wednesday</td>
-            <td>8H</td>
-            <td>30Min</td>
-            <td>2H</td>
-          </tr>
-          <tr>
-            <td>Thursday</td>
-            <td>9H</td>
-            <td>45Min</td>
-            <td>2H&nbsp30Min</td>
-          </tr>
-          <tr>
-            <td>Friday</td>
-            <td>6H</td>
-            <td>10Min</td>
-            <td>3H</td>
-          </tr>
-          <tr>
-            <td>Saturday</td>
-            <td>7H</td>
-            <td>30Min</td>
-            <td>1H&nbsp45Min</td>
-          </tr>
-          <tr>
-            <td>Sunday</td>
-            <td>8H</td>
-            <td>30Min</td>
-            <td>2H&nbsp15Min</td>
-          </tr>
-      </tbody>
-      </table>
-      <p id="disclaimer">Disclaimer: Data not authentic.</p>
-      <h2>Visualization:</h2>
-      <div id="canvas-container">
-        <canvas id="canvas"></canvas>
-      </div>
-      <div id="options">
-        <div id="chart-type">
-          <p>Chart Type: </p>
-          <svg id="chart-1" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie" width="60" height="60"
-           viewBox="0 0 24 24" stroke-width="1.5" stroke="#252422" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-6.8a2 2 0 0 1 -2 -2v-7a.9 .9 0 0 0 -1 -.8" />
-            <path d="M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a1 1 0 0 1 -1 -1v-4.5" />
-          </svg>
-          <svg id="chart-2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bar" width="60" height="60"
-           viewBox="0 0 24 24" stroke-width="1.5" stroke="#252422" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <rect x="3" y="12" width="6" height="8" rx="1" />
-            <rect x="9" y="8" width="6" height="12" rx="1" />
-            <rect x="15" y="4" width="6" height="16" rx="1" />
-            <line x1="4" y1="20" x2="18" y2="20" />
-          </svg>
-          <svg id="chart-3" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bubble" width="60" height="60"
-           viewBox="0 0 24 24" stroke-width="1.5" stroke="#252422" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <circle cx="6" cy="16" r="3" />
-            <circle cx="16" cy="19" r="2" />
-            <circle cx="14.5" cy="7.5" r="4.5" />
-          </svg>
+      <section id="section-1">
+        <h1>Typical time spent on a given activity throughout the week:</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Sleeping</th>
+              <th>Exercising</th>
+              <th>Relaxing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>7H</td>
+              <td>30Min</td>
+              <td>2H</td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td>8H</td>
+              <td>20Min</td>
+              <td>1H&nbsp30Min</td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>8H</td>
+              <td>30Min</td>
+              <td>2H</td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>9H</td>
+              <td>45Min</td>
+              <td>2H&nbsp30Min</td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td>6H</td>
+              <td>10Min</td>
+              <td>3H</td>
+            </tr>
+            <tr>
+              <td>Saturday</td>
+              <td>7H</td>
+              <td>30Min</td>
+              <td>1H&nbsp45Min</td>
+            </tr>
+            <tr>
+              <td>Sunday</td>
+              <td>8H</td>
+              <td>30Min</td>
+              <td>2H&nbsp15Min</td>
+            </tr>
+        </tbody>
+        </table>
+        <p id="disclaimer">Disclaimer: Data not authentic.</p>
+      </section>
+      <section id="section-2">
+        <h2>Visualization:</h2>
+        <div id="canvas-container">
+          <canvas id="canvas"></canvas>
         </div>
-        <div id="color-scheme">
-          <p>Color Scheme: </p>
-          <div id="scheme-1" class="color-scheme-inner">
-            <div></div>
-            <div></div>
-            <div></div>
+        <div id="options">
+          <div id="chart-type">
+            <p>Chart Type: </p>
+            <svg id="chart-1" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-pie" width="60" height="60"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#252422" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-6.8a2 2 0 0 1 -2 -2v-7a.9 .9 0 0 0 -1 -.8" />
+              <path d="M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a1 1 0 0 1 -1 -1v-4.5" />
+            </svg>
+            <svg id="chart-2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bar" width="60" height="60"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#252422" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <rect x="3" y="12" width="6" height="8" rx="1" />
+              <rect x="9" y="8" width="6" height="12" rx="1" />
+              <rect x="15" y="4" width="6" height="16" rx="1" />
+              <line x1="4" y1="20" x2="18" y2="20" />
+            </svg>
+            <svg id="chart-3" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bubble" width="60" height="60"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#252422" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <circle cx="6" cy="16" r="3" />
+              <circle cx="16" cy="19" r="2" />
+              <circle cx="14.5" cy="7.5" r="4.5" />
+            </svg>
           </div>
-          <div id="scheme-2" class="color-scheme-inner">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div id="scheme-3" class="color-scheme-inner">
-            <div></div>
-            <div></div>
-            <div></div>
+          <div id="color-scheme">
+            <p>Color Scheme: </p>
+            <div id="scheme-1" class="color-scheme-inner">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div id="scheme-2" class="color-scheme-inner">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div id="scheme-3" class="color-scheme-inner">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </main>
     <footer>
       <p id="copyright">© Jedrzej Golebiewski</p>
