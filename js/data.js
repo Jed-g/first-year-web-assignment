@@ -51,9 +51,9 @@ document.querySelector("#chart-1").style.boxShadow = "0 0 3px 2px #EB5E28";
 const colorSchemeButton1 = document.querySelector("#scheme-1");
 colorSchemeButton1.style.boxShadow = "0 0 3px 2px #EB5E28";
 
-const colorSchemeRGB = {sleeping: window.getComputedStyle(colorSchemeButton1.children[0]).backgroundColor.substring(4, 13),
-     exercising: window.getComputedStyle(colorSchemeButton1.children[1]).backgroundColor.substring(4, 13),
-      relaxing: window.getComputedStyle(colorSchemeButton1.children[2]).backgroundColor.substring(4, 13)
+const colorSchemeRGB = {sleeping: window.getComputedStyle(colorSchemeButton1.children[0]).backgroundColor.slice(4, -1),
+     exercising: window.getComputedStyle(colorSchemeButton1.children[1]).backgroundColor.slice(4, -1),
+      relaxing: window.getComputedStyle(colorSchemeButton1.children[2]).backgroundColor.slice(4, -1)
 };
 
 const cursor = {
@@ -121,9 +121,9 @@ document.addEventListener("click", evt => {
 arrayOfColorSchemeButtons.forEach(button => button.addEventListener("click", () => {
     arrayOfColorSchemeButtons.forEach(button => button.style.boxShadow = "");
     button.style.boxShadow = "0 0 3px 2px #EB5E28";
-    colorSchemeRGB.sleeping = window.getComputedStyle(button.children[0]).backgroundColor.substring(4, 13);
-    colorSchemeRGB.exercising = window.getComputedStyle(button.children[1]).backgroundColor.substring(4, 13);
-    colorSchemeRGB.relaxing = window.getComputedStyle(button.children[2]).backgroundColor.substring(4, 13);
+    colorSchemeRGB.sleeping = window.getComputedStyle(button.children[0]).backgroundColor.slice(4, -1);
+    colorSchemeRGB.exercising = window.getComputedStyle(button.children[1]).backgroundColor.slice(4, -1);
+    colorSchemeRGB.relaxing = window.getComputedStyle(button.children[2]).backgroundColor.slice(4, -1);
 }));
 
 arrayOfChartTypeButtons.forEach(button => button.addEventListener("click", () => {
