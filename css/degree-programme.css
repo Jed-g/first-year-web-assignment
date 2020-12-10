@@ -287,7 +287,17 @@
 
 #more-info{
   font-size: 1.2rem;
-  margin-bottom: 3vh;
+  margin: 3vh 0 1vh;
+}
+
+#more-info a,
+#more-info a:visited,
+#more-info a:active{
+  color: #403D39;
+}
+
+#more-info a:hover{
+  color: #eb5e28;
 }
 
 @media screen and (orientation:landscape){
@@ -302,7 +312,7 @@
 
 @media screen and (min-width: 1024px) and (orientation:landscape){
   main{
-    padding: 12.5vh 10vw 0;
+    padding: 12.5vh 10vw 2vh;
   }
 
   #sections-container{
@@ -331,6 +341,7 @@
   #overview{
     margin: 0;
     font-size: 1.2rem;
+    margin-bottom: 2vh;
   }
 
   #module-section{

@@ -237,13 +237,14 @@ desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
 desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
 desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
 
-document.querySelector("#desktop-header").addEventListener("click", (evt) => {
+document.querySelector("#desktop-header").addEventListener("click", evt => {
   if (["desktop-header", "page-title-info-desktop"].includes(evt.target.getAttribute("id"))){
   clickOutsideDesktopMenuCloseMenu();
   }
 });
 
 document.querySelector("main").addEventListener("click", clickOutsideDesktopMenuCloseMenu);
+document.querySelector("footer").addEventListener("click", clickOutsideDesktopMenuCloseMenu);
 
 function animateDesktopMenu(sourceOfCall) {
 

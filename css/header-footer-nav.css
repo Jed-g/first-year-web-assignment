@@ -296,21 +296,40 @@ This is to allow seperate animation of each individual link */
 
 /* Padding from top to not be obscured by header (which is excluded from flow) */
 main {
-  padding: 15vh 8vw 0;
+  padding: 15vh 8vw 2vh;
   text-align: center;
   color: #252422;
 }
 
 footer {
-  text-align: center;
-  background-color: #ccc5b9;
+  padding: 0 8vw;
+  background-color: #252422;
 }
 
-#copyright {
-  margin: 6px 0;
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 100;
+#footer-inner{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#accessibility a,
+#accessibility a:visited,
+#accessibility a:hover,
+#accessibility a:active{
+  color: #CCC5B9;
+  text-decoration: none;
+  font-weight: 200;
+}
+
+#accessibility a:hover{
+  color: #eb5e28;
+}
+
+#accessibility, #copyright {
+  color: #CCC5B9;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  font-weight: 200;
 }
 
 /* Noscript styling */
@@ -358,7 +377,11 @@ footer {
   }
 
   main{
-    padding: 13vh 12vw 0;
+    padding: 13vh 12vw 2vh;
+  }
+
+  footer {
+    padding: 0 12vw;
   }
 
   .push-menu-button-top#menu-icon{
@@ -418,12 +441,34 @@ footer {
   }
 
   main{
-    padding: 13vh 30vw 0;
+    padding: 13vh 30vw 2vh;
+  }
+
+  footer {
+    padding: 0;
+  }
+
+  #footer-inner{
+    display: block;
+    position: relative;
+    text-align: center;
+  }
+
+  #accessibility{
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(min(5vw, 60px) * 1.35);
+  }
+
+  #copyright{
+    font-size: 1.1rem;
   }
 }
 
 @media screen and (min-width: 1024px) and (orientation: portrait){
   main{
-    padding: 15vh 25vw 0;
+    padding: 15vh 25vw 2vh;
   }
 }

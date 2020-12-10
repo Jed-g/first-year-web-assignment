@@ -1,0 +1,41 @@
+section{
+    text-align: left;
+    margin-bottom: 4vh;
+}
+
+h2{
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+h3{
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin: 6vh 0 2vh;
+}
+
+h4{
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 4vh 0 1vh;
+}
+
+h4:first-of-type{
+    margin: 3vh 0 1vh;
+}
+
+p{
+    font-size: 1rem;
+    margin: 0;
+}
+
+#access-key-link,
+#access-key-link:visited,
+#access-key-link:active{
+    color: #403D39;
+}
+
+#access-key-link:hover{
+    color: #EB5E28;
+}
