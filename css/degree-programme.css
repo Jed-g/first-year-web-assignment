@@ -43,7 +43,7 @@
   padding: 2vh 0 2vh 8vw;
 }
 
-.mobile-title-inner h2{
+.mobile-title-inner h3{
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 300;
   margin: 0 1.5vw 0 0;
@@ -89,12 +89,12 @@
   margin: 0 8vw;
 }
 
-.mobile-description-inner h1{
+.mobile-description-inner h2{
   margin: 2vh 0;
   font-size: 1.4rem;
 }
 
-.mobile-description-inner h2{
+.mobile-description-inner h3{
   font-size: 0.9rem;
   margin: 0 0 2vh;
 }
@@ -159,7 +159,7 @@
   padding: 2vh 0 2vh 2vw;
 }
 
-.desktop-title-inner h2{
+.desktop-title-inner h3{
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 300;
   margin: 0 1.5vw 0 0;
@@ -253,12 +253,12 @@
   opacity: 100%;
 }
 
-.desktop-description-inner h1{
+.desktop-description-inner h2{
   margin: 3vh 0 2vh;
   font-size: 1.4rem;
 }
 
-.desktop-description-inner h2{
+.desktop-description-inner h3{
   font-size: 0.9rem;
   margin: 0 0 2vh;
 }

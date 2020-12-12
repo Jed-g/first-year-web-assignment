@@ -6,10 +6,10 @@ function expandDescriptionMobile(description) {
     }
 
     requestAnimationFrame(() => {
-        const titleH2 = description.previousElementSibling.querySelector("h2");
+        const titleH3 = description.previousElementSibling.querySelector("h3");
         const arrowLinesArray = description.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
     
-        titleH2.style.color = "#252422";
+        titleH3.style.color = "#252422";
         description.previousElementSibling.style.backgroundColor = "#EB5E28";
     
         arrowLinesArray.forEach(line => {
@@ -42,10 +42,10 @@ function expandDescriptionMobile(description) {
 }
 
 function collapseDescriptionMobile(description) {
-    const titleH2 = description.previousElementSibling.querySelector("h2");
+    const titleH3 = description.previousElementSibling.querySelector("h3");
     const arrowLinesArray = description.previousElementSibling.querySelectorAll(".mobile-title-inner-arrow *");
 
-    titleH2.style.color = "";
+    titleH3.style.color = "";
     description.previousElementSibling.style.backgroundColor = "";
 
     arrowLinesArray.forEach(line => {
@@ -117,10 +117,10 @@ function expandDescriptionDesktop(description) {
     description.classList.add("expanding");
     description.classList.remove("collapsing");
     const correspondingTitle = document.querySelector(`#${description.getAttribute("id").substring(0, 17)}title`);
-    const titleH2 = correspondingTitle.querySelector("h2");
+    const titleH3 = correspondingTitle.querySelector("h3");
     const arrowLinesArray = correspondingTitle.querySelectorAll(".desktop-title-inner-arrow *");
 
-    titleH2.style.color = "#252422";
+    titleH3.style.color = "#252422";
     correspondingTitle.style.backgroundColor = "#EB5E28";
 
     arrowLinesArray.forEach(line => {
@@ -165,7 +165,7 @@ function collapseDescriptionDesktop(description) {
     description.classList.remove("expanding");
     description.classList.add("collapsing");
     const correspondingTitle = document.querySelector(`#${description.getAttribute("id").substring(0, 17)}title`);
-    const titleH2 = correspondingTitle.querySelector("h2");
+    const titleH3 = correspondingTitle.querySelector("h3");
     const arrowLinesArray = correspondingTitle.querySelectorAll(".desktop-title-inner-arrow *");
 
 
@@ -182,7 +182,7 @@ function collapseDescriptionDesktop(description) {
             description.classList.remove("last");
             setTimeout(() => {
                 if (!description.classList.contains("expanding")){
-                    titleH2.style.color = "#ccc5b9";
+                    titleH3.style.color = "#ccc5b9";
                     correspondingTitle.style.backgroundColor = "#252422";
         
                     arrowLinesArray.forEach(line => {
