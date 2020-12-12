@@ -1,3 +1,5 @@
+// author: Jedrzej Golebiewski
+
 const data = [{
     image: "./img/quiz/quiz-1.jpg",
     question: "What is this activation function called?",

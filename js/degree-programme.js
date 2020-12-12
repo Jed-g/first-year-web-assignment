@@ -1,3 +1,5 @@
+// author: Jedrzej Golebiewski
+
 function expandDescriptionMobile(description) {
     if (description.classList.contains("last")){
         description.previousElementSibling.classList.remove("last");

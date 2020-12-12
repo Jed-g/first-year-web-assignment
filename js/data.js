@@ -1,3 +1,5 @@
+// author: Jedrzej Golebiewski
+
 const data = {
     sleeping: {
         timeSpentDuringEachDayInHours: [

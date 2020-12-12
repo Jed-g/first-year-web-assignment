@@ -1,3 +1,5 @@
+// author: Jedrzej Golebiewski
+
 // Dynamically add year to footer copyright
 const date = new Date();
 

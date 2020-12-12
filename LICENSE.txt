@@ -1,10 +1,10 @@
-favicon.ico - https://hatchful.shopify.com/terms free
+favicon.ico - https://hatchful.shopify.com/terms
 
-logo_transparent.png - https://hatchful.shopify.com/terms free
+logo_transparent.png - https://hatchful.shopify.com/terms
 
-profile_picture.png - https://pixabay.com/service/license/ free
-neural_network.png - https://pixabay.com/service/license/ free
-HTML_tag.png - https://pixabay.com/service/license/ free
+profile_picture.png - https://pixabay.com/service/license/
+neural_network.png - https://pixabay.com/service/license/
+HTML_tag.png - https://pixabay.com/service/license/
 
 correct-sound-fx.mp3 - https://www.youtube.com/watch?v=Ul95WLuuLVU
 wrong-sound-fx.mp3 - https://www.youtube.com/watch?v=FRpq7o1mKXY
