@@ -1,8 +1,8 @@
 /* author: Jedrzej Golebiewski */
 
 main h1{
-    margin: 0 0 3vh;
     font-size: 2rem;
+    margin: 0 0 3vh;
 }
 
 #img-wrap{
@@ -12,13 +12,13 @@ main h1{
 
 main img{
     width: 12rem;
-    box-shadow: 0 0 1px 2px #403D39;
     border-radius: 20px;
+    box-shadow: 0 0 1px 2px #403D39;
 }
 
 h2{
-    margin: 2vh 0 3vh;
     font-size: 1.6rem;
+    margin: 2vh 0 3vh;
 }
 
 .answers{
@@ -26,26 +26,26 @@ h2{
 }
 
 .answers p{
-    padding: 1.5vh 5vw;
-    box-shadow: 0 0 2px 2px #EB5E28;
-    border-radius: 20px 0 20px 0;
     margin: 0 20px 15px;
+    padding: 1.5vh 5vw;
+    border-radius: 20px 0 20px 0;
+    box-shadow: 0 0 2px 2px #EB5E28;
     color: #CCC5B9;
     background-color: #403D39;
     cursor: pointer;
 }
 
 #left-button-nav, #right-button-nav{
-    height: 30px;
-    width: 30px;
-    top: 50%;
-    transform: translate(0, -50%);
     position: absolute;
-    color: #403D39;
     z-index: 1;
-    background-color: #CCC5B9;
-    box-shadow: 0 0 2px 2px #403D39;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translate(0, -50%);
     border-radius: 100%;
+    box-shadow: 0 0 2px 2px #403D39;
+    color: #403D39;
+    background-color: #CCC5B9;
     cursor: pointer;
 }
 
@@ -58,11 +58,11 @@ h2{
 }
 
 #left-button-nav p, #right-button-nav p{
+    font-size: 2rem;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    position: absolute;
-    font-size: 2rem;
     margin: 0;
 }
 

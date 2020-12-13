@@ -2,21 +2,23 @@
 
 /* To set font weight & style and stop user agent stylesheet from overriding */
 * {
-  font-weight: 400;
-  font-family: "Poppins", sans-serif;
+  /* To prevent blue highlighting of elements when they are clicked */
   -webkit-tap-highlight-color: transparent;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
 /* Force body to take up whole screen and attach main & footer to top & bottom of screen respectively */
 body {
+  overflow-y: scroll;
+  overflow-y: overlay;
+  line-height: 1.35;
   min-width: 320px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: #fffcf2;
-  line-height: 1.35;
-  overflow-y: overlay;
 }
 
 body.hide-overflow {
@@ -26,11 +28,11 @@ body.hide-overflow {
 /* Remove header from flow and fix it at the top.
 Z-index added because of conflict with buttons on quiz page */
 header {
-  height: 12vh;
-  width: 100vw;
-  top: 0;
   position: fixed;
   z-index: 2;
+  top: 0;
+  width: 100vw;
+  height: 12vh;
   text-align: center;
   background-color: #252422;
   transition: 0.5s;
@@ -42,53 +44,53 @@ header {
 }
 
 #menu-desktop-icon{
-  left: min(5vw, 60px);
-  height: 12vh;
-  width: calc(min(3rem, min(8vw, 6vh)) * 3);
-  color: #ccc5b9;
-  position: absolute;
   display: none;
+  position: absolute;
+  left: min(5vw, 60px);
+  width: calc(min(3rem, min(8vw, 6vh)) * 3);
+  height: 12vh;
+  color: #ccc5b9;
+  cursor: pointer;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
-  cursor: pointer;
 }
 
 #menu-desktop-inner{
-  top: 50%;
-  left: 50%;
-  padding-right: 0.5vw;
-  transform: translate(-50%, -50%);
-  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-right: 0.5vw;
 }
 
 #menu-desktop-inner h1{
-  margin: 0 0.6vw 0 0;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 300;
+  margin: 0 0.6vw 0 0;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
 }
 
 #menu-desktop-arrow *{
-  height: calc(min(3rem, min(8vw, 6vh)) * 0.04);
-  width: calc(min(3rem, min(8vw, 6vh)) * 0.2);
   position: absolute;
+  width: calc(min(3rem, min(8vw, 6vh)) * 0.2);
+  height: calc(min(3rem, min(8vw, 6vh)) * 0.04);
   border-radius: 2px;
-  transition: all 0.15s ease-in-out, background-color 0.4s ease-in-out;
   background-color: #ccc5b9;
+  transition: all 0.15s ease-in-out, background-color 0.4s ease-in-out;
 }
 
 #desktop-line-1{
-  transform-origin: 0 50%;
   transform: translate(16%, -50%) rotate(45deg) translate(-50%, 0);
+  transform-origin: 0 50%;
 }
 
 #desktop-line-2{
-  transform-origin: 100% 50%;
   transform: translate(-16%, -50%) rotate(-45deg) translate(50%, 0);
+  transform-origin: 100% 50%;
 }
 
 .animate-menu-desktop-icon#desktop-line-1{
@@ -100,36 +102,36 @@ header {
 }
 
 #menu-desktop-anchor-tags{
-  height: 24vh;
-  width: 100vw;
-  top: -12vh;
-  position: fixed;
   display: none;
+  position: fixed;
   z-index: 1;
+  top: -12vh;
+  width: 100vw;
+  height: 24vh;
   background-color: #eb5e28;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
 }
 
 #menu-desktop-anchor-tags-inner{
-  height: 12vh;
-  margin: 12vh min(5vw, 60px) 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 12vh;
+  margin: 12vh min(5vw, 60px) 0;
 }
 
 /* Styling of individual header elements */
 #menu-icon {
-  height: min(5vh, 10vw);
-  width: min(6.25vh, 12.5vw);
-  top: 6vh;
-  left: 8vw;
-  transform: translate(0, -50%);
-  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: absolute;
+  top: 6vh;
+  left: 8vw;
+  width: min(6.25vh, 12.5vw);
+  height: min(5vh, 10vw);
+  transform: translate(0, -50%);
   cursor: pointer;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
@@ -140,8 +142,8 @@ header {
 }
 
 #menu-icon *{
-  height: calc(min(5vh, 10vw) * 0.17);
   width: min(6.25vh, 12.5vw);
+  height: calc(min(5vh, 10vw) * 0.17);
   border-radius: 8px 0 8px 0;
   background-color: #ccc5b9;
   transition: 0.5s;
@@ -149,57 +151,56 @@ header {
 }
 
 .animate-menu-icon #line-1 {
-  border-radius: 5px;
   transform: rotate(-45deg) translate(calc(min(6.25vh, 12.5vw) * (-0.23)), calc(min(5vh, 10vw) * 0.2));
+  border-radius: 5px;
   background-color: #403d39;
 }
 
 .animate-menu-icon #line-2 {
   border-radius: 5px;
-  opacity: 0;
   background-color: #403d39;
+  opacity: 0;
 }
 
 .animate-menu-icon #line-3 {
-  border-radius: 5px;
   transform: rotate(45deg) translate(calc(min(6.25vh, 12.5vw) * (-0.3)), calc(min(5vh, 10vw) * (-0.32)));
+  border-radius: 5px;
   background-color: #403d39;
 }
 
-/* Excluded from flex flow to always keep centered */
 .page-title-info {
-  top: 50%;
-  left: 50%;
-  margin: 0;
-  position: absolute;
-  transform: translate(-50%, -50%);
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.85);
   line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
   color: #ccc5b9;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
 }
 
 .logo {
-  height: 8vh;
+  position: absolute;
   top: 6vh;
   right: min(6vw, 120px);
+  height: 8vh;
   transform: translate(0, -50%);
-  position: absolute;
+  cursor: pointer;
   transition: 0.4s;
   transition-timing-function: ease-in-out;
-  cursor: pointer;
 }
 
 /* Remove menu background from flow and position fixed outside of page.
 Z-index added because of conflict with buttons on quiz page */
 #side-menu {
-  height: 100vh;
-  width: 100vw;
-  top: -100vh;
-  left: 0;
   position: fixed;
   z-index: 2;
+  top: -100vh;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: #eb5e28;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
@@ -209,32 +210,31 @@ Z-index added because of conflict with buttons on quiz page */
 Div has to hidden to not prevent clicking on page.
 Z-index added because of conflict with buttons on quiz page */
 #anchor-tags {
-  height: 80vh;
-  width: 100vw;
-  top: 12vh;
-  left: -100vw;
-  position: fixed;
-  z-index: 2;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  overflow: hidden;
+  position: fixed;
+  z-index: 2;
+  top: 12vh;
+  left: -100vw;
+  width: 100vw;
+  height: 80vh;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
 }
 
 #anchor-tags-left, #anchor-tags-right{
-  height: 80vh;
-  width: 50vw;
-  top: 18vh;
-  position: fixed;
-  z-index: 2;
+  overflow: hidden;
   display: none;
   flex-direction: column;
   justify-content: space-around;
-  align-items: flex-start;
-  overflow: hidden;
+  position: fixed;
+  z-index: 2;
+  top: 18vh;
+  width: 50vw;
+  height: 80vh;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
 }
@@ -250,12 +250,12 @@ left: 100vw;
 /* Hide all menu links to the left of "#anchor-tags" div which itself is initially hidden.
 This is to allow seperate animation of each individual link */
 #anchor-tags a, #anchor-tags-left a, #anchor-tags-right a{
-  margin-left: -200vw;
   font-size: 4vh;
   font-weight: 500;
+  margin-left: -200vw;
+  cursor: pointer;
   transition: 0.5s;
   transition-timing-function: ease-in-out;
-  cursor: pointer;
 }
 
 #anchor-tags-left a, #anchor-tags-right a{
@@ -267,12 +267,12 @@ This is to allow seperate animation of each individual link */
 }
 
 #menu-desktop-anchor-tags-inner a{
-  margin-top: -24vh;
-  transition: 0.4s;
-  transition-timing-function: ease-in-out;
-  text-align: center;
   font-size: calc(min(3rem, min(8vw, 6vh)) * 0.6);
   font-weight: 300;
+  margin-top: -24vh;
+  text-align: center;
+  transition: 0.4s;
+  transition-timing-function: ease-in-out;
 }
 
 /* Specify color and text decoration for all menu links */
@@ -292,8 +292,8 @@ This is to allow seperate animation of each individual link */
 #menu-desktop-anchor-tags-inner a:visited,
 #menu-desktop-anchor-tags-inner a:hover,
 #menu-desktop-anchor-tags-inner a:active {
-  color: #403d39;
   text-decoration: none;
+  color: #403d39;
 }
 
 /* Padding from top to not be obscured by header (which is excluded from flow) */
@@ -310,17 +310,17 @@ footer {
 
 #footer-inner{
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 #accessibility a,
 #accessibility a:visited,
 #accessibility a:hover,
 #accessibility a:active{
-  color: #CCC5B9;
-  text-decoration: none;
   font-weight: 200;
+  text-decoration: none;
+  color: #CCC5B9;
 }
 
 #accessibility a:hover{
@@ -328,10 +328,10 @@ footer {
 }
 
 #accessibility, #copyright {
-  color: #CCC5B9;
-  margin: 10px 0;
   font-size: 0.9rem;
   font-weight: 200;
+  margin: 10px 0;
+  color: #CCC5B9;
 }
 
 #accessibility{
@@ -340,24 +340,24 @@ footer {
 
 /* Noscript styling */
 #page-hide{
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
   position: fixed;
   z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0,0,0, 0.9);
 }
 
 #page-hide h1{
-  width: 95vw;
+  font-size: 1.5rem;
+  position: absolute;
   top: 50vh;
   left: 50vw;
-  position: absolute;
-  text-align: center;
-  font-size: 1.5rem;
-  color: #fffcf2;
+  width: 95vw;
   transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fffcf2;
 }
 
 @media screen and (orientation:landscape){
@@ -403,8 +403,8 @@ footer {
   }
 
   #menu-desktop-anchor-tags{
-    height: 20vh;
     top: -10vh;
+    height: 20vh;
   }
 
   #menu-desktop-anchor-tags-inner{
@@ -419,6 +419,7 @@ footer {
 
 @media screen and (min-width: 1024px){
   body.hide-overflow {
+    overflow: scroll;
     overflow: overlay;
   }
 
@@ -462,10 +463,10 @@ footer {
 
   #accessibility{
     position: absolute;
-    margin: 0;
     top: 50%;
-    transform: translateY(-50%);
     left: calc(min(5vw, 60px) * 1.35);
+    transform: translateY(-50%);
+    margin: 0;
   }
 
   #copyright{

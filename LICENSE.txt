@@ -1,3 +1,5 @@
+author: Jedrzej Golebiewski
+
 favicon.ico - https://hatchful.shopify.com/terms
 
 logo_transparent.png - https://hatchful.shopify.com/terms

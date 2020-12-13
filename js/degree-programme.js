@@ -152,6 +152,7 @@ function expandDescriptionDesktop(description) {
                     description.firstElementChild.style.opacity = "100%";
                     setTimeout(() => {
                         if (!description.classList.contains("collapsing")){
+                            description.style.overflowY = "scroll";
                             description.style.overflowY = "overlay";
                         }
                     }, 400);

@@ -1,8 +1,8 @@
 /* author: Jedrzej Golebiewski */
 
 section{
-    text-align: left;
     margin-bottom: 4vh;
+    text-align: left;
 }
 
 h2{
@@ -18,8 +18,8 @@ h3{
 }
 
 h4{
-    font-weight: 500;
     font-size: 1.5rem;
+    font-weight: 500;
     margin: 4vh 0 1vh;
 }
 

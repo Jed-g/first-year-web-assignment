@@ -8,14 +8,14 @@ h1, h2{
 
 table{
     display: inline-block;
-    text-align: left;
     border-collapse: collapse;
+    text-align: left;
 }
 
 th, td {
-    border: 2px solid #403D39;
-    padding: 0.2rem 0.3rem;
     font-size: min(3.4vw, 2.4vh);
+    padding: 0.2rem 0.3rem;
+    border: 2px solid #403D39;
 }
 
 th {
@@ -33,8 +33,8 @@ h2{
 }
 
 #options{
-    text-align: left;
     margin: 2vh 0 4vh;
+    text-align: left;
 }
 
 #options p{
@@ -43,36 +43,36 @@ h2{
 }
 
 #chart-type{
-    margin: 0 0 2vh;
-    width: 60%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 60%;
+    margin: 0 0 2vh;
 }
 
 svg{
-    border-radius: 5px;
     width: min(5.8vw, 5vh);
     height: min(5.8vw, 5vh);
+    border-radius: 5px;
     cursor: pointer;
 }
 
 #color-scheme{
-    width: 95%;
-    margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 95%;
+    margin: 0;
 }
 
 #scheme-1, #scheme-2, #scheme-3{
+    overflow: hidden;
+    display: inline-flex;
+    align-items: stretch;
+    width: calc(min(4.2vw, 3.4vh) * 3);
+    height: min(4.2vw, 3.4vh);
     border: 4px solid #403D39;
     border-radius: 8px;
-    display: inline-flex;
-    height: min(4.2vw, 3.4vh);
-    width: calc(min(4.2vw, 3.4vh) * 3);
-    align-items: stretch;
-    overflow: hidden;
     cursor: pointer;
 }
 
@@ -82,19 +82,19 @@ svg{
 }
 
 #scheme-1 div:first-child{
-    background-color: rgb(255, 60, 56);
     border-right: 1px solid #403D39;
+    background-color: rgb(255, 60, 56);
 }
 
 #scheme-1 div:nth-child(2){
-    background-color: rgb(3, 37, 108);
     border-left: 1px solid #403D39;
     border-right: 1px solid #403D39;
+    background-color: rgb(3, 37, 108);
 }
 
 #scheme-1 div:last-child{
-    background-color: rgb(38, 196, 133);
     border-left: 1px solid #403D39;
+    background-color: rgb(38, 196, 133);
 }
 
 #scheme-2 div{
@@ -103,19 +103,19 @@ svg{
 }
 
 #scheme-2 div:first-child{
-    background-color: rgb(18, 0, 120);
     border-right: 1px solid #403D39;
+    background-color: rgb(18, 0, 120);
 }
 
 #scheme-2 div:nth-child(2){
-    background-color: rgb(253, 58, 105);
     border-left: 1px solid #403D39;
     border-right: 1px solid #403D39;
+    background-color: rgb(253, 58, 105);
 }
 
 #scheme-2 div:last-child{
-    background-color: rgb(254, 205, 26);
     border-left: 1px solid #403D39;
+    background-color: rgb(254, 205, 26);
 }
 
 #scheme-3 div{
@@ -124,19 +124,19 @@ svg{
 }
 
 #scheme-3 div:first-child{
-    background-color: rgb(128, 128, 128);
     border-right: 1px solid #403D39;
+    background-color: rgb(128, 128, 128);
 }
 
 #scheme-3 div:nth-child(2){
-    background-color: rgb(236, 212, 68);
     border-left: 1px solid #403D39;
     border-right: 1px solid #403D39;
+    background-color: rgb(236, 212, 68);
 }
 
 #scheme-3 div:last-child{
-    background-color: rgb(110, 37, 148);
     border-left: 1px solid #403D39;
+    background-color: rgb(110, 37, 148);
 }
 
 @media screen and (min-width: 1024px){  
@@ -153,9 +153,9 @@ svg{
     }
 
     #section-1, #section-2{
-        width: 50%;
         flex-grow: 1;
         flex-shrink: 1;
+        width: 50%;
     }
 
     #section-1{

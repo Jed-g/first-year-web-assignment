@@ -1,13 +1,13 @@
 /* author: Jedrzej Golebiewski */
 
 #profile-picture {
-  border-radius: 100%;
   width: min(80vw, 30vh);
+  border-radius: 100%;
 }
 
 #name {
-  margin: 2vh 0;
   font-size: 2rem;
+  margin: 2vh 0;
 }
 
 #intro{
@@ -15,24 +15,24 @@
 }
 
 #welcome{
-margin: 0 0 3vh;
-font-weight: 600;
-font-size: 3rem;
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0 0 3vh;
 }
 
 #about-me-images{
-  margin: 4vh 0;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin: 4vh 0;
 }
 
 .about-me-image{
-  margin: 1vh 0;
   width: min(25vw, 10vh);
+  margin: 1vh 0;
 }
 
 #about-me-paragraph{
-  text-align: left;
   font-size: 1.2rem;
+  text-align: left;
 }
