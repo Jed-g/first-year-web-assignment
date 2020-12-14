@@ -121,7 +121,6 @@ header {
   margin: 12vh min(5vw, 60px) 0;
 }
 
-/* Styling of individual header elements */
 #menu-icon {
   display: flex;
   flex-direction: column;
@@ -192,7 +191,7 @@ header {
   transition-timing-function: ease-in-out;
 }
 
-/* Remove menu background from flow and position fixed outside of page.
+/* Remove mobile menu background from flow and position fixed outside of page.
 Z-index added because of conflict with buttons on quiz page */
 #side-menu {
   position: fixed;
@@ -247,8 +246,6 @@ left: -50vw;
 left: 100vw;
 }
 
-/* Hide all menu links to the left of "#anchor-tags" div which itself is initially hidden.
-This is to allow seperate animation of each individual link */
 #anchor-tags a, #anchor-tags-left a, #anchor-tags-right a{
   font-size: 4vh;
   font-weight: 500;
@@ -296,7 +293,6 @@ This is to allow seperate animation of each individual link */
   color: #403d39;
 }
 
-/* Padding from top to not be obscured by header (which is excluded from flow) */
 main {
   padding: 15vh 8vw 2vh;
   text-align: center;
@@ -418,6 +414,8 @@ footer {
 }
 
 @media screen and (min-width: 1024px){
+  /* This is so that in desktop view you can scroll even if the menu is expanded.
+  If the viewport resizes to mobile dimensions and the menu is still open, then scroll will become disabled. */
   body.hide-overflow {
     overflow: scroll;
     overflow: overlay;
@@ -451,7 +449,7 @@ footer {
     padding: 13vh 30vw 2vh;
   }
 
-  footer {
+  footer{
     padding: 0;
   }
 
