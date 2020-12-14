@@ -1,5 +1,9 @@
 // author: Jedrzej Golebiewski
 
+// I tried to make the comments as detailed as possible, nevertheless there are simply too many different parts and elements
+// for it to be possible to explain everything while also keeping the file at a reasonable length.
+
+// Data object
 const data = {
     sleeping: {
         timeSpentDuringEachDayInHours: [
@@ -35,10 +39,12 @@ const data = {
         ]
     }
 };
+
 const canvasContainer = document.querySelector("#canvas-container");
 
 const canvas = document.querySelector("#canvas");
 
+// Logic for upscaling canvas. In standard resolution the canvas is quite blurry.
 const upscaleRes = 2;
 
 canvas.width = upscaleRes * canvasContainer.offsetWidth;
@@ -47,17 +53,20 @@ canvas.style.width = `${canvas.width/upscaleRes}px`;
 canvas.style.height = `${canvas.height/upscaleRes}px`;
 const c = canvas.getContext("2d");
 
+// Current chart type
 let chartType = 1;
 document.querySelector("#chart-1").style.boxShadow = "0 0 3px 2px #EB5E28";
 
 const colorSchemeButton1 = document.querySelector("#scheme-1");
 colorSchemeButton1.style.boxShadow = "0 0 3px 2px #EB5E28";
 
+// This object is used throughout the program and dictates what colour to use.
 const colorSchemeRGB = {sleeping: window.getComputedStyle(colorSchemeButton1.children[0]).backgroundColor.slice(4, -1),
      exercising: window.getComputedStyle(colorSchemeButton1.children[1]).backgroundColor.slice(4, -1),
       relaxing: window.getComputedStyle(colorSchemeButton1.children[2]).backgroundColor.slice(4, -1)
 };
 
+// Cursor object
 const cursor = {
     x: undefined,
     y: undefined
@@ -66,6 +75,7 @@ const cursor = {
 const arrayOfColorSchemeButtons = document.querySelectorAll(".color-scheme-inner");
 const arrayOfChartTypeButtons = document.querySelectorAll("#chart-type svg");
 
+// Change all necessary variables proportionally to the change in viewport size.
 window.addEventListener("resize", () => {
     cursor.x = undefined;
     cursor.y = undefined;
@@ -103,6 +113,7 @@ window.addEventListener("resize", () => {
     canvas.style.height = `${canvas.height/upscaleRes}px`;
 });
 
+// Event listeners to update cursor position
 canvas.addEventListener("mousemove", evt => {
     cursor.x = evt.offsetX * upscaleRes;
     cursor.y = evt.offsetY * upscaleRes;
@@ -120,6 +131,7 @@ document.addEventListener("click", evt => {
     }
 });
 
+// Event listener for changing the colour scheme
 arrayOfColorSchemeButtons.forEach(button => button.addEventListener("click", () => {
     arrayOfColorSchemeButtons.forEach(button => button.style.boxShadow = "");
     button.style.boxShadow = "0 0 3px 2px #EB5E28";
@@ -128,17 +140,29 @@ arrayOfColorSchemeButtons.forEach(button => button.addEventListener("click", () 
     colorSchemeRGB.relaxing = window.getComputedStyle(button.children[2]).backgroundColor.slice(4, -1);
 }));
 
+// Event listener for changing the chart type
 arrayOfChartTypeButtons.forEach(button => button.addEventListener("click", () => {
     arrayOfChartTypeButtons.forEach(button => button.style.boxShadow = "");
     button.style.boxShadow = "0 0 3px 2px #EB5E28";
     chartType = parseInt(button.getAttribute("id").slice(-1));
 }));
 
+// Variables used for further calculations
 const sleepingTimeWeek = data.sleeping.timeSpentDuringEachDayInHours.reduce((a, b) => a + b);
 const exercisingTimeWeek = data.exercising.timeSpentDuringEachDayInHours.reduce((a, b) => a + b);
 const relaxingTimeWeek = data.relaxing.timeSpentDuringEachDayInHours.reduce((a, b) => a + b);
 const totalTimeSpentOnActivities = sleepingTimeWeek + exercisingTimeWeek + relaxingTimeWeek;
 
+// Pie chart object with variables and functions that are used in the main function.
+// Contains a "open" function that is executed repeatedly during each frame render until
+// the opening animation has finished. Then the "update" function is run continuously until
+// the user switches to a different chart type. This function enables different data to be displayed
+// depending on where the cursor is.
+
+// If the pie chart is not open then the close function is repeatedly fired in order to keep the
+// chart ready for being potentially open again.
+
+// The other chart objects function in the same way, therefore I won't be including comments describing them.
 const pieChart = {
     title: "Total time spent doing each activity during an average week:",
     titleOpacity: 0,
@@ -308,12 +332,14 @@ const pieChart = {
 
 const days = [];
 
+// Group activity data on a day basis for easier use later on.
 for (let i = 0; i < 7; i++){
     days.push([data.sleeping.timeSpentDuringEachDayInHours[i],
          data.exercising.timeSpentDuringEachDayInHours[i],
           data.relaxing.timeSpentDuringEachDayInHours[i]]);
 }
 
+// Calculate data range for correct y axis display
 const barChartHeightInHours = days.reduce((a, b) => Math.max(a, Math.max(...b)), 0);
 
 const barChart = {
@@ -513,6 +539,8 @@ function Bubble(x, y, type){
     }
 }
 
+// Fill bubble array with bubble objects. Each object is self-contained and has all the necessary variables and
+// functions for correct functionality.
 function fillBubbleArray(array){
     for (let i = 0; i < Math.floor(sleepingTimeWeek); i++){
         const x = Math.random() * (bubbleChart.boxWidth - bubbleChart.borderThickness * 2 - bubbleChart.bubbleRadius * 2 - 4)
@@ -545,6 +573,7 @@ function fillBubbleArray(array){
     }
 }
 
+// Draw border for bubbles function. It's also responsible for the border opening animation.
 function drawBorder(){
     c.beginPath();
     c.strokeStyle = "#252422";
@@ -563,6 +592,7 @@ function drawBorder(){
     c.stroke();
 }
 
+// Self-explanatory
 function drawLinesBetweenActivityPartsPieChart(onFocus = null){
     c.lineWidth = 2;
     c.lineCap = "round";
@@ -604,6 +634,7 @@ function drawLinesBetweenActivityPartsPieChart(onFocus = null){
     c.stroke();
 }
 
+// Show extra info about the activity that the cursor is currently over.
 function drawExtraInfoPieChart(areaInFocus = null){
     const rectangleWidth = canvas.width/6;
     const rectangleHeight = canvas.height/6;
@@ -780,6 +811,8 @@ function drawExtraInfoBarChart(i, barThickness, barSeperation){
         barChart.originY - barChart.axisThickness/2 - heightOfActivity - barSeperation, barThickness + barSeperation, heightOfActivity + barSeperation);
 }
 
+// Draws the legend for the pie and bar charts. Actively uses data from the colorSchemeRGB object, hence if the values in
+// the object change, this change will be immediately reflected here.
 function drawLegend(opacity = 1){
     c.fillStyle = `rgba(64, 61, 57, ${opacity})`;
     c.textAlign = "start";
@@ -804,6 +837,7 @@ function drawLegend(opacity = 1){
     c.fillRect(3 * canvas.width/4 + offsetX, 9 * canvas.height / 24 + offsetY, canvas.width/24, canvas.height/24);
 }
 
+// Draws the legend for the bubble chart. This legend is located in a different position so a seperate function was needed.
 function drawLegendBubbleChart(opacity = 1){
     c.fillStyle = `rgba(64, 61, 57, ${opacity})`;
     c.textAlign = "start";
@@ -828,6 +862,9 @@ function drawLegendBubbleChart(opacity = 1){
     c.fillRect(3 * canvas.width/4 - canvas.width/32 + offsetX, canvas.height/5 - canvas.height/48  + offsetY, canvas.width/24, canvas.height/24);
 }
 
+// Main function. Runs continuously and clears the canvas during each frame render and then executes the correct block of code.
+// At the end it invokes itself recursively when the browser is ready for the next frame. Due to this the animation speed of everything
+// is dependant upon the device refresh rate. However, this isn't a significant issue.
 function main() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     if (chartType === 1){
@@ -850,4 +887,5 @@ function main() {
     requestAnimationFrame(main);
 }
 
+// Invoke main for the first time.
 main();

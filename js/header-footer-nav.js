@@ -19,18 +19,21 @@ linkOfCurrentPage.forEach(link => link.style.color = "#252422");
 
 const menuIcon = document.querySelector("#menu-icon");
 
-// Select all anchors in the "#anchor-tags" div
+// Select elements from DOM
 const menuLinkArrayMobile = document.querySelectorAll("#anchor-tags a");
 
 const menuLinkArrayLeft = document.querySelectorAll("#anchor-tags-left a");
-const menuLinkArrayRight = document.querySelectorAll("#anchor-tags-right a");;
+const menuLinkArrayRight = document.querySelectorAll("#anchor-tags-right a");
 
-// Attach "click" event listener to the menu hamburger icon in order execute "animateMenuIconClick" function
+// Attach "click" event listener to the menu hamburger icon in order execute "animateMenuIconClick" function.
 const menuButton = document.querySelector("#menu-icon");
 menuButton.addEventListener("click", () => animateMenuIconClick("mobile"));
 
+// Function responsible for animating mobile menu.
 function animateMenuIconClick(sourceOfCall) {
 
+  // Remove event listeners and call desktop menu function so that both menus have the same state.
+  // The sourceOfCall logic is very important as it prevents endless recursion.
   if (sourceOfCall === "mobile"){
 
     if (!desktopMenuLockedOpen){
@@ -72,14 +75,14 @@ function animateMenuIconClick(sourceOfCall) {
     // Expand menu orange background from top
     document.querySelector("#side-menu").style.top = 0;
 
-    // Expand "#anchor-tags" div from left
+    // Expand "#anchor-tags" div from left or the two divs active in landscape orientation from both sides.
     // (has to be hidden when menu not in use, otherwise clicking on the screen is obscured by the transparent div)
     document.querySelector("#anchor-tags").style.left = 0;
 
     document.querySelector("#anchor-tags-left").style.left = 0;
     document.querySelector("#anchor-tags-right").style.left = "50vw";
    
-    // Animate each of the menu links from the left
+    // Animate each of the menu links from the correct side.
     menuLinkArrayMobile.forEach((link, index) => {
       setTimeout(() => link.style.marginLeft = "8vw", index * 70);
     });
@@ -110,7 +113,7 @@ function animateMenuIconClick(sourceOfCall) {
     // Hide menu background
     document.querySelector("#side-menu").style.top = "-100vh";
 
-    // Hide "#anchor-tags" div
+    // Hide divs
     document.querySelector("#anchor-tags").style.left = "-100vw";
 
     document.querySelector("#anchor-tags-left").style.left = "-50vw";
@@ -143,10 +146,10 @@ const desktopMenuButtonArrowElementsArray = document.querySelectorAll("#menu-des
 const desktopMenuLinkArea = document.querySelector("#menu-desktop-anchor-tags");
 const desktopMenuAnchorTagsArray = document.querySelectorAll("#menu-desktop-anchor-tags-inner a");
 
-// Global Declaration
+// Declared here globally, because later on this is required.
 let attachEventListenersTimeoutFunction;
 
-
+// Function responsible for desktop menu button click.
 function buttonClick(){
   if (!desktopMenuLockedOpen){
 
@@ -163,8 +166,8 @@ function buttonClick(){
   } else {
     desktopMenuLockedOpen = false;
     animateDesktopMenu("desktop");
-
-      attachEventListenersTimeoutFunction = setTimeout(() => {
+    // Global variable is required here, because the timeout can be potentially cleared.
+    attachEventListenersTimeoutFunction = setTimeout(() => {
       desktopMenuButtonAreaEntered = false;
       desktopMenuLinkAreaEntered = false;
       desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
@@ -175,12 +178,13 @@ function buttonClick(){
   }
 }
 
+// If desktop menu is opened and locked in place (not expanded on hover) then a click outside the menu will close it.
 function clickOutsideDesktopMenuCloseMenu() {
   if (desktopMenuOpen){
     desktopMenuLockedOpen = false;
     animateDesktopMenu("desktop");
 
-      attachEventListenersTimeoutFunction = setTimeout(() => {
+    attachEventListenersTimeoutFunction = setTimeout(() => {
       desktopMenuButtonAreaEntered = false;
       desktopMenuLinkAreaEntered = false;
       desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
@@ -191,6 +195,7 @@ function clickOutsideDesktopMenuCloseMenu() {
   }
 }
 
+// Desktop menu will stay open if it was initially opened by a hover and then a click happened in the link area.
 function linkAreaClick() {
   desktopMenuLockedOpen = true;
 
@@ -200,6 +205,11 @@ function linkAreaClick() {
   desktopMenuLinkArea.removeEventListener("mouseleave", linkAreaMouseLeave);
 }
 
+// Functions responsible for the behaviour of the desktop menu in relation to the cursor/mouse position (hover).
+// All edge cases were thoroughly tested and work correctly.
+// The timeouts in the 2nd and 4th functions are there so that the 1st and 3rd functions have time to change the important
+// variables before the 2nd and 4th functions execute. Because of this, if the cursor travels directly between the desktop
+// menu button and link area, the animation to close the menu won't happen.
 function buttonMouseEnter() {
   desktopMenuButtonAreaEntered = true;
   if (!desktopMenuLinkAreaEntered && !desktopMenuOpen){
@@ -232,6 +242,7 @@ function linkAreaMouseLeave() {
   }, 1);
 }
 
+// Attach event listeners
 desktopMenuButton.addEventListener("click", buttonClick);
 desktopMenuLinkArea.addEventListener("click", linkAreaClick);
 desktopMenuButton.addEventListener("mouseenter", buttonMouseEnter);
@@ -239,6 +250,7 @@ desktopMenuButton.addEventListener("mouseleave", buttonMouseLeave);
 desktopMenuLinkArea.addEventListener("mouseenter", linkAreaMouseEnter);
 desktopMenuLinkArea.addEventListener("mouseleave", linkAreaMouseLeave);
 
+// Event listeners for closing desktop menu upon a click outside the menu area.
 document.querySelector("#desktop-header").addEventListener("click", evt => {
   if (["desktop-header", "page-title-info-desktop"].includes(evt.target.getAttribute("id"))){
   clickOutsideDesktopMenuCloseMenu();
@@ -248,15 +260,20 @@ document.querySelector("#desktop-header").addEventListener("click", evt => {
 document.querySelector("main").addEventListener("click", clickOutsideDesktopMenuCloseMenu);
 document.querySelector("footer").addEventListener("click", clickOutsideDesktopMenuCloseMenu);
 
+// Function responsible for animating desktop menu.
 function animateDesktopMenu(sourceOfCall) {
 
   desktopMenuOpen = !desktopMenuOpen;
 
+  // Condition to prevent endless recursion. Transfer state to mobile.
   if (sourceOfCall === "desktop"){
     animateMenuIconClick("desktop");
   }
 
+  // Condition to open or close desktop menu.
+  // desktopMenuOpen value was inverted earlier, hence the first block opens the desktop menu.
   if (desktopMenuOpen){
+    // Change desktop menu button properties.
     desktopMenuButtonArrowElementsArray.forEach(line => {
       if (line.classList.contains("desktop-line-1")){
           line.style.transform = "translate(16%, -50%) scale(0.5, 1)";
@@ -270,16 +287,22 @@ function animateDesktopMenu(sourceOfCall) {
       }, 150);
     });
 
-    desktopMenuLinkArea.style.top = 0;
     desktopMenuButton.style.backgroundColor = "#eb5e28";
     desktopMenuButtonH1.style.color = "#403d39";
+    
+    // Animate link area and the links themselves.
+    desktopMenuLinkArea.style.top = 0;
 
     desktopMenuAnchorTagsArray.forEach((link, index) => {
+      // For some reason, if there isn't a time offset of atleast a couple ms, the first link, i.e. "Home", doesn't
+      // get its marginTop property set properly.
+      // This is why there is a "+ 10(ms)" below.
+      // I have been unable to find the reason for this behaviour, however everything works correctly.
       setTimeout(() => link.style.marginTop = 0, index * 60 + 10);
     });
 
   } else {
-
+    // Change desktop menu button properties.
     desktopMenuButtonArrowElementsArray.forEach(line => {
       if (line.classList.contains("desktop-line-1")){
         line.style.transform = "translate(16%, -50%) scale(0.5, 1)";
@@ -293,12 +316,14 @@ function animateDesktopMenu(sourceOfCall) {
       }, 150);
     });
 
-    desktopMenuLinkArea.style.top = "";
     desktopMenuButton.style.backgroundColor = "";
     desktopMenuButtonH1.style.color = "#ccc5b9";
-  }
 
-  desktopMenuAnchorTagsArray.forEach((link, index) => {
-    setTimeout(() => link.style.marginTop = "", index * 30);
-  });
+    // Revert to default.
+    desktopMenuLinkArea.style.top = "";
+
+    desktopMenuAnchorTagsArray.forEach((link, index) => {
+      setTimeout(() => link.style.marginTop = "", index * 30);
+    });
+  }
 };
