@@ -14,8 +14,6 @@ function redirectToIndexHtml() {
 
 // Highlight current page link in menu
 const currentHtmlFileName = window.location.pathname.split("/").pop().replace(".html", "");
-const linkOfCurrentPage = document.querySelectorAll(`.${currentHtmlFileName}`);
-linkOfCurrentPage.forEach(link => link.style.color = "#252422");
 
 const menuIcon = document.querySelector("#menu-icon");
 
